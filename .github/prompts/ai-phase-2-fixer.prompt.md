@@ -165,11 +165,11 @@ Before making any changes, Phase 2 generates and displays:
 
 ## Rules Applied
 
-- **Archive-first**: Any file being replaced is archived to `.archive/` per [maintenance.md](./../.ai/maintenance.md)
+- **Archive-first**: Any file being replaced is archived to `.archive/` per [maintenance.md](../../.ai/maintenance.md)
 - **Depth-priority**: Module `.ai/instruct.md` is always more authoritative than root
 - **Never relax security**: All HIGH-priority credential/exposure fixes are mandatory
-- **V5 naming**: All directory/file names follow [conventions.md](./../.ai/conventions.md)
-- **Credential safety**: All `.env`, certificates, and API keys use [credentials.md](./../.ai/credentials.md) rules
+- **V5 naming**: All directory/file names follow [conventions.md](../../.ai/conventions.md)
+- **Credential safety**: All `.env`, certificates, and API keys use [credentials.md](../../.ai/credentials.md) rules
 
 ---
 
@@ -208,7 +208,7 @@ All changes are logged to `.ai/logs/phase-2-*.jsonl`:
 | Issue | Solution |
 |-------|----------|
 | "Compliance report not found" | Verify `<project>/.compliance-report.json` exists; run Phase 5 analyzer first |
-| "Naming validation failed" | Review proposed module names; validate against [conventions.md](./../.ai/conventions.md) |
+| "Naming validation failed" | Review proposed module names; validate against [conventions.md](../../.ai/conventions.md) |
 | "Archive path already exists" | Stale archive found; move manually to `.archive/YYYYMMDD/` or increment date |
 | "Depth-priority conflict" | Check if parent `.ai/instruct.md` already defines the scope; resolve with deeper authority |
 
@@ -226,8 +226,8 @@ All changes are logged to `.ai/logs/phase-2-*.jsonl`:
 
 ## See Also
 
-- [`.ai/instruct.md`](./../.ai/instruct.md) — Root project authority
-- [`.ai/conventions.md`](./../.ai/conventions.md) — V5 naming standards
-- [`.ai/maintenance.md`](./../.ai/maintenance.md) — Archive + safety rules
-- [`.ai/index.md`](./../.ai/index.md) — Master section index
-- [`.github/copilot-instructions.md`](./../.github/copilot-instructions.md) — AI system meta-instructions
+- [`.ai/instruct.md`](../../.ai/instruct.md) — Root project authority
+- [`.ai/conventions.md`](../../.ai/conventions.md) — V5 naming standards
+- [`.ai/maintenance.md`](../../.ai/maintenance.md) — Archive + safety rules
+- [`.ai/index.md`](../../.ai/index.md) — Master section index
+- [`.github/copilot-instructions.md`](../../.github/copilot-instructions.md) — AI system meta-instructions

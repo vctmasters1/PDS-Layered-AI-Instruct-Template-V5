@@ -11,7 +11,7 @@ description: Automatic post-Phase-2 learning pipeline — reflects, learns, and 
 
 **Trigger**: Phase 2 executor completes with exit code 0 (all 22 files generated).
 
-**Invocation**: 
+**Invocation**:
 ```bash
 /ai-phase-2-post-learner
 ```
@@ -20,7 +20,7 @@ Or programmatically:
 ```python
 # In phase2_executor.py post-execution
 subprocess.run([
-    sys.executable, 
+    sys.executable,
     ".ai/engine/phase2_post_learner.py",
     ".github/tmp/phase2-completion-report.md"
 ])
@@ -101,11 +101,11 @@ post_execution_hooks:
 
 ## Success Criteria
 
-✅ `.ai/knowledge/phase2-learnings.md` created (durable insights)  
-✅ `.ai/instruct.md` updated with hybrid LLM routing section  
-✅ `.ai/index.md` reflects new knowledge entry  
-✅ No instruction drift detected  
-✅ All updates V5-compliant  
+✅ `.ai/knowledge/phase2-learnings.md` created (durable insights)
+✅ `.ai/instruct.md` updated with hybrid LLM routing section
+✅ `.ai/index.md` reflects new knowledge entry
+✅ No instruction drift detected
+✅ All updates V5-compliant
 ✅ Audit trail logged to `.ai/logs/`
 
 ## Human Approval Points
@@ -141,7 +141,6 @@ If curator finds no instruction gaps:
 ```
 
 **See Also**:
-- [Phase 2 Completion Report](./../tmp/phase2-completion-report.md)
-- [pds-meta-learner](./../agents/pds-meta-learner.agent.md)
-- [pds-man-curator](./../agents/pds-man-curator.agent.md)
-- [Autonomous Orchestrator](./../autonomous/orchestrator.md)
+- [pds-meta-learner](../agents/pds-meta-learner.agent.md)
+- [pds-man-curator](../agents/pds-man-curator.agent.md)
+- [Autonomous Orchestrator](../../.ai/autonomous/orchestrator.md)

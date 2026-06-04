@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""
+r"""
 Phase 2 Fixer - Plan Generator
 
 Purpose: Read compliance report from Phase 5 analyzer, extract HIGH-priority findings,

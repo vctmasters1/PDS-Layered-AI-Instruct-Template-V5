@@ -148,14 +148,20 @@ class Phase2Executor:
         if task.file_type == "instruct_md":
             return f"""Generate a scoped .ai/instruct.md file for module '{task.module}'.
 
+CRITICAL: This file lives at <module>/.ai/instruct.md, so relative links must go UP TWO LEVELS to reach root.
+- Correct: [conventions.md](../../.ai/conventions.md)
+- WRONG:   [conventions.md](../.ai/conventions.md)
+
 Include sections:
 1. Module Overview: What does {task.module} do?
 2. Key Directories: Subdirectories and their purpose
-3. Global Rules Reference: Links to .ai/conventions.md, .ai/maintenance.md, .ai/credentials.md
+3. Global Rules Reference: Links to ../../.ai/conventions.md, ../../.ai/maintenance.md, ../../.ai/credentials.md
 4. Coding Conventions: Element prefixes for test discovery (if applicable)
 5. AI-INSTRUCT Maintenance Rule: When/how to update this file
 
-Format: Markdown with proper frontmatter.
+Start with a ## Contents table listing all sections with anchor links.
+
+Format: Markdown with proper frontmatter (scope: {task.module}).
 Be concise but complete. Link to canonical rules, don't duplicate.
 
 Output only the raw Markdown content, no code blocks."""
@@ -198,26 +204,29 @@ Output only the raw .gitignore content, no code blocks."""
     def _template_fallback(self, task: GenerationTask) -> str:
         """Fallback template generation if LLM unavailable."""
         if task.file_type == "instruct_md":
-            return f"""# {task.module.replace('-', ' ').title()} — Module Instructions
+            return f"""---
+scope: {task.module}
+---
 
-**Scope**: Module-scoped
-**Last Updated**: {datetime.now().strftime('%Y-%m-%d')}
+# {task.module.replace('-', ' ').title()} Module
 
 ## Contents
 
-| Section | What's here |
-|---------|-------------|
-| [Module Overview](#module-overview) | What this module does |
-| [Key Directories](#key-directories) | Directory structure |
-| [Global Rules Reference](#global-rules-reference) | Links to canonical rules |
+- [Module Overview](#module-overview)
+- [Key Directories](#key-directories)
+- [Global Rules Reference](#global-rules-reference)
+- [Coding Conventions](#coding-conventions)
+- [AI-INSTRUCT Maintenance Rule](#ai-instruct-maintenance-rule)
 
 ## Module Overview
 
-[Describe what {task.module} does]
+[Describe what {task.module} does and its role in the project]
 
 ## Key Directories
 
-[List subdirectories and purposes]
+- `src/` or equivalent: Source code
+- `test/` or equivalent: Tests
+- `docs/` or equivalent: Module documentation
 
 ## Global Rules Reference
 
@@ -225,9 +234,14 @@ Output only the raw .gitignore content, no code blocks."""
 - [Maintenance](../../.ai/maintenance.md) — Archive and safety rules
 - [Credentials](../../.ai/credentials.md) — Credential warehousing rules
 
+## Coding Conventions
+
+Follow project-wide conventions from `.ai/conventions.md`.
+
 ## AI-INSTRUCT Maintenance Rule
 
-Update this file whenever the module's architecture changes.
+Update this file whenever the module's architecture or responsibilities change significantly.
+Link to canonical `.ai/*.md` files; never duplicate rules.
 """
 
         elif task.file_type == "readme_md":
@@ -235,7 +249,7 @@ Update this file whenever the module's architecture changes.
 
 ## Overview
 
-[What does this module do?]
+[What does this module do and why is it important?]
 
 ## Architecture
 
@@ -243,7 +257,7 @@ Update this file whenever the module's architecture changes.
 
 ## Getting Started
 
-[Setup instructions]
+[Setup instructions and prerequisites]
 
 ## Testing
 
@@ -251,11 +265,15 @@ Update this file whenever the module's architecture changes.
 
 ## Deployment
 
-[How to deploy]
+[How to deploy this module]
 
 ## Troubleshooting
 
 [Common issues and solutions]
+
+## References
+
+[Links to related documentation]
 """
 
         elif task.file_type == "gitignore":

@@ -65,7 +65,7 @@ If all checks pass: continue with the next action. Report nothing to the user â€
 
 **Purpose**: Ensure the instruction system evolves with project discoveries; prevent operational knowledge from being lost.
 
-**See also**: [Phase 2 Post-Learner Prompt](.github/prompts/ai-phase-2-post-learner.prompt.md), [Phase 2 Learning Capture](knowledge/phase2-learnings.md)
+**See also**: [Phase 2 Post-Learner Prompt](../.github/prompts/ai-phase-2-post-learner.prompt.md), [Phase 2 Learning Capture](knowledge/phase2-learnings.md)
 
 ---
 
