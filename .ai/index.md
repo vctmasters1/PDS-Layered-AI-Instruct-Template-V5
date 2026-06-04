@@ -263,6 +263,7 @@
 | Section | File | Description |
 |---------|------|-------------|
 | Knowledge Base Overview | [`.ai/knowledge/README.md`](knowledge/README.md) | Module-organized empirical learning system (cheat sheets, patterns, antipatterns, risks; separate from normative rules) |
+| Phase 2 Learning Capture | [`.ai/knowledge/phase2-learnings.md`](knowledge/phase2-learnings.md) | Phase 2 execution metrics, hybrid LLM routing validation, optimization opportunities |
 | Knowledge Cleanup Policy | [`.ai/knowledge/.cleanup-policy.md`](knowledge/.cleanup-policy.md) | Aging (180d), deduplication, and archival rules for knowledge entries |
 | Cheat Sheet Template | [`.ai/knowledge/cheat-sheets/.template.md`](knowledge/cheat-sheets/.template.md) | Template for module-specific quick reference guides (not instructions; rather shortcuts + experience) |
 | Observable Foresight Engine | [`.ai/engine/foresight_engine_observable.py`](engine/foresight_engine_observable.py) | Detect anticipated gaps and risks before acting; log findings to `.ai/logs/foresight-*.jsonl` |

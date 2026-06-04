@@ -20,6 +20,7 @@
 | [Global Rules Reference](#global-rules-reference) | Links to canonical cross-cutting rules |
 | [Coding Conventions & Validation](#coding-conventions--validation) | Element prefixes for test discovery |
 | [API Endpoint Conventions](#api-endpoint-conventions) | Semantic endpoint naming for discovery |
+| [Hybrid LLM Routing Strategy](#hybrid-llm-routing-strategy) | Local vs. frontier model tier selection for file generation |
 | [AI-INSTRUCT Maintenance Rule](#ai-instruct-maintenance-rule) | When and how to update this system |
 
 ---
@@ -235,6 +236,58 @@ python api/endpoint_generator.py --list-actions
 - **Module level** (`[module]/.ai/api-conventions.md`): Optional; extends or overrides workspace conventions
   - Example: A payments module might add `payment_refund` action
   - Example: A reporting module might add custom `report_generate` action
+
+---
+
+## Hybrid LLM Routing Strategy
+
+**When**: Batch-generating governance files (README.md, .gitignore, .ai/instruct.md) across multiple modules
+
+**Tier Selection**:
+
+### Local LLM Tier
+OpenAI-compatible models (e.g., coder-0 via LM Studio at localhost:1234/v1)
+
+**Use for**:
+- README.md templating (module overviews, architecture sections)
+- .gitignore generation (credential patterns, build artifacts)
+- .ai/instruct.md boilerplate (module scopes, governance links)
+- Bulk file generation (parallel or serial)
+
+**Config**:
+- Temperature: 0.3 (deterministic output)
+- Timeout: 180 seconds
+- Tokens: 1024 per batch
+- Fallback: Template generation if unavailable
+
+**Validation** (Phase 2): 22 files generated, 100% success, zero timeouts
+
+### Frontier Model Tier
+GPT-4 / Claude (reserved for complex reasoning)
+
+**Use for**:
+- Security review (credential patterns compliance, sensitive data detection)
+- Conflict resolution (naming collisions, schema conflicts across modules)
+- Architecture validation (dependency analysis, coupling assessment)
+- Policy exceptions (when local tier output violates governance)
+
+**Implementation**: Phase 3+ enhancement
+
+**Cost**: ~5-10s per task (frontier is slower but handles hard problems)
+
+### Routing Logic
+
+```python
+if task_type in ["readme_md", "gitignore", "instruct_md"]:
+    if complexity_estimate < 5:  # templating is low-complexity
+        route_to = "local_llm"   # 1.5-2s, deterministic
+    else:
+        route_to = "frontier_llm" # 5-10s, reasoning-intensive
+else:
+    route_to = "manual_or_escalate"
+```
+
+→ **[Phase 2 Learnings](knowledge/phase2-learnings.md)** — metrics, patterns, optimization opportunities from hybrid routing validation
 
 ---
 
