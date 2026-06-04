@@ -1,0 +1,29 @@
+{
+  "tool_name": "generate-api-endpoint",
+  "description": "Generate an API endpoint following semantic naming conventions. Enforces consistent resource/action naming, HTTP method mapping, and conflict detection at creation time.",
+  "context": "Use when defining any API endpoint (list, create, detail, update, delete, search, export, import, batch, validate, webhook, auth, subscribe, unsubscribe, or custom actions)",
+  "checklist": [
+    "1. DETERMINE RESOURCE AND ACTION: Identify the resource (user, product, invoice, etc.) and action (list, create, detail, update, delete, search, export, import, batch, validate, webhook, auth, subscribe, unsubscribe). Refer to .ai/api-conventions.md for standard actions and patterns.",
+    "2. GENERATE ENDPOINT NAME: Use the central controller (api/endpoint_generator.py) to generate a compliant endpoint name. Command: `python api/endpoint_generator.py --resource <RESOURCE> --action <ACTION> [--detail <DETAIL>] --verbose`",
+    "3. VERIFY HTTP METHOD: Confirm the action maps to the correct HTTP method(s). Standard mappings are enforced by the generator (e.g., create→POST, list→GET, delete→DELETE). Command: `python api/endpoint_generator.py --resource <RESOURCE> --action <ACTION> --verbose` shows HTTP methods.",
+    "4. CHECK FOR CONFLICTS: Verify the endpoint name doesn't already exist elsewhere. Command: `python api/endpoint_generator.py --check-exists <ENDPOINT_NAME>`",
+    "5. WRITE ENDPOINT CODE: Generate the endpoint handler using the generated name (e.g., `user_create`, `product_list`, `invoice_export_pdf`). Follow framework conventions (Express, FastAPI, Django, etc.).",
+    "6. FOLLOW NAMING PATTERN: Enforce `{resource}_{action}[_{detail}]` pattern consistently (e.g., `user_list` → GET /api/v1/users, `product_export_csv` → GET /api/v1/products/export.csv).",
+    "7. APPLY RESOURCE NORMALIZATION: The generator automatically normalizes plural/singular resource names. Provide singular; plural is handled automatically.",
+    "8. SCAN AND DISCOVER: After writing, run discovery to find all endpoints (including new one). Command: `python api/endpoint_discovery.py --scan-root ./src --framework auto --output endpoints.json`",
+    "9. VALIDATE ENDPOINT: Check that your endpoint was discovered with correct resource/action extraction. Command: `python api/endpoint_discovery.py --scan-root ./src --framework <FRAMEWORK> --validate <ENDPOINT_NAME>`",
+    "10. REPORT SUCCESS: Confirm endpoint name generated, HTTP method verified, conflicts checked, endpoint written, and discovery validation passed"
+  ],
+  "safety_level": "medium",
+  "requires_approval": true,
+  "tools_referenced": [
+    "api/endpoint_generator.py",
+    "api/endpoint_discovery.py"
+  ],
+  "configuration": [
+    "action_registry: .ai/api-conventions.md",
+    "generator_cli: python api/endpoint_generator.py",
+    "discovery_cli: python api/endpoint_discovery.py",
+    "supported_frameworks: express, fastapi, django, generic (auto-detect available)"
+  ]
+}

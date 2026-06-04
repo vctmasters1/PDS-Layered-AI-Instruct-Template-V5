@@ -1,0 +1,15 @@
+{
+  "tool_name": "route-to-scope",
+  "description": "Resolves the authoritative scope for a request. Returns the deepest `.ai/instruct.md` covering the affected path(s) plus any governance refs registered for that scope. Used by the Router agent to decide where to delegate.",
+  "checklist": [
+    "1. Parse the request: extract affected_paths (file or directory paths), topic keywords, and the action verb",
+    "2. For each affected path, walk upward from that path to the workspace root and collect every `.ai/instruct.md` encountered — the deepest is the scope authority; shallower entries are background context",
+    "3. If no affected path is given, attempt topic-to-path resolution via `.ai/index.md`; if still ambiguous, ask the user before routing",
+    "4. Call `get-governance-rules` with the resolved scope_path and topic to attach any policy/regulation refs (may be empty)",
+    "5. Pick the next-hop agent: `supervisor` for multi-step generative work, a single worker (scaffolder|generator|validator|tester|reviewer) for a single-step task, or `project-explorer` for read-only exploration",
+    "6. Emit a routing decision: { scope_path, scope_authority_file, background_files, governance_refs, next_hop, original_task }",
+    "7. Call `log-action` to record the routing decision"
+  ],
+  "safety_level": "low",
+  "requires_approval": false
+}

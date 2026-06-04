@@ -1,0 +1,6 @@
+# Production-grade reference implementation gitignore.
+# Runtime artefacts only — never the code that produces them.
+
+run-artefacts/
+*.lock
+__pycache__/

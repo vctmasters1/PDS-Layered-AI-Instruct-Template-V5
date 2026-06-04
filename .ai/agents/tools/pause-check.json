@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "tool_name": "pause-check",
+  "description": "Checks for the .ai/PAUSE kill-switch sentinel. Every agent runs this at invocation start AND at every heartbeat. If the sentinel exists, the agent stops immediately, reports the pause reason to the user, and refuses further work until the sentinel is removed by a human.",
+  "checklist": [
+    "1. Test for existence of .ai/PAUSE at workspace root",
+    "2. If absent: return { paused: false } and continue",
+    "3. If present: read the file (small, plain-text); capture the reason from the first non-empty line",
+    "4. Emit pause verdict to the user: 'PAUSED — reason: <reason>. Sentinel: .ai/PAUSE. Resume: have a human delete the sentinel.'",
+    "5. Append a log entry via log-action with action='pause-detected', outcome='skipped'",
+    "6. Refuse all further tool calls in this invocation EXCEPT log-action and pause-check itself",
+    "7. Never delete or modify .ai/PAUSE — removal is a human action only"
+  ],
+  "safety_level": "low",
+  "requires_approval": false,
+  "side_effects": ["none"]
+}

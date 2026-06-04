@@ -1,0 +1,17 @@
+{
+  "tool_name": "archive-file",
+  "description": "Archives a file or directory under .archive/<original-path> following the never-delete and path-mirroring rules in .ai/maintenance.md. The single safe entry point for any move-to-archive operation; cleanup, prompt-manager, workflow-manager, and curator all use this rather than ad-hoc moves.",
+  "checklist": [
+    "1. Validate the payload contains: source_path (must exist and be inside the workspace), reason (one-line: superseded|orphaned|stale|deprecated|user_request), supersedes_path (optional — points to the replacement)",
+    "2. Refuse if source_path resolves outside the workspace, into .git/, into .archive/ itself, or into any path matched by .gitignore-as-runtime (.ai/foresight/, .ai/knowledge/, .ai/logs/, .ai/agents/state/) — those are runtime, not artifacts to archive",
+    "3. Compute the destination: .archive/<source_path> exactly mirrored. If destination already exists, append YYYYMMDD/ snapshot subdir per .ai/maintenance.md#archive-patterns",
+    "4. Ensure .archive/ exists; create parent directories under it as needed",
+    "5. State the planned move to the user and obtain explicit approval (archive operations are medium safety_level)",
+    "6. Move (do not copy-then-delete) the source to the destination so git history follows",
+    "7. If supersedes_path was provided, append a one-line back-reference to the destination's sibling .archive-notes.md (create if absent): '- <ISO date> — replaced by <supersedes_path> — <reason>'",
+    "8. Call log-action to emit an audit entry (source, destination, reason)",
+    "9. Return { archived_to, note_appended } to the caller"
+  ],
+  "safety_level": "medium",
+  "requires_approval": true
+}

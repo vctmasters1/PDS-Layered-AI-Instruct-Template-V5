@@ -1,0 +1,169 @@
+#!/bin/sh
+# pre-commit — Git pre-commit hook
+#
+# Checks for:
+#   1. .env files accidentally staged
+#   2. Credential leak patterns (actual secrets in staged files)
+#   3. Adopter-specific machine configs staged while in Production mode
+#      (read from .github/dev-specs.md → Project Mode section)
+#   4. Governed-file deletions without an archive copy
+#      (.ai/maintenance.md / .ai/archive-protocol.md)
+#
+# Activated by running the installer once per clone:
+#   bash  .github/hooks/install-hooks.sh    # macOS / Linux / WSL / Git Bash
+#   pwsh  .github/hooks/install-hooks.ps1   # Windows PowerShell
+#
+# Both installers set `git config core.hooksPath .github/hooks`, so this file
+# runs in place — no copying, no .sample suffix.
+#
+# To make credential-pattern hits a HARD BLOCK instead of a warning,
+# change the SINGLE `exit 0` line at the end of the credential-scan block
+# (clearly marked below) to `exit 1`.
+
+set -e
+
+echo "[pre-commit] Running safety checks..."
+
+# ── 1. Block staged .env files ──────────────────────────────────────────────
+STAGED_ENV=$(git diff --cached --name-only -z | tr '\0' '\n' | grep -E '(^|/)\.env(\.|$)' | grep -v '\.example$' || true)
+if [ -n "$STAGED_ENV" ]; then
+  echo ""
+  echo "  BLOCKED: Credential file(s) staged for commit:"
+  echo "$STAGED_ENV" | sed 's/^/    /'
+  echo ""
+  echo "  .env files must never be committed. Add them to .gitignore."
+  echo "  See: .ai/credentials.md#gitignore-requirements"
+  echo ""
+  exit 1
+fi
+
+# ── 2. Scan staged files for common credential patterns ─────────────────────
+# Use NUL-delimited paths so filenames with spaces or special chars are safe.
+STAGED_FILES=$(git diff --cached --name-only -z --diff-filter=ACM | tr '\0' '\n' | grep -v '\.example$' || true)
+
+if [ -n "$STAGED_FILES" ]; then
+  # Pattern 1: known provider key prefixes (high-confidence, low false-positive rate)
+  HITS1=$(printf '%s\n' "$STAGED_FILES" | tr '\n' '\0' | xargs -0 -r grep -Eln \
+    'sk_live_|pk_live_|BEGIN (RSA|EC|OPENSSH) PRIVATE KEY|AKIA[0-9A-Z]{16}' \
+    2>/dev/null || true)
+
+  # Pattern 2: env-style assignment with a high-entropy value (uppercase key names only,
+  # value must be 16+ alphanumeric chars — avoids matching source code assignments)
+  HITS2=$(printf '%s\n' "$STAGED_FILES" | tr '\n' '\0' | xargs -0 -r grep -Eln \
+    '^(PASSWORD|SECRET|API_KEY|PRIVATE_KEY|TOKEN|CLIENT_SECRET)[[:space:]]*=[[:space:]]*[A-Za-z0-9+/]{16,}' \
+    2>/dev/null || true)
+  HITS=$(printf '%s\n%s' "$HITS1" "$HITS2" | sort -u | grep -v '^$' || true)
+
+  if [ -n "$HITS" ]; then
+    echo ""
+    echo "  WARNING: Possible credential pattern detected in staged files:"
+    echo "$HITS" | sed 's/^/    /'
+    echo ""
+    echo "  Review these files before committing."
+    echo "  If these are false positives, use: git commit --no-verify"
+    echo "  See: .ai/credentials.md#never-commit-credentials"
+    echo ""
+    # ── HARD-BLOCK TOGGLE ─────────────────────────────────────────────────
+    # Change the next line to `exit 1` to make credential pattern hits fail the commit.
+    exit 0
+    # ──────────────────────────────────────────────────────────────────────
+  fi
+fi
+
+# ── 3. Production-mode adopter-config guard ─────────────────────────────────
+# In Production / Adoption mode, machine-specific configs MUST NOT be committed.
+# Mode is read from .github/dev-specs.md → Project Mode section.
+# Template Development mode (or unset) skips this check.
+#
+# Patterns blocked in Production mode (NOT *.example.yaml):
+#   .ai/compliance-rules.yaml
+#   .ai/plugins/*/tiers.yaml
+#   .ai/plugins/*/load_strategy.yaml
+#   .ai/plugins/*/state/**
+#   .ai/import-logs/**
+#
+# Override: `git commit --no-verify` (and explain why in the commit message).
+
+DEV_SPECS=".github/dev-specs.md"
+if [ -f "$DEV_SPECS" ]; then
+  # Match a checked Production box. Tolerant of "[x]" or "[X]" and surrounding whitespace.
+  PROD_MODE=$(grep -E '^[[:space:]]*-[[:space:]]*\[[xX]\][[:space:]]+\*\*Production' "$DEV_SPECS" || true)
+else
+  PROD_MODE=""
+fi
+
+if [ -n "$PROD_MODE" ]; then
+  ADOPTER_HITS=$(git diff --cached --name-only -z --diff-filter=ACM \
+    | tr '\0' '\n' \
+    | grep -v '\.example\.yaml$' \
+    | grep -E '^\.ai/(compliance-rules\.yaml|plugins/[^/]+/(tiers\.yaml|load_strategy\.yaml|state/)|import-logs/)' \
+    || true)
+
+  if [ -n "$ADOPTER_HITS" ]; then
+    echo ""
+    echo "  BLOCKED: Adopter-specific machine config(s) staged in Production mode:"
+    echo "$ADOPTER_HITS" | sed 's/^/    /'
+    echo ""
+    echo "  Project Mode = Production / Adoption (per .github/dev-specs.md)."
+    echo "  These files are machine-specific and must remain gitignored."
+    echo "  Commit only their *.example.yaml siblings, never the live files."
+    echo ""
+    echo "  If this is intentional (rare), use: git commit --no-verify"
+    echo ""
+    exit 1
+  fi
+fi
+
+# ── 4. Archive-protocol guard ───────────────────────────────────────────────
+# .ai/maintenance.md and .ai/archive-protocol.md require: never delete tracked
+# instruction/prompt/agent files. Replace with archive-then-add under
+# `<sibling>/.old/YYYYMMDD/` (path-mirroring). This guard blocks staged
+# deletions of governed files when no matching archive copy is also staged.
+#
+# Governed paths:
+#   .ai/**/*.md
+#   .github/copilot-instructions.md
+#   .github/prompts/*.prompt.md
+#   .github/agents/*.agent.md
+#   .github/skills/**/SKILL.md
+#
+# Renames count as deletion+addition; if the destination is under .old/YYYYMMDD/
+# the file is considered archived. Override: `git commit --no-verify`.
+
+DELETED=$(git diff --cached --name-only -z --diff-filter=D \
+  | tr '\0' '\n' \
+  | grep -E '^(\.ai/.*\.md|\.github/copilot-instructions\.md|\.github/prompts/.+\.prompt\.md|\.github/agents/.+\.agent\.md|\.github/skills/.+/SKILL\.md)$' \
+  || true)
+
+if [ -n "$DELETED" ]; then
+  ADDED=$(git diff --cached --name-only -z --diff-filter=AR \
+    | tr '\0' '\n' \
+    | grep -E '/\.old/[0-9]{8}/' \
+    || true)
+
+  UNARCHIVED=""
+  for f in $DELETED; do
+    base=$(basename "$f")
+    if ! printf '%s\n' "$ADDED" | grep -qE "/\.old/[0-9]{8}/${base}\$"; then
+      UNARCHIVED="${UNARCHIVED}${f}
+"
+    fi
+  done
+
+  if [ -n "$UNARCHIVED" ]; then
+    echo ""
+    echo "  BLOCKED: Governed file(s) staged for deletion without an archive copy:"
+    printf '%s' "$UNARCHIVED" | sed '/^$/d' | sed 's/^/    /'
+    echo ""
+    echo "  Per .ai/archive-protocol.md, governed instruction/prompt/agent files"
+    echo "  must be archived (not deleted). Move them to a sibling .old/YYYYMMDD/"
+    echo "  directory and stage both the deletion and the archived copy."
+    echo ""
+    echo "  Override (rare): git commit --no-verify"
+    echo ""
+    exit 1
+  fi
+fi
+
+echo "[pre-commit] All checks passed."
+exit 0

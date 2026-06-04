@@ -1,0 +1,14 @@
+{
+  "tool_name": "apply-safe-change",
+  "description": "Applies any file modification following the full safety protocol: safety-level gate, archive-first check, and audit log entry.",
+  "checklist": [
+    "1. Classify the change: determine safety_level (low = reversible edit; medium = structural change; high = deletion, schema change, or breaking modification)",
+    "2. If safety_level is 'high' or 'medium': state the full change to the user and wait for explicit approval before proceeding",
+    "3. If the change removes or replaces an existing file: archive the original first per .ai/maintenance.md#archive-patterns — never delete without archiving",
+    "4. Apply the change",
+    "5. Call log-action tool to emit an audit entry to .ai/logs/",
+    "6. Report outcome to user with a one-line summary"
+  ],
+  "safety_level": "variable",
+  "requires_approval": true
+}

@@ -1,0 +1,14 @@
+{
+  "tool_name": "load-context",
+  "description": "Standard four-step context load every agent runs as its first action. Validates the envelope, reads declared files in deepest-scope-first order, loads persistent state for stateful agents, and applies the governance overlay. Produces an in-memory context bundle; never writes.",
+  "checklist": [
+    "1. Validate the envelope against `.ai/agents/context.md#envelope-schema`. Reject malformed payloads back to the caller — never guess missing fields. Confirm `trace_id` is present (generate one only if this is the Router and no caller exists)",
+    "2. Read the agent's Context Manifest `Reads` list in declared order. For each path resolution, walk shallowest → deepest so the deepest `.ai/instruct.md` overrides ancestors per `.ai/engine/get_effective_instructions.py`",
+    "3. If the agent is stateful (curator | todo-manager | prompt-manager | workflow-manager): read `.ai/agents/state/<agent>/<file>.json`. If absent, treat as a cold start and proceed without error. If `schema_version` mismatches the manifest, stop and ask the user before touching the file",
+    "4. For each `governance_refs` entry in the envelope: read the rule file and append its constraints to the working set as a SEPARATE list — never collapse into the scope's `.ai/instruct.md`",
+    "5. Assemble the in-memory context bundle: { envelope, reads_loaded[], state, governance[] }. Do not write the bundle to disk",
+    "6. Call `log-action` with stage='load-context', trace_id, and a one-line summary (count of reads, state cold-start yes/no, governance count)"
+  ],
+  "safety_level": "low",
+  "requires_approval": false
+}

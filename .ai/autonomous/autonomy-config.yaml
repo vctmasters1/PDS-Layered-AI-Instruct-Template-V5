@@ -1,0 +1,161 @@
+# ===========================================================================
+# Autonomous Framework Configuration — opt-in scaffold
+# ===========================================================================
+#
+# Source of truth for the lightweight autonomous orchestration layer.
+# DISABLED BY DEFAULT. Set `enabled: true` only after reading:
+#   - .ai/autonomous/orchestrator.md      (how the loop works)
+#   - .ai/autonomous/safety-guardrails.md (what stops it)
+#   - .ai/autonomous/task-queue.md        (how state persists)
+#
+# Depth-priority rule still applies: nothing here overrides a `.ai/instruct.md`.
+# ===========================================================================
+
+version: "5.0-scaffold"
+name: "PDS Autonomous Orchestration Layer"
+status: "experimental" # experimental | stable | deprecated
+
+# ---------------------------------------------------------------------------
+# Master switch
+# ---------------------------------------------------------------------------
+# When false, /ai-autonomous-start refuses to run and points the user here.
+# When true, the orchestrator is invocable but every step still respects
+# `human_approval` and `safety_level` below.
+enabled: false
+
+# ---------------------------------------------------------------------------
+# Execution limits (hard ceilings; the orchestrator MUST stop at these)
+# ---------------------------------------------------------------------------
+limits:
+  max_steps: 25 # total agent invocations per goal
+  max_wall_clock_minutes: 30 # hard timeout from goal start
+  max_parallel_workers: 1 # keep at 1 until proven safe
+  max_files_modified: 20 # archive-first counts toward this
+  max_tokens_per_run: 200000 # rough guard; observer enforces
+
+# ---------------------------------------------------------------------------
+# Human-in-the-loop policy
+# ---------------------------------------------------------------------------
+# `mode` controls when the orchestrator pauses for confirmation.
+#   always       → pause before EVERY agent hand-off (recommended initial)
+#   on_medium    → pause for medium+ safety-level actions (matches agent-config.yaml)
+#   on_high      → pause only for high-safety actions
+#   never        → fully autonomous (NOT recommended; requires safety_level=low)
+human_approval:
+  mode: "always"
+  approval_timeout_minutes: 10 # auto-pause and persist queue if no answer
+  resume_command: "/ai-autonomous-resume"
+
+# ---------------------------------------------------------------------------
+# Safety level
+# ---------------------------------------------------------------------------
+# Mirrors .ai/agent-config.yaml safety contract. The orchestrator inherits
+# every existing rule (archive-first, never-reset-db, .env protection, host
+# isolation). This block only narrows scope further.
+safety:
+  level: "high" # low | medium | high
+  archive_first: true # always; cannot be disabled here
+  forbid_force_push: true
+  forbid_destructive_db: true # no DROP, TRUNCATE, RESET
+  forbid_credential_writes: true # cannot author .env, secrets/, *.pem
+  forbid_governance_writes: true # cannot edit .ai/instruct.md without /ai-reflect handoff
+  pause_sentinel: ".ai/PAUSE" # if present at any heartbeat → stop
+
+# ---------------------------------------------------------------------------
+# Allowed agent palette
+# ---------------------------------------------------------------------------
+# The orchestrator can ONLY invoke agents listed here. Anything else requires
+# extending this list AND a /ai-reflect entry justifying why.
+# Names match `.github/agents/<name>.agent.md`.
+allowed_agents:
+  pipeline:
+    - pds-meta-router
+    - pds-pipe-super
+    - pds-pipe-scaffolder
+    - pds-pipe-generator
+    - pds-pipe-validator
+    - pds-pipe-tester
+    - pds-pipe-reviewer
+    - pds-pipe-cleanup
+  managers:
+    - pds-man-naming # mandatory consultation before new identifiers
+    - pds-man-ports # port reconciliation
+    - pds-man-versioncontrol # branch/lock/merge gates
+  meta:
+    - pds-meta-explorer # read-only Q&A
+    - pds-meta-observer # metrics
+  forbidden:
+    # These can only be invoked by a human via their slash command.
+    - pds-man-curator # writes governance — keep human-driven
+    - pds-meta-learner # proposes instruction edits — keep human-driven
+
+# ---------------------------------------------------------------------------
+# Persistent task queue
+# ---------------------------------------------------------------------------
+# Single-file JSONL queue. See task-queue.md for schema.
+queue:
+  enabled: true
+  file: ".ai/autonomous/queue.jsonl"
+  max_pending_goals: 5
+  on_overflow: "reject" # reject | drop_oldest
+
+# ---------------------------------------------------------------------------
+# Logging & observability
+# ---------------------------------------------------------------------------
+# Every autonomous step appends one JSON line. The observer agent reads these
+# under `/ai-metrics` and `/ai-observe`.
+logging:
+  step_log: ".ai/logs/autonomous-YYYY-MM-DD.jsonl"
+  required_fields:
+    - timestamp # ISO 8601 UTC
+    - goal_id # ULID from queue.jsonl
+    - step_index # 0-based, monotonic
+    - agent # which allowed_agents entry ran
+    - input_summary # ≤200 chars
+    - output_summary # ≤200 chars
+    - safety_level # low | medium | high
+    - approval # auto | human | denied | n/a
+    - outcome # success | retry | escalated | aborted
+    - duration_ms
+
+# ---------------------------------------------------------------------------
+# Stop conditions
+# ---------------------------------------------------------------------------
+# Any single condition triggers immediate halt + queue persistence.
+stop_conditions:
+  - "limits.max_steps reached"
+  - "limits.max_wall_clock_minutes reached"
+  - "limits.max_files_modified reached"
+  - "safety.pause_sentinel exists"
+  - "human_approval denied"
+  - "approval_timeout_minutes elapsed without answer"
+  - "validator/reviewer returns BLOCK"
+  - "three consecutive failed steps (failure streak)"
+  - "agent attempts a forbidden_agents invocation"
+  - "agent attempts a write to safety.forbid_* path"
+
+# ---------------------------------------------------------------------------
+# Default workflows
+# ---------------------------------------------------------------------------
+# Named sequences the orchestrator can pick when the goal matches a template.
+# See .ai/autonomous/workflow-examples/ for full definitions.
+workflows:
+  feature-implementation: ".ai/autonomous/workflow-examples/feature-implementation.md"
+  # Add more as they prove safe:
+  # bugfix-with-tests: ".ai/autonomous/workflow-examples/bugfix-with-tests.md"
+  # docs-refresh:      ".ai/autonomous/workflow-examples/docs-refresh.md"
+
+# ---------------------------------------------------------------------------
+# Reference implementation
+# ---------------------------------------------------------------------------
+# A small, production-grade Python runner that exercises this contract end
+# to end. Pure stdlib, deterministic simulated agents, full audit trail.
+# Evaluators and integrators should start here when assessing depth.
+reference_implementation:
+  path: ".ai/autonomous/reference-implementation/"
+  entry_point: ".ai/autonomous/reference-implementation/autonomous_runner.py"
+  example: ".ai/autonomous/reference-implementation/example_workflow.py"
+  readme: ".ai/autonomous/reference-implementation/README.md"
+  language: "python"
+  dependencies: "stdlib only"
+  status: "reference"

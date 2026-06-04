@@ -1,0 +1,92 @@
+// MCP (Model Context Protocol) server configuration for VS Code Copilot.
+//
+// MCP servers extend AI capabilities with custom tools — filesystem access,
+// database queries, external APIs, and more.
+//
+// Documentation: https://code.visualstudio.com/docs/copilot/chat/mcp-servers
+//
+// To add a server:
+//   1. Uncomment and configure the desired block below
+//   2. Reload VS Code (Ctrl+Shift+P → "Developer: Reload Window")
+//   3. The server's tools become available to Copilot agents automatically
+//
+// Secrets: reference environment variables using ${ENV_VAR_NAME} syntax.
+// Never put actual tokens or keys in this file.
+{
+  "servers": {
+
+    // ── PDS AI-INSTRUCT (this template's own MCP server) ─────────────────────
+    // Exposes governed tools (`.ai/agents/tools/*.json`) and the depth-priority
+    // instruction resolver to Copilot. See `.ai/mcp/README.md`.
+    //
+    // Install once per clone:   cd .ai/mcp/python && pip install -e .
+    // Or use the Node twin:     cd .ai/mcp/node   && npm install
+    "pds-ai-instruct": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["-m", "pds_mcp"],
+      "env": {
+        "PDS_WORKSPACE": "${workspaceFolder}"
+      }
+    },
+
+    // To use the Node twin instead, comment out the block above and uncomment:
+    // "pds-ai-instruct": {
+    //   "type": "stdio",
+    //   "command": "node",
+    //   "args": [".ai/mcp/node/server.mjs"],
+    //   "env": { "PDS_WORKSPACE": "${workspaceFolder}" }
+    // },
+
+    // ── Filesystem (read/write access to workspace) ──────────────────────────
+    // Allows AI to read and write files within the specified paths.
+    // "filesystem": {
+    //   "type": "stdio",
+    //   "command": "npx",
+    //   "args": ["-y", "@modelcontextprotocol/server-filesystem", "./"],
+    //   "env": {}
+    // },
+
+    // ── GitHub ────────────────────────────────────────────────────────────────
+    // Allows AI to read issues, PRs, commits, and repo metadata.
+    // "github": {
+    //   "type": "stdio",
+    //   "command": "npx",
+    //   "args": ["-y", "@modelcontextprotocol/server-github"],
+    //   "env": {
+    //     "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+    //   }
+    // },
+
+    // ── PostgreSQL ────────────────────────────────────────────────────────────
+    // Allows AI to run read-only SQL queries against a dev database.
+    // WARNING: use a read-only connection string to limit blast radius.
+    // "postgres": {
+    //   "type": "stdio",
+    //   "command": "npx",
+    //   "args": ["-y", "@modelcontextprotocol/server-postgres"],
+    //   "env": {
+    //     "DATABASE_URL": "${DATABASE_URL_READONLY}"
+    //   }
+    // },
+
+    // ── SQLite ────────────────────────────────────────────────────────────────
+    // "sqlite": {
+    //   "type": "stdio",
+    //   "command": "npx",
+    //   "args": ["-y", "@modelcontextprotocol/server-sqlite", "./local.db"]
+    // },
+
+    // ── Brave Search ──────────────────────────────────────────────────────────
+    // Allows AI to search the web for documentation and answers.
+    // "brave-search": {
+    //   "type": "stdio",
+    //   "command": "npx",
+    //   "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+    //   "env": {
+    //     "BRAVE_API_KEY": "${BRAVE_API_KEY}"
+    //   }
+    // }
+
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "tool_name": "append-todo",
+  "description": "Appends a single TODO item to the project's TODO surface. The only sanctioned write path for TODOs — agents do not edit .github/todo/ files directly. The todo-manager owns deduplication, ageing, and archival downstream.",
+  "checklist": [
+    "1. Validate the payload contains: title (<= 80 chars), body (optional markdown), source_agent, source_scope_path, severity (info|minor|major|blocker), tags[] (free-form labels), related_paths[] (files that triggered the TODO)",
+    "2. Compute the target file: .github/todo/<scope-slug>.md where scope-slug is the kebab-cased scope_path (root → 'project'); create the file with a header if it does not exist",
+    "3. Check for an existing entry whose title matches case-insensitively in the same file; if found, append a 'seen-again on <ISO date>' bump line under that entry instead of creating a duplicate",
+    "4. Otherwise append a new entry with: '- [ ] <title>  \\n  _added <ISO date> by <source_agent> · severity: <severity> · scope: <source_scope_path>_  \\n  <body if present>'",
+    "5. Never check off (- [x]) an item — only the agent that completed the underlying work may do that, via update-context",
+    "6. Call log-action to record the append (target file, title, source agent)",
+    "7. Return { todo_file, line_anchor } to the caller"
+  ],
+  "safety_level": "low",
+  "requires_approval": false
+}

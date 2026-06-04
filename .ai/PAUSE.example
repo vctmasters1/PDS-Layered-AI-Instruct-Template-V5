@@ -1,0 +1,8 @@
+Rename this file to `.ai/PAUSE` (no extension) to halt all agent activity in this workspace.
+
+The first non-empty line below the header becomes the pause reason surfaced to the user.
+
+---
+Reason: <fill in why you paused>
+Paused-by: <human name>
+Paused-at: <ISO timestamp>

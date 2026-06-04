@@ -1,0 +1,94 @@
+name: AI-INSTRUCT Validator
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  validate:
+    name: Drift Validator
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run AI-INSTRUCT drift validator
+        run: pwsh -NoProfile -File .github/scripts/validate-instructions.ps1
+
+  tool-schema:
+    name: Governed-Tool Schema
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install schema validator deps
+        run: python -m pip install --upgrade pip jsonschema
+
+      - name: Validate every .ai/**/tools/*.json against _schema.json
+        run: python .ai/engine/validate_tools.py
+
+  engine-tests:
+    name: Engine Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install test deps
+        run: python -m pip install --upgrade pip pytest jsonschema
+
+      - name: Run engine tests
+        run: python -m pytest .ai/engine/tests -q
+
+  pause-sentinel:
+    name: Pause Sentinel Guard
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Refuse to merge while .ai/PAUSE is committed
+        run: |
+          if [ -f .ai/PAUSE ]; then
+            echo "::error::.ai/PAUSE sentinel is present. Remove it before merging."
+            exit 1
+          fi
+          echo "OK — no pause sentinel."
+
+  commit-messages:
+    name: Conventional Commits
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Lint commit subjects in PR range
+        run: |
+          set -e
+          base="${{ github.event.pull_request.base.sha }}"
+          head="${{ github.event.pull_request.head.sha }}"
+          chmod +x .github/hooks/commit-msg
+          tmp=$(mktemp)
+          fail=0
+          for sha in $(git log --no-merges --format=%H "$base..$head"); do
+            git log -1 --format=%B "$sha" > "$tmp"
+            if ! .github/hooks/commit-msg "$tmp"; then
+              echo "::error::Commit $sha does not match Conventional Commits format"
+              fail=1
+            fi
+          done
+          rm -f "$tmp"
+          exit $fail

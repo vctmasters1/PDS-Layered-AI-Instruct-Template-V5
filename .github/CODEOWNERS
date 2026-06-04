@@ -1,0 +1,29 @@
+# CODEOWNERS — Repository-wide ownership map
+#
+# Lines later in this file override earlier ones for the same path glob.
+# Replace `@OWNER` placeholders during onboarding (or run `/ai-onboard`).
+# Reference: https://docs.github.com/en/repositories/managing-your-repositories-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for everything not matched below
+*                                       @OWNER
+
+# AI-INSTRUCT system surface — changes here affect every agent in the project
+.ai/                                    @OWNER
+.github/copilot-instructions.md         @OWNER
+.github/agents/                         @OWNER
+.github/prompts/                        @OWNER
+.github/skills/                         @OWNER
+AGENTS.md                               @OWNER
+CLAUDE.md                               @OWNER
+
+# Naming registries — only the naming agent / its maintainers should touch these
+.ai/coding-prefixes.md                  @OWNER
+.ai/api-conventions.md                  @OWNER
+.ai/database-schema.md                  @OWNER
+.ai/error-codes.md                      @OWNER
+.ai/config-vars.md                      @OWNER
+
+# Security-sensitive
+.ai/credentials.md                      @OWNER
+.github/hooks/                          @OWNER
+.github/workflows/                      @OWNER

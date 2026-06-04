@@ -1,0 +1,92 @@
+# Reference tier table for the model-dispatch plugin.
+# Copy to `tiers.yaml` and edit for your environment.
+# Adopters: keep this example file unchanged; edit the copy.
+
+# Tier names are arbitrary strings. The examples below encode CONSTRAINTS
+# (speed, capability, privacy), not vendor identities. Stick to that pattern.
+#
+# GPU Device Selection (optional):
+#   Some adopters have GPUs reserved for specific purposes (e.g., display only).
+#   Set `gpu_devices: [0, 1, 3]` to restrict a tier to those GPUs.
+#   The runtime enforces this via CUDA_VISIBLE_DEVICES or similar.
+#   Omit `gpu_devices` to allow all GPUs.
+
+default_tier: local-strong
+
+tiers:
+  local-fast:
+    description: >
+      Sub-second latency. Use for routing, file-ops, cleanup decisions, TODO
+      triage — anything that does NOT need deep reasoning. Free; runs locally.
+    provider: lmstudio # one of: lmstudio | ollama | vllm | cloud | other
+    endpoint: http://localhost:1234/v1
+    model_id: <fill-in-after-discovery>
+    privacy:
+      local_only: true
+    notes: >
+      Pick a small instruct model (~1-3B Q4) once the discovery script
+      confirms what you have on disk.
+
+  local-strong:
+    description: >
+      Balanced workhorse. Use for most agent work: scaffolding, validation,
+      naming, review, supervision. Local; no cost per call.
+    provider: lmstudio
+    endpoint: http://localhost:1234/v1
+    model_id: <fill-in-after-discovery>
+    privacy:
+      local_only: true
+    notes: >
+      A 27B-class dense or 30B-class MoE model fits this tier on a single
+      24GB+ GPU. Adjust to your hardware.
+
+  local-heavy:
+    description: >
+      Heavy code generation, multi-file refactors, long-context reasoning.
+      Slower; reserve for the generator and complex scaffolding.
+    provider: lmstudio
+    endpoint: http://localhost:1234/v1
+    model_id: <fill-in-after-discovery>
+    privacy:
+      local_only: true
+    notes: >
+      A 70B+ coder model. Requires significant VRAM or aggressive
+      quantisation; not all adopters will have this tier available.
+
+  local-vision:
+    description: >
+      Multimodal tier for tasks involving diagrams, screenshots, or visual
+      review.
+    provider: lmstudio
+    endpoint: http://localhost:1234/v1
+    model_id: <fill-in-after-discovery>
+    privacy:
+      local_only: true
+
+  local-embed:
+    description: >
+      Embedding model for retrieval-augmented work over .ai/knowledge/ and
+      the wider codebase.
+    provider: lmstudio
+    endpoint: http://localhost:1234/v1
+    model_id: <fill-in-after-discovery>
+    privacy:
+      local_only: true
+
+  cloud-frontier:
+    description: >
+      Frontier-grade reasoning. Use when local capacity is saturated or the
+      task exceeds local model capability. Cost per call applies.
+    provider: cloud
+    endpoint: <provider-specific>
+    model_id: <provider-specific>
+    privacy:
+      local_only: false
+    notes: >
+      Privacy-pinned tasks MUST NOT fall back here. See instruct.md →
+      Privacy Pinning.
+
+# Optional: adopters may add suggestion rules the router uses to recommend
+# tier upgrades/downgrades based on observed behaviour. Reserved for future.
+suggestions:
+  enabled: false

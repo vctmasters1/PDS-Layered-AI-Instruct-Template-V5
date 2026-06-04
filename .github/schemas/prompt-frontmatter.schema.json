@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/pds/ai-instruct/schemas/prompt-frontmatter.json",
+  "title": "Slash-command prompt frontmatter (.github/prompts/*.prompt.md)",
+  "description": "YAML frontmatter contract for VS Code Copilot slash-command prompt files. Enforced by .github/scripts/validate-instructions.ps1 (frontmatter sanity, section 4) and surfaced here for editor tooling.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "mode",
+    "description"
+  ],
+  "properties": {
+    "mode": {
+      "type": "string",
+      "enum": [
+        "ask",
+        "edit",
+        "agent"
+      ],
+      "description": "VS Code Copilot mode. `agent` for multi-step file ops; `edit` for surgical multi-file edits; `ask` for read-only Q&A."
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "description": "One-line user-facing summary shown in the slash-command picker."
+    }
+  }
+}

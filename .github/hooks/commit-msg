@@ -1,0 +1,59 @@
+#!/bin/sh
+# commit-msg — enforce Conventional Commits message format.
+#
+# Format:  <type>(<optional-scope>)<optional-!>: <subject>
+# Types:   feat | fix | docs | style | refactor | perf | test | build | ci | chore | revert
+# Subject: required, non-empty, <=100 chars on the first line
+#
+# Merge commits, reverts produced by `git revert`, and fixup/squash autosquash
+# commits are exempt. Bypass with `git commit --no-verify` only with cause.
+#
+# Activated by: bash .github/hooks/install-hooks.sh   (or the .ps1 equivalent)
+
+MSG_FILE="$1"
+[ -f "$MSG_FILE" ] || exit 0
+
+# First non-comment line is the subject.
+SUBJECT=$(grep -v '^#' "$MSG_FILE" | sed '/./,$!d' | head -n 1)
+
+# Exemptions
+case "$SUBJECT" in
+  "Merge "*|"Revert "*|"fixup! "*|"squash! "*|"amend! "*)
+    exit 0
+    ;;
+esac
+
+# Allow empty (git will reject anyway).
+[ -z "$SUBJECT" ] && exit 0
+
+PATTERN='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([^)]+\))?!?: .+'
+
+if ! printf '%s' "$SUBJECT" | grep -Eq "$PATTERN"; then
+  echo ""
+  echo "  BLOCKED: Commit subject does not match Conventional Commits format."
+  echo ""
+  echo "  Got: $SUBJECT"
+  echo ""
+  echo "  Expected: <type>(<scope>)?: <subject>"
+  echo "  Types:    feat fix docs style refactor perf test build ci chore revert"
+  echo "  Examples:"
+  echo "    feat(api): add user endpoint"
+  echo "    fix: correct off-by-one in pagination"
+  echo "    refactor(prompts)!: collapse /ai-branch into /ai-git"
+  echo ""
+  echo "  Override (rare): git commit --no-verify"
+  echo ""
+  exit 1
+fi
+
+# Length cap on the subject line.
+LEN=$(printf '%s' "$SUBJECT" | wc -c | tr -d ' ')
+if [ "$LEN" -gt 100 ]; then
+  echo ""
+  echo "  BLOCKED: Commit subject is $LEN chars (max 100)."
+  echo "  Move detail to the body (separate the subject from the body with a blank line)."
+  echo ""
+  exit 1
+fi
+
+exit 0

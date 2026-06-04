@@ -1,0 +1,25 @@
+# Eval: routing/delegation primitives are wired
+id: routing-delegation-001
+description: The supervisor and key SDLC agents exist as discoverable .agent.md files with required frontmatter.
+scope: .
+input:
+  prompt: "Run a routine generate-then-review workflow."
+expectations:
+  - kind: file-pattern
+    path: .github/agents/pds-pipe-super.agent.md
+    expect: exists
+  - kind: file-pattern
+    path: .github/agents/pds-pipe-generator.agent.md
+    expect: exists
+  - kind: file-pattern
+    path: .github/agents/pds-pipe-reviewer.agent.md
+    expect: exists
+  - kind: frontmatter-field
+    file: .github/agents/pds-pipe-super.agent.md
+    field: description
+  - kind: governed-tools-consulted
+    includes:
+      - delegate-task
+      - review-output
+severity: high
+tags: [routing, pipeline]

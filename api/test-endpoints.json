@@ -1,0 +1,207 @@
+{
+  "timestamp": "2026-06-02T11:36:30.449607Z",
+  "scan_root": "K:\\PDS-Layered-AI-Instruct-Template-V4\\api",
+  "framework": "auto",
+  "total_endpoints": 22,
+  "endpoints": [
+    {
+      "path": "///init//",
+      "method": "AUTO",
+      "resource": "init",
+      "action": "list",
+      "file": "endpoint_discovery.py",
+      "line": 90,
+      "context": "def __init__(self, scan_root: Path, framework: Framework = Framework.AUTO):"
+    },
+    {
+      "path": "//scan/file",
+      "method": "AUTO",
+      "resource": "scan",
+      "action": "detail",
+      "file": "endpoint_discovery.py",
+      "line": 130,
+      "context": "def _scan_file(self, file_path: Path) -> None:"
+    },
+    {
+      "path": "//scan/line",
+      "method": "AUTO",
+      "resource": "scan",
+      "action": "detail",
+      "file": "endpoint_discovery.py",
+      "line": 142,
+      "context": "def _scan_line(self, file_path: Path, line_num: int, line: str) -> None:"
+    },
+    {
+      "path": "method",
+      "method": "GET",
+      "resource": "method",
+      "action": "list",
+      "file": "endpoint_discovery.py",
+      "line": 173,
+      "context": "'method': endpoint.get('method', 'UNKNOWN'),"
+    },
+    {
+      "path": "//match/express",
+      "method": "AUTO",
+      "resource": "match",
+      "action": "detail",
+      "file": "endpoint_discovery.py",
+      "line": 181,
+      "context": "def _match_express(self, line: str) -> List[Dict]:"
+    },
+    {
+      "path": "//match/fastapi",
+      "method": "AUTO",
+      "resource": "match",
+      "action": "detail",
+      "file": "endpoint_discovery.py",
+      "line": 192,
+      "context": "def _match_fastapi(self, line: str) -> List[Dict]:"
+    },
+    {
+      "path": "//match/django",
+      "method": "AUTO",
+      "resource": "match",
+      "action": "detail",
+      "file": "endpoint_discovery.py",
+      "line": 212,
+      "context": "def _match_django(self, line: str) -> List[Dict]:"
+    },
+    {
+      "path": "//match/generic",
+      "method": "AUTO",
+      "resource": "match",
+      "action": "detail",
+      "file": "endpoint_discovery.py",
+      "line": 222,
+      "context": "def _match_generic(self, line: str) -> List[Dict]:"
+    },
+    {
+      "path": "//extract/resource/action",
+      "method": "AUTO",
+      "resource": "extract",
+      "action": "unknown",
+      "file": "endpoint_discovery.py",
+      "line": 240,
+      "context": "def _extract_resource_action(self, path: str) -> tuple:"
+    },
+    {
+      "path": "/get/report",
+      "method": "AUTO",
+      "resource": "get",
+      "action": "detail",
+      "file": "endpoint_discovery.py",
+      "line": 291,
+      "context": "def get_report(self) -> Dict[str, Any]:"
+    },
+    {
+      "path": "/print/summary",
+      "method": "AUTO",
+      "resource": "print",
+      "action": "detail",
+      "file": "endpoint_discovery.py",
+      "line": 307,
+      "context": "def print_summary(report: Dict[str, Any]) -> None:"
+    },
+    {
+      "path": "resource",
+      "method": "GET",
+      "resource": "resource",
+      "action": "list",
+      "file": "endpoint_discovery.py",
+      "line": 321,
+      "context": "resource = endpoint.get('resource', 'unknown')"
+    },
+    {
+      "path": "method",
+      "method": "GET",
+      "resource": "method",
+      "action": "list",
+      "file": "endpoint_discovery.py",
+      "line": 322,
+      "context": "method = endpoint.get('method', 'UNKNOWN')"
+    },
+    {
+      "path": "///init//",
+      "method": "AUTO",
+      "resource": "init",
+      "action": "list",
+      "file": "endpoint_generator.py",
+      "line": 84,
+      "context": "def __init__(self, strict_mode: bool = False, api_version: str = 'v1'):"
+    },
+    {
+      "path": "/find/conflicts",
+      "method": "AUTO",
+      "resource": "find",
+      "action": "detail",
+      "file": "endpoint_generator.py",
+      "line": 208,
+      "context": "def find_conflicts(self, endpoint_name: str, search_root: Path) -> List[Dict]:"
+    },
+    {
+      "path": "//normalize/resource",
+      "method": "AUTO",
+      "resource": "normalize",
+      "action": "detail",
+      "file": "endpoint_generator.py",
+      "line": 246,
+      "context": "def _normalize_resource(self, resource: str) -> Optional[str]:"
+    },
+    {
+      "path": "//normalize/detail",
+      "method": "AUTO",
+      "resource": "normalize",
+      "action": "detail",
+      "file": "endpoint_generator.py",
+      "line": 256,
+      "context": "def _normalize_detail(self, detail: str) -> Optional[str]:"
+    },
+    {
+      "path": "//suggest/path",
+      "method": "AUTO",
+      "resource": "suggest",
+      "action": "detail",
+      "file": "endpoint_generator.py",
+      "line": 263,
+      "context": "def _suggest_path(self, resource: str, action_def: ActionDef, detail: Optional[str]) -> str:"
+    },
+    {
+      "path": "//is/scannable",
+      "method": "AUTO",
+      "resource": "i",
+      "action": "detail",
+      "file": "endpoint_generator.py",
+      "line": 298,
+      "context": "def _is_scannable(file_path: Path) -> bool:"
+    },
+    {
+      "path": "/print/endpoint/details",
+      "method": "AUTO",
+      "resource": "print",
+      "action": "unknown",
+      "file": "endpoint_generator.py",
+      "line": 311,
+      "context": "def print_endpoint_details(endpoint_def: Dict, gen: EndpointGenerator, search_root: Optional[Path] ="
+    },
+    {
+      "path": "/print_endpoint_detail",
+      "method": "GENERIC",
+      "resource": "print_endpoint_detail",
+      "action": "list",
+      "file": "endpoint_generator.py",
+      "line": 311,
+      "context": "def print_endpoint_details(endpoint_def: Dict, gen: EndpointGenerator, search_root: Optional[Path] ="
+    },
+    {
+      "path": "detail",
+      "method": "GET",
+      "resource": "detail",
+      "action": "list",
+      "file": "endpoint_generator.py",
+      "line": 322,
+      "context": "if endpoint_def.get('detail'):"
+    }
+  ],
+  "warnings": []
+}

@@ -1,0 +1,31 @@
+{
+  // Committed to share project-wide defaults (search exclusions, editor baseline) with all contributors.
+  // Personal editor preferences belong in VS Code User Settings (Ctrl+Shift+P → "Preferences: Open User Settings"),
+  // NOT in a sibling file — VS Code does not auto-read settings.local.json.
+  // (`settings.local.json` is gitignored only as a courtesy slot for tooling/scripts that may consult it;
+  //  it has no effect on VS Code itself.)
+  // ── Editor ────────────────────────────────────────────────────────────────
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.rulers": [
+    100
+  ],
+  // ── Files ─────────────────────────────────────────────────────────────────
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  // ── Search: exclude archive and generated directories from search results ──
+  "search.exclude": {
+    "**/.archive": true,
+    "**/.dev-docs/.old": true,
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/.github/tmp": true
+  },
+  // ── File explorer: hide noisy directories ─────────────────────────────────
+  "files.exclude": {
+    "**/.git": true,
+    "**/node_modules": true
+  }
+}

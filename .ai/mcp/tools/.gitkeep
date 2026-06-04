@@ -1,0 +1,13 @@
+# .ai/mcp/tools/ — Project-Specific Governed Tool Definitions
+#
+# Add project-specific tool checklists here as *.json files.
+# See .ai/agents/tools/anticipate-gaps.json for the schema.
+#
+# IMPORTANT: These are GOVERNANCE DOCUMENTS read by AI agents.
+# They are NOT MCP wire-protocol tool definitions.
+# Each file defines a tool_name, description, agent checklist, and safety_level.
+#
+# To wire these as real callable MCP tools, a separate MCP server implementation
+# is needed. See .ai/agent-config.yaml (governed_tools_enabled) for the setting.
+# The distinction: governed tool checklists tell agents HOW to behave; an MCP
+# server would make those tools programmatically callable by the model.

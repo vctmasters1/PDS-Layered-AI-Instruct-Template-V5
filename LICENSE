@@ -1,0 +1,112 @@
+PROPRIETARY LICENSE
+
+Copyright (c) 2026 PipeDreamSystemsLLC. All rights reserved.
+
+This software and the associated documentation files (the "Software") are
+the proprietary and confidential property of PipeDreamSystemsLLC.
+
+NO RIGHTS ARE GRANTED EXCEPT AS EXPLICITLY STATED BELOW.
+
+1. RESERVATION OF RIGHTS. Except for the limited evaluation grant in
+   Section 2, all rights to the Software are reserved by PipeDreamSystemsLLC.
+   No license, express or implied, is granted by estoppel or otherwise.
+   You may not, without prior written permission from PipeDreamSystemsLLC,
+   directly or indirectly:
+
+   (a) use, run, or execute the Software;
+   (b) copy, modify, translate, or create derivative works of the Software;
+   (c) merge, publish, distribute, sublicense, sell, lease, lend, host,
+       or otherwise transfer the Software or any portion of it;
+   (d) use the Software, in whole or in part, in any product or service
+       that is offered to third parties, whether for a fee or free of
+       charge;
+   (e) use the Software for any internal business operations of any
+       organization;
+   (f) remove, alter, or obscure any proprietary, copyright, or
+       attribution notices contained in the Software;
+   (g) reverse engineer, decompile, or disassemble the Software, except to
+       the extent that applicable law expressly permits such activity
+       notwithstanding this restriction.
+
+2. LIMITED EVALUATION GRANT. PipeDreamSystemsLLC grants you, a natural
+   person and not an entity, a non-exclusive, non-transferable, revocable,
+   royalty-free license to clone and read the Software, and to run it on
+   a single machine you personally control, solely for the purpose of:
+
+       (i)   personal, non-commercial evaluation of the Software;
+       (ii)  personal study or learning; or
+       (iii) academic research that is not funded by, performed for,
+             or directed at the benefit of any commercial entity,
+
+   for a period not to exceed thirty (30) consecutive days from the date
+   you first obtain a copy. Any use after thirty (30) days, any other use,
+   and any use by any entity or organization (including any use by a
+   natural person on behalf of an entity), requires a separate written
+   license agreement signed by an authorized representative of
+   PipeDreamSystemsLLC.
+
+3. NO COMMERCIAL USE. The following uses are EXPRESSLY PROHIBITED without
+   a separate paid commercial license signed by PipeDreamSystemsLLC:
+
+   (a) use of the Software, or any derivative work, in any product or
+       service that is sold, licensed, hosted, made available to, or
+       used by any third party, whether for a fee or free of charge;
+   (b) use of the Software inside any company, organization, government
+       agency, school, or other entity, whether for-profit or non-profit;
+   (c) use of the Software, or any technique, method, or design
+       described in or derived from the Software, in the development,
+       training, evaluation, or operation of any commercial product,
+       service, model, or workflow;
+   (d) inclusion of the Software, in whole or in part, in any other
+       software distribution, repository, dataset, training corpus, or
+       documentation made available to anyone other than yourself.
+
+4. NO REDISTRIBUTION. You may not distribute, mirror, fork-publish, host,
+   or otherwise make the Software available to any third party. Public
+   forks of this repository are not permitted except as a private,
+   personal copy on a hosting service that is not exposed to the public.
+
+5. NO TRADEMARK LICENSE. No rights are granted to use the names, logos,
+   trade dress, or trademarks of PipeDreamSystemsLLC.
+
+6. COMMERCIAL LICENSING. To obtain a license for any use not permitted
+   by Section 2, contact PipeDreamSystemsLLC. Commercial licenses are
+   available on negotiated terms and are subject to compensation.
+
+7. TERMINATION. The limited evaluation grant in Section 2 terminates
+   automatically and immediately if you breach any term of this License,
+   if the thirty (30) day period elapses, or upon written notice from
+   PipeDreamSystemsLLC. Upon termination you must permanently delete all
+   copies of the Software in your possession or control.
+
+8. NO WARRANTY. THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE",
+   WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+   LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+   PURPOSE, TITLE, AND NON-INFRINGEMENT.
+
+9. LIMITATION OF LIABILITY. IN NO EVENT SHALL PIPEDREAMSYSTEMSLLC, ITS
+   OFFICERS, EMPLOYEES, OR AGENTS BE LIABLE FOR ANY CLAIM, DAMAGES, OR
+   OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT (INCLUDING
+   NEGLIGENCE), OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION
+   WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE,
+   INCLUDING BUT NOT LIMITED TO ANY INDIRECT, INCIDENTAL, CONSEQUENTIAL,
+   PUNITIVE, OR EXEMPLARY DAMAGES, EVEN IF ADVISED OF THE POSSIBILITY
+   OF SUCH DAMAGES.
+
+10. SURVIVAL. Sections 1, 3, 4, 5, 7, 8, 9, 10, 11, and 12 survive
+    termination of this License.
+
+11. SEVERABILITY. If any provision of this License is held to be
+    unenforceable, the remaining provisions shall continue in full
+    force and effect.
+
+12. ENTIRE AGREEMENT. This License is the entire agreement between
+    you and PipeDreamSystemsLLC regarding the Software and supersedes
+    all prior or contemporaneous agreements, whether written or oral.
+
+By cloning, downloading, copying, running, or otherwise accessing the
+Software, you acknowledge that you have read this License, understand
+it, and agree to be bound by its terms. If you do not agree, you must
+not access the Software.
+
+For commercial licensing inquiries, contact PipeDreamSystemsLLC.

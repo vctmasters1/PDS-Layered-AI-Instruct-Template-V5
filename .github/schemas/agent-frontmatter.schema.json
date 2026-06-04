@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/pds/ai-instruct/schemas/agent-frontmatter.json",
+  "title": "Custom agent frontmatter (.github/agents/*.agent.md)",
+  "description": "YAML frontmatter contract for VS Code Copilot custom-agent files. Enforced by .github/scripts/validate-instructions.ps1 (frontmatter sanity, section 4).",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "description"
+  ],
+  "properties": {
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "description": "One-line summary of the agent's purpose and when to invoke it."
+    },
+    "tools": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "description": "Optional whitelist of tools the agent may use. Omit to inherit the workspace default. Recommended for read-only or scoped agents."
+    },
+    "model": {
+      "type": "string",
+      "description": "Optional preferred model identifier (e.g., 'claude-3.5-sonnet'). Tooling-specific."
+    }
+  }
+}

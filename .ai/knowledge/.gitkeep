@@ -1,0 +1,31 @@
+# .ai/knowledge/ — Runtime Knowledge Base
+# This directory is gitignored. Nothing here is committed to the repo.
+# On a fresh clone this directory is empty; agents populate it at runtime.
+#
+# anticipated-gaps.md — Entry Format
+# Agents append to this file after running /ai-foresight analysis.
+# Each entry follows this schema:
+#
+# ## Analysis <ISO-8601-timestamp>
+# {
+#   "timestamp": "2026-05-29T14:32:11.000000",
+#   "path": "<working directory>",
+#   "gaps": [
+#     {
+#       "type": "error_handling | observability | test_coverage",
+#       "severity": "high | medium | low",
+#       "description": "...",
+#       "recommendation": "..."
+#     }
+#   ],
+#   "risks": [
+#     {
+#       "type": "security | credential_exposure | data_loss",
+#       "probability": "high | medium | low",
+#       "description": "...",
+#       "recommendation": "..."
+#     }
+#   ],
+#   "proactive_suggestions": ["..."],
+#   "confidence": 0.75
+# }
