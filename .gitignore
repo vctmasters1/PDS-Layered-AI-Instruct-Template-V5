@@ -75,6 +75,9 @@ pnpm-debug.log*
 .ai/autonomous/queue/*
 !.ai/foresight/.gitkeep
 !.ai/knowledge/.gitkeep
+!.ai/knowledge/.cleanup-policy.md
+!.ai/knowledge/phase2-learnings.md
+!.ai/knowledge/cheat-sheets/
 !.ai/logs/.gitkeep
 !.ai/locks/.gitkeep
 
