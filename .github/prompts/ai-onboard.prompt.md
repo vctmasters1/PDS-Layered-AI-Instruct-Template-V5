@@ -1,6 +1,6 @@
 ---
 mode: agent
-description: Interactive onboarding wizard — walks the user through filling in every [PLACEHOLDER] in this freshly-cloned template (project identity, dev specs, license, dates, modules) and finishes by rebuilding the master index.
+description: Interactive onboarding wizard — walks the user through filling in every [PLACEHOLDER] in the template (project identity, dev specs, license, dates, modules). Also offers import path via `/ai-import-execute` for existing projects.
 ---
 
 # Onboard a New Project
@@ -24,59 +24,27 @@ Convert this template from a generic scaffold into a live project. Walk the user
 
 ## Steps
 
-### 0. Detect onboarding flavor (fresh template vs. existing project import)
+### 0. Choose your starting point
 
-Before any state inspection, decide which path the user is on. Check, in order:
+**Ask the user up front:**
+> Do you want to:
+> 1. Start fresh from this template (answer onboarding questions to configure a new project), OR
+> 2. Import an existing project into the template framework?
 
-1. **Fresh template clone** — `.ai/instruct.md` still contains `[PROJECT_NAME]` AND no source files exist outside `.example-module/` AND `.github/dev-specs.md` has zero `[x]` checkboxes. Run the **standard onboarding** path (Steps 1–11 below).
+**Path A: Start Fresh**
+- User chooses "fresh" → proceed to Step 1 below
 
-2. **Existing project being adopted** — there is non-trivial source code in the workspace (Python / TS / etc. files outside the template's example dirs) AND the project mode is unset or "Production / Adoption". Run the **import path** below, then drop into Step 4 (dev-specs confirmation) of the standard flow.
+**Path B: Import Existing Project**
+- User chooses "import" → invoke `/ai-import-execute` 
+- `/ai-import-execute` runs Phases 0-6 orchestration (validation, analysis, transformation, consolidation, validation)
+- On completion, return here and continue with **Step 2** (project identity) to fill in final onboarding details
+- You can skip Step 1 (state detection) — `/ai-import-execute` already analyzed the project
+- Skip Step 6 (modules) if `/ai-import-execute` already enumerated them
 
-3. **Partially onboarded** — some placeholders filled, some not. Diff what's filled, present the user with the unfilled set, ask whether to do a targeted pass (jump to specific steps) or a full re-walk. **Never overwrite filled values without asking.**
-
-If ambiguous, ask the user one question:
-> "Are you starting fresh from this template, or importing an existing project for AI-INSTRUCT adoption?"
-
-#### Import path (replaces what was `/ai-import-project`)
-
-Two phases — **always analyze before fixing**.
-
-**Phase A — Analyze.** Scan the project and identify compliance violations:
-
-- Directory structure: missing `.ai/instruct.md`, module-level `README.md`
-- File naming: Python files not snake_case, shell scripts not kebab-case (per [`.ai/conventions.md#file-naming`](../../.ai/conventions.md#file-naming))
-- Security: credential files (`.env`, `.pem`, `.key`) not gitignored
-- Standards: missing documentation, unconventional patterns
-
-```pwsh
-pwsh .github/debug/import-project.ps1 -Phase analyze -ProjectPath "<path>"
-```
-
-Output: human-readable report on screen + `.compliance-report.json` for programmatic use. Findings are grouped by severity (error / warning / info).
-
-**Phase B — Fix.** Two modes; ask the user which:
-
-- **Interactive** — for each finding, prompt `y` (apply) / `n` (skip) / `q` (quit):
-  ```pwsh
-  pwsh .github/debug/import-project.ps1 -Phase fix -ProjectPath "<path>" -Mode interactive
-  ```
-- **Automatic** — apply all recommended fixes (originals are backed up):
-  ```pwsh
-  pwsh .github/debug/import-project.ps1 -Phase fix -ProjectPath "<path>" -Mode auto
-  ```
-
-What gets fixed:
-
-| Category | Action |
-|---|---|
-| Naming | Rename files to kebab-case (shell) / snake_case (Python) |
-| Structure | Create missing `.ai/` dirs, `README.md`, `.ai/instruct.md` |
-| Security | Add credential files to `.gitignore` |
-| Documentation | Generate module-level documentation stubs |
-
-After Phase B, **continue with Step 2 below** to fill project identity, then Step 4 to confirm dev-specs against the imported project's actual stack. Skip Step 6 (modules) if the importer already enumerated modules.
-
-**Note**: Phase B's actual rename/edit logic is currently a placeholder in [`.github/debug/import-project.ps1`](../debug/import-project.ps1) — analyze-only mode is fully working; auto-fix runs are dry-run today. Verify before committing.
+**Path C: Re-Onboarding (Partially Filled)**
+- Some placeholders already filled, some not → diff and present unfilled set
+- Ask whether to do a **targeted pass** (only unfilled sections) or a **full re-walk** (all steps)
+- Never overwrite filled values without asking
 
 ---
 
