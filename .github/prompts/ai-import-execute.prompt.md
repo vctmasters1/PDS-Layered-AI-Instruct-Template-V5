@@ -95,7 +95,14 @@ Before copying or integrating anything, run mandatory operational validation:
 - **Skips symlinks** to prevent duplication loops
 - Preserves `.ai/instruct.md` and governance files
 
-**Phase 2 — Source Analysis**
+**Phase 1b — Infrastructure Compliance Analysis**
+- Invoke: `python .ai/engine/phase2_infrastructure_analyzer.py .`
+- Validates imported prompts, agents, and skills against template paradigm
+- Checks YAML frontmatter, naming conventions, descriptions
+- Flags errors (must be fixed) and warnings (should review)
+- Review report before proceeding to Phase 2
+
+**Phase 2 — Source Compliance Analysis**
 - Parse each module's `.ai/instruct.md`
 - Extract naming patterns, endpoints, error codes, config vars
 - Map to corresponding registries

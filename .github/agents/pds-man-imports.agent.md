@@ -211,27 +211,31 @@ pwsh .github/scripts/validate-instructions.ps1
 When user triggers `/ai-import-execute`:
 
 1. **Phase 0**: Run all 6 sub-phase validations
-2. **Phase 1**: `python .ai/engine/import_analyzer.py <source>`
-3. **Phase 2**:
+2. **Phase 1**: `python .ai/engine/phase1_executor.py <source> <target>` (artifact preservation + infrastructure copy)
+3. **Phase 1b**: `python .ai/engine/phase2_infrastructure_analyzer.py .` (infrastructure compliance)
+   - Review report
+   - Fix errors if any
+4. **Phase 2**: `python .ai/engine/import_analyzer.py <source>` (source compliance analysis)
+5. **Phase 3**:
    - `python .ai/engine/phase2_plan_generator.py <source> HIGH`
    - (User reviews)
    - `python .ai/engine/phase2_executor.py <plan_json> --approve`
-4. **Phase 3**:
+6. **Phase 4**:
    - `python .ai/engine/phase3_plan_generator.py <source> MEDIUM`
    - (Execute Phase 3 changes)
-5. **Phase 4-5**:
+7. **Phase 5-6**:
    - Consult `pds-man-naming` for registry conflicts
    - Merge all registries
    - Hand off reconciliations to `pds-man-naming`
    - Update `.ai/instruct.md` with module list
-6. **Phase 6**:
+8. **Phase 7**:
    - `python .ai/engine/merge_validator.py . --branch import-[source] --target main`
    - `pwsh .github/scripts/validate-instructions.ps1`
    - Generate final audit log
 
 ---
 
-## Phases 1-6 — Integration & Transformation
+## Phases 1-7 — Integration & Transformation
 
 ### Phase 1: Artifact Preservation
 
@@ -257,7 +261,6 @@ python .ai/engine/phase1_executor.py <source_path> <target_path> --dry-run
 - Merges infrastructure (skips if target already has the item)
 - Prevents duplication loops from circular symlinks
 - Preserves all `.ai/` governance files
-- Creates vault backup (`.ai/vaults/import-[source]-[timestamp]/`)
 - Generates audit log
 
 **Why symlink-aware?**
@@ -267,31 +270,35 @@ python .ai/engine/phase1_executor.py <source_path> <target_path> --dry-run
 
 **Output:** All source modules + infrastructure copied to target with audit log at `.ai/logs/phase1-execution-*.json`
 
-### Phase 2: Source Analysis
-- Parse source `.ai/` registry files
-- Extract naming patterns, error codes, API conventions
-- Generate source analysis report
+---
 
-### Phase 3: Integration Planning
-- Map source modules to target directory structure
-- Identify naming conflicts (consult `pds-man-naming`)
-- Plan registry merge strategy
+### Phase 1b: Infrastructure Compliance Analysis
 
-### Phase 4: Modernization
-- Update README.md with merged project list
-- Consolidate build/setup scripts
-- Merge package manager files (package.json, requirements.txt, etc.)
+**Tool:** [`phase2_infrastructure_analyzer.py`](../../.ai/engine/phase2_infrastructure_analyzer.py)
 
-### Phase 5: Registry Consolidation
-- **Merge registries** — Combine naming patterns, error codes, API conventions from source
-- **Resolve conflicts** — Consult `pds-man-naming` for naming registry reconciliation
-- **Update `.ai/conventions.md`** with merged conventions
-- **Update `.ai/instruct.md`** with consolidated module list and governance
+```powershell
+python .ai/engine/phase2_infrastructure_analyzer.py .
+```
 
-### Phase 6: Validation & Audit
-- Run `pds-pipe-validator` on merged codebase
-- Generate import audit log (`.ai/logs/import-[source]-[timestamp].jsonl`)
-- Confirm zero convention violations
+**What it does:**
+- Validates all imported `.github/prompts/*.prompt.md` files (YAML frontmatter, naming)
+- Validates all imported `.github/agents/*.agent.md` files (structure, tools restrictions)
+- Validates all imported `.github/skills/*/SKILL.md` files (compliance)
+- Checks YAML syntax and required fields
+- Verifies kebab-case naming conventions
+- Ensures descriptions are clear and complete
+- Flags tools list conflicts or errors
+- Generates compliance report with errors/warnings
+
+**Output:** Compliance report at `.ai/logs/phase2-infrastructure-[timestamp].json`
+
+**Exit Criteria:** Review report; all ERRORS must be resolved before proceeding
+
+---
+
+### Phase 2: Source Compliance Analysis
+
+**Tool:** [`import_analyzer.py`](../../.ai/engine/import_analyzer.py)
 
 ---
 
