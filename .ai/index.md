@@ -37,6 +37,7 @@
 | Workflow Invocation Pattern | [`.github/copilot-instructions.md`](../.github/copilot-instructions.md) | Workflows are repeatable, on-demand operations (not one-time setup); when to use them |
 | AI Prompt Files | [`.github/copilot-instructions.md`](../.github/copilot-instructions.md) | Slash-command prompt files in `.github/prompts/`; `/ai-` prefix convention |
 | `/ai-onboard` | [`.github/prompts/ai-onboard.prompt.md`](../.github/prompts/ai-onboard.prompt.md) | **Workflow:** Initialize or update project metadata. Run first to fill template placeholders, re-run to add modules or refresh identity. |
+| `/ai-import-execute` | [`.github/prompts/ai-import-execute.prompt.md`](../.github/prompts/ai-import-execute.prompt.md) | **Workflow:** Import/merge external projects with complete Phase 0-6 orchestration. Mandatory for any import, clone, or merge operation. Prevents ad-hoc file copying. |
 | `/ai-update-index` | [`.github/prompts/ai-update-index.prompt.md`](../.github/prompts/ai-update-index.prompt.md) | **Workflow:** Rebuilds `.ai/index.md` from every instruction file after edits. |
 | `/ai-archive` | [`.github/prompts/ai-archive.prompt.md`](../.github/prompts/ai-archive.prompt.md) | **Workflow:** Safely archive a file or directory following the convention. |
 | `/ai-new-module` | [`.github/prompts/ai-new-module.prompt.md`](../.github/prompts/ai-new-module.prompt.md) | **Workflow:** Scaffold a new module and register it. |
