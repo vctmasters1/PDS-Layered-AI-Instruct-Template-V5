@@ -34,16 +34,18 @@
 | The Depth-Priority Hierarchical Paradigm | [`.github/copilot-instructions.md`](../.github/copilot-instructions.md) | How the `.ai/` hierarchy works; deeper = more authoritative |
 | Global Shared Instructions | [`.github/copilot-instructions.md`](../.github/copilot-instructions.md) | Purpose of the `.ai/` directory |
 | Governed Workflows — Import/Merge | [`.github/copilot-instructions.md`](../.github/copilot-instructions.md) | **MANDATORY** pattern guard for project imports; prevents ad-hoc cloning/copying |
+| Workflow Invocation Pattern | [`.github/copilot-instructions.md`](../.github/copilot-instructions.md) | Workflows are repeatable, on-demand operations (not one-time setup); when to use them |
 | AI Prompt Files | [`.github/copilot-instructions.md`](../.github/copilot-instructions.md) | Slash-command prompt files in `.github/prompts/`; `/ai-` prefix convention |
-| `/ai-onboard` | [`.github/prompts/ai-onboard.prompt.md`](../.github/prompts/ai-onboard.prompt.md) | Interactive wizard that asks, infers, and confirms edits to template fields (identity, license, dev-specs, modules) and rebuilds the index |
-| `/ai-update-index` | [`.github/prompts/ai-update-index.prompt.md`](../.github/prompts/ai-update-index.prompt.md) | Rebuilds `.ai/index.md` from every instruction file |
-| `/ai-archive` | [`.github/prompts/ai-archive.prompt.md`](../.github/prompts/ai-archive.prompt.md) | Safely archive a file or directory using the convention |
-| `/ai-new-module` | [`.github/prompts/ai-new-module.prompt.md`](../.github/prompts/ai-new-module.prompt.md) | Scaffold a new module: `.ai/instruct.md` + `.dev-docs/index.md`, register it, rebuild index |
-| `/ai-validate` | [`.github/prompts/ai-validate.prompt.md`](../.github/prompts/ai-validate.prompt.md) | Run the AI-INSTRUCT drift validator and report findings (no edits) |
-| `/ai-env-check` | [`.github/prompts/ai-env-check.prompt.md`](../.github/prompts/ai-env-check.prompt.md) | Audit host-vs-container isolation state and recommend containment (no edits) |
-| `/ai-git` | [`.github/prompts/ai-git.prompt.md`](../.github/prompts/ai-git.prompt.md) | Git workflow (subcommands: `branch | commit | pr | status`). Scope locking, conventional commits, governance-gated PRs. |
-| `/ai-foresight` | [`.github/prompts/ai-foresight.prompt.md`](../.github/prompts/ai-foresight.prompt.md) | Run foresight gap/risk analysis on current task before acting |
-| `/ai-reflect` | [`.github/prompts/ai-reflect.prompt.md`](../.github/prompts/ai-reflect.prompt.md) | Post-task reflection; identify instruction gaps and propose `.ai/` improvements |
+| `/ai-onboard` | [`.github/prompts/ai-onboard.prompt.md`](../.github/prompts/ai-onboard.prompt.md) | **Workflow:** Initialize or update project metadata. Run first to fill template placeholders, re-run to add modules or refresh identity. |
+| `/ai-update-index` | [`.github/prompts/ai-update-index.prompt.md`](../.github/prompts/ai-update-index.prompt.md) | **Workflow:** Rebuilds `.ai/index.md` from every instruction file after edits. |
+| `/ai-archive` | [`.github/prompts/ai-archive.prompt.md`](../.github/prompts/ai-archive.prompt.md) | **Workflow:** Safely archive a file or directory following the convention. |
+| `/ai-new-module` | [`.github/prompts/ai-new-module.prompt.md`](../.github/prompts/ai-new-module.prompt.md) | **Workflow:** Scaffold a new module and register it. |
+| `/ai-validate` | [`.github/prompts/ai-validate.prompt.md`](../.github/prompts/ai-validate.prompt.md) | **Utility:** Run the AI-INSTRUCT drift validator and report findings (no edits) |
+| `/ai-env-check` | [`.github/prompts/ai-env-check.prompt.md`](../.github/prompts/ai-env-check.prompt.md) | **Utility:** Audit host-vs-container isolation state and recommend containment (no edits) |
+| `/ai-git` | [`.github/prompts/ai-git.prompt.md`](../.github/prompts/ai-git.prompt.md) | **Utility:** Query git state (subcommands: `branch | commit | pr | status`). Read-only unless user explicitly asks for commits. |
+| `/ai-foresight` | [`.github/prompts/ai-foresight.prompt.md`](../.github/prompts/ai-foresight.prompt.md) | **Utility:** Run foresight gap/risk analysis on current task before acting (read-only) |
+| `/ai-reflect` | [`.github/prompts/ai-reflect.prompt.md`](../.github/prompts/ai-reflect.prompt.md) | **Utility:** Post-task reflection; identify instruction gaps and propose improvements (read-only) |
+| `/ai-observe` | [`.github/prompts/ai-observe.prompt.md`](../.github/prompts/ai-observe.prompt.md) | **Utility:** Display runtime observability: metrics, logs, cheat sheets (read-only) |
 | `/ai-route` | [`.github/prompts/ai-route.prompt.md`](../.github/prompts/ai-route.prompt.md) | Route a task through the generic agent triad: Router → Supervisor → workers |
 | `/ai-audit-registries` | [`.github/prompts/ai-audit-registries.prompt.md`](../.github/prompts/ai-audit-registries.prompt.md) | Reconcile the five naming registries with the codebase via naming Mode 4, then hand off to curator/cleanup |
 | `/ai-plugin-discover` | [`.github/prompts/ai-plugin-discover.prompt.md`](../.github/prompts/ai-plugin-discover.prompt.md) | Enumerate plugins under `.ai/plugins/`, summarise manifests, optionally run discovery scripts (read-only) |

@@ -16,6 +16,7 @@
 | [Global Shared Instructions (`.ai/`)](#global-shared-instructions-ai) | Cross-cutting canonical files |
 | [Agentic Runtime (`.ai/`)](#agentic-runtime-ai) | Governed tools, foresight, self-improvement, heartbeat |
 | [AI Prompt Files (`.github/prompts/`)](#ai-prompt-files-githubprompts) | Slash commands |
+| [Workflow Invocation Pattern](#workflow-invocation-pattern) | Workflows are repeatable; workflows vs. utilities; do not treat them as one-time setup |
 | [Governed Workflows — Import/Merge Pattern Guard](#governed-workflows--importmerge-pattern-guard) | **CRITICAL:** Imports are orchestrated workflows, not ad-hoc copy operations |
 | [Custom Agents (`.github/agents/`)](#custom-agents-githubagents) | Specialized personas |
 | [Skills (`.github/skills/`)](#skills-githubskills) | Domain knowledge packs |
@@ -148,6 +149,46 @@ AI-invocable slash commands live as `.prompt.md` files in `.github/prompts/`.
 Type the slash command in Copilot Chat to invoke. All project-specific commands use the `/ai-` prefix to distinguish them from built-in Copilot commands.
 
 **Create when**: a multi-step workflow is executed more than twice in a session, or a workflow is complex enough that the AI needs explicit sequencing to do it correctly.
+
+---
+
+## Workflow Invocation Pattern
+
+**Workflows** are repeatable, idempotent operations that can be invoked at any time — not one-time setup tasks.
+
+### Workflows (Repeatable)
+
+Invoke these whenever the operation is needed, not just during initial setup:
+
+| Workflow | Purpose | Repeatable? |
+|----------|---------|------------|
+| `/ai-onboard` | Initialize or update project metadata (identity, dev-specs, module list) | Yes — re-run to refresh identity or add modules |
+| `/ai-import-execute` | Import/merge external projects with full Phase 0-6 orchestration | Yes — use each time you merge a new project |
+| `/ai-new-module` | Scaffold a new module (instruct.md, dev-docs, registration) | Yes — invoke per module |
+| `/ai-update-index` | Rebuild `.ai/index.md` from current state | Yes — run after editing any `.ai/instruct.md` |
+| `/ai-archive` | Archive (never delete) a file or directory | Yes — use per archival task |
+
+### Utilities (Informational, No State Change)
+
+Run these to inspect or analyze; they do not modify the project:
+
+| Utility | Purpose |
+|---------|---------|
+| `/ai-validate` | Audit instruction drift; report findings |
+| `/ai-env-check` | Audit host-vs-container isolation |
+| `/ai-foresight` | Analyze gaps/risks before acting |
+| `/ai-reflect` | Post-task reflection; propose improvements |
+| `/ai-observe` | Display runtime observability and metrics |
+| `/ai-git` | Query version control state (no auto-commits) |
+
+### Key Principle
+
+**Do not treat workflows as one-time setup.** They are on-demand operations:
+
+- **First time:** `/ai-onboard` fills template placeholders → project becomes usable
+- **Later:** `/ai-onboard` again to update project name, add/remove modules, refresh dev-specs
+- **Each import:** `/ai-import-execute` with a new source project → orchestrated Phase 0-6 pipeline
+- **Each module:** `/ai-new-module` to scaffold a new capability
 
 ---
 
