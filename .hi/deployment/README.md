@@ -68,7 +68,7 @@ These are **starting points**. Edit, replace, or add modes during onboarding (`/
 
 ## Maintenance
 
-The [`deployment-manager`](../.hi/agents/hia-man-deployment.agent.md) agent owns this surface:
+The [`deployment-manager`](../../.hi/agents/hia-man-deployment.agent.md) agent owns this surface:
 
 - Watches recent code changes for impact on any active mode (new env var, new service, new port, new domain).
 - Diffs each `.hi/deployment/<mode>/.hi/instruct.md` against reality.
