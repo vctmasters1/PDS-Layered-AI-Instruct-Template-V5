@@ -189,6 +189,6 @@ Do not proceed to next stage on any failure unless user explicitly approves.
 
 ## See Also
 
-- [Governed Workflows — Import/Merge Pattern Guard](.github/copilot-instructions.md#governed-workflows--importmerge-pattern-guard) in copilot-instructions.md
-- [Workflow Invocation Pattern](.github/copilot-instructions.md#workflow-invocation-pattern) — workflows are repeatable, not one-time setup
-- [.ai/instruct.md](.ai/instruct.md#governed-workflows--importmerge) — project-level import mandate
+- [Governed Workflows — Import/Merge Pattern Guard](../copilot-instructions.md#governed-workflows--importmerge-pattern-guard) in copilot-instructions.md
+- [Workflow Invocation Pattern](../copilot-instructions.md#workflow-invocation-pattern) — workflows are repeatable, not one-time setup
+- [.ai/instruct.md](../../.ai/instruct.md#governed-workflows--importmerge) — project-level import mandate
