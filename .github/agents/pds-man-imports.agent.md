@@ -234,9 +234,35 @@ When user triggers `/ai-import-execute`:
 ## Phases 1-6 — Integration & Transformation
 
 ### Phase 1: Artifact Preservation
-- Copy source modules to target project with path-mirroring
-- Preserve all `.ai/instruct.md` and governance files
-- Create vault backups (`.ai/vaults/import-[source]-[timestamp]/`)
+
+**Tool:** [`phase1_executor.py`](../../.ai/engine/phase1_executor.py)
+
+```powershell
+# Windows
+python .ai/engine/phase1_executor.py <source_path> <target_path>
+
+# macOS/Linux
+python .ai/engine/phase1_executor.py <source_path> <target_path>
+
+# Dry-run (preview without copying)
+python .ai/engine/phase1_executor.py <source_path> <target_path> --dry-run
+```
+
+**What it does:**
+- Discovers all modules in source project (looks for `.ai/instruct.md`)
+- **Uses robocopy (Windows)** with `/XJ` flag to skip symlinks
+- **Uses rsync (POSIX)** with `--no-links` to skip symlinks
+- Prevents duplication loops from circular symlinks
+- Preserves all `.ai/` governance files
+- Creates vault backup (`.ai/vaults/import-[source]-[timestamp]/`)
+- Generates audit log
+
+**Why symlink-aware?**
+- PowerShell's `Copy-Item -Recurse` follows symlinks → causes duplication loops
+- robocopy's `/XJ` flag excludes junction points (symlinks) → clean copy
+- rsync's `--no-links` skips symlinks → clean copy on POSIX systems
+
+**Output:** All source modules copied to target with audit log at `.ai/logs/phase1-execution-*.json`
 
 ### Phase 2: Source Analysis
 - Parse source `.ai/` registry files

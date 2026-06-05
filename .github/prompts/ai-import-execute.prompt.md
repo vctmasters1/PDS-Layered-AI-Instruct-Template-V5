@@ -88,9 +88,10 @@ Before copying or integrating anything, run mandatory operational validation:
 **Manager will execute:**
 
 **Phase 1 — Artifact Preservation**
-- Copy source modules into target workspace
-- Preserve `.ai/` directory structures
-- Archive any existing `.ai/.old/` backups
+- Invoke: `python .ai/engine/phase1_executor.py <source_path> <target_path>`
+- Copies all modules using robocopy (Windows) or rsync (POSIX)
+- **Skips symlinks** to prevent duplication loops
+- Preserves `.ai/instruct.md` and governance files
 
 **Phase 2 — Source Analysis**
 - Parse each module's `.ai/instruct.md`
@@ -164,6 +165,7 @@ git push origin main
 ## Safety Guardrails
 
 - **Never ad-hoc copy:** Always use this workflow, never run `git clone` → `Move-Item` manually
+- **Never use `Copy-Item -Recurse`:** PowerShell's `Copy-Item` follows symlinks by default, causing duplication loops. Use **robocopy** instead (Phase 1 enforces this)
 - **Always preserve audit:** Every decision logged to `.ai/logs/import-*.jsonl`
 - **Always validate:** Validator must pass before commit
 - **Credentials first:** Phase 0c warns on `.env` files; user must review
