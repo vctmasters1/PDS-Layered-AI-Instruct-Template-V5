@@ -285,7 +285,7 @@ Planned timing: add media after real-world adoption examples are available and s
 git clone https://github.com/vctmasters1/PDS-Layered-AI-Instruct-Template-V5.git your-project
 cd your-project
 
-# 2. One-shot setup (installs hooks, scaffolds .env, runs validator)
+# 2. One-shot setup (flattens wrapper dir if needed, installs hooks, scaffolds .env, runs validator)
 bash setup.sh             # macOS / Linux / WSL / Git Bash
 pwsh setup.ps1            # Windows PowerShell
 
@@ -296,6 +296,8 @@ pwsh setup.ps1            # Windows PowerShell
 
 # 4. Add your project's start commands here once /ai-onboard is done.
 ```
+
+**Note**: When you clone this template, Git creates a wrapper directory (e.g., `PDS-Layered-AI-Instruct-Template-V5/`). The setup script automatically detects and flattens this on first run, so you end up with a clean project root with no unnecessary nesting.
 
 ---
 
