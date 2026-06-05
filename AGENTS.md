@@ -25,6 +25,28 @@ Start here, in this order:
 | Host vs. container isolation (never silently mutate host) | [.ai/environment.md](.ai/environment.md) |
 | Full topic map | [.ai/index.md](.ai/index.md) |
 
+## **CRITICAL: Import/Merge Workflows are Governed**
+
+⚠️ **If the user mentions any of these, you MUST use `/ai-import-execute` — DO NOT run ad-hoc `git clone`, `Move-Item`, `cp`, or manual directory copies:**
+
+- "clone" + project/repo reference
+- "import" + external project name
+- "merge" + another project
+- "adopt" + external codebase  
+- "migrate" + project / code
+- "consolidate" + multiple projects
+- "integrate" + external repo
+
+**Why?** Ad-hoc imports cause:
+- **Registry corruption** — naming violations, module conflicts
+- **Credential leakage** — `.env` files committed unintentionally
+- **Authority drift** — module `.ai/instruct.md` rules ignored
+- **Audit trail loss** — no record of what was merged or why
+
+**Correct flow:** Recognize pattern → `invoke /ai-import-execute` → orchestration layer handles Phase 0 (validation) + Phases 1-6 (integration).
+
+See [Governed Workflows section](.github/copilot-instructions.md#governed-workflows--importmerge-pattern-guard) in copilot-instructions.md for full details.
+
 ## Tool compatibility
 
 This repo's instruction system is designed primarily for **GitHub Copilot** (which reads `.github/copilot-instructions.md` automatically). It is also usable with:

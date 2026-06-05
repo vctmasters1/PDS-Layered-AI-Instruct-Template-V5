@@ -18,6 +18,7 @@
 | [Architecture Overview](#architecture-overview) | High-level structure and tech stack |
 | [Key Directories](#key-directories) | Directory map with links to module .ai/ instructions |
 | [Global Rules Reference](#global-rules-reference) | Links to canonical cross-cutting rules |
+| [Governed Workflows — Import/Merge](#governed-workflows--importmerge) | **MANDATORY**: Import patterns and guardrails |
 | [Coding Conventions & Validation](#coding-conventions--validation) | Element prefixes for test discovery |
 | [API Endpoint Conventions](#api-endpoint-conventions) | Semantic endpoint naming for discovery |
 | [Hybrid LLM Routing Strategy](#hybrid-llm-routing-strategy) | Local vs. frontier model tier selection for file generation |
@@ -110,6 +111,20 @@ These rules are canonical and live in `.ai/`. **Do not restate them here — onl
 | Master index of all instruction sections | [`.ai/index.md`](index.md) |
 | Element naming prefixes for test discovery (GUI + code) | [`.ai/coding-prefixes.md`](coding-prefixes.md) |
 | API endpoint naming conventions | [`.ai/api-conventions.md`](api-conventions.md) |
+
+---
+
+## Governed Workflows — Import/Merge
+
+**MANDATORY**: All project imports, clones, and merges are governed workflows. See [`copilot-instructions.md#governed-workflows--importmerge-pattern-guard`](../.github/copilot-instructions.md#governed-workflows--importmerge-pattern-guard) for the complete pattern-match guard.
+
+**Recognition keywords** (any mention triggers the guard):
+- "clone" + repo
+- "import" + project
+- "merge" / "consolidate" / "integrate" + projects
+- "adopt" / "migrate" + codebase
+
+**Do not** run ad-hoc `git clone`, `Move-Item`, or `cp` commands without `/ai-import-execute` orchestration.
 
 ---
 

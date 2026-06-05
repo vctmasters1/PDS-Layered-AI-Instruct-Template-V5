@@ -16,6 +16,7 @@
 | [Global Shared Instructions (`.ai/`)](#global-shared-instructions-ai) | Cross-cutting canonical files |
 | [Agentic Runtime (`.ai/`)](#agentic-runtime-ai) | Governed tools, foresight, self-improvement, heartbeat |
 | [AI Prompt Files (`.github/prompts/`)](#ai-prompt-files-githubprompts) | Slash commands |
+| [Governed Workflows — Import/Merge Pattern Guard](#governed-workflows--importmerge-pattern-guard) | **CRITICAL:** Imports are orchestrated workflows, not ad-hoc copy operations |
 | [Custom Agents (`.github/agents/`)](#custom-agents-githubagents) | Specialized personas |
 | [Skills (`.github/skills/`)](#skills-githubskills) | Domain knowledge packs |
 | [Git Hooks (`.github/hooks/`)](#git-hooks-githubhooks) | Commit-time safety checks |
@@ -147,6 +148,66 @@ AI-invocable slash commands live as `.prompt.md` files in `.github/prompts/`.
 Type the slash command in Copilot Chat to invoke. All project-specific commands use the `/ai-` prefix to distinguish them from built-in Copilot commands.
 
 **Create when**: a multi-step workflow is executed more than twice in a session, or a workflow is complex enough that the AI needs explicit sequencing to do it correctly.
+
+---
+
+## Governed Workflows — Import/Merge Pattern Guard
+
+**CRITICAL SAFETY RULE:** Importing, cloning, or merging external projects is a **governed workflow**, not a vanilla file-copy operation. This section explains why and enforces the guardrail.
+
+### Pattern Recognition
+
+If the user **mentions any of these**, you **MUST** recognize it as an import workflow trigger:
+
+- "clone" + project/repo reference
+- "import" + external project name or path
+- "merge" + another project / workspace
+- "adopt" + external codebase
+- "migrate" + project / code
+- "consolidate" + multiple projects
+- "integrate" + external repo
+
+### The Non-Negotiable Rule
+
+**DO NOT:**
+- Run ad-hoc `git clone` or `Move-Item` / `cp -r` commands
+- Manually copy directories from one project to another without orchestration
+- Decide module structure, naming, or registration on the fly
+- Bypass Phase 0 validation (LLM dispatch, environment, credentials, naming conventions)
+
+**DO:**
+1. **Stop** and acknowledge the import request
+2. **Read** `.ai/instruct.md` to understand the authoritative import strategy for this project
+3. **Invoke `/ai-import-execute`** (or the project's equivalent import orchestration prompt)
+4. **Let the agent orchestration layer** (pds-meta-migrator → pds-pipe-importer) handle:
+   - Phase 0: Operational validation (LLM dispatch, env, credentials, naming)
+   - Phase 1-6: Artifact preservation, analysis, integration, modernization, and registry updates
+5. **Wait for completion** before suggesting next steps
+
+### Why This Matters
+
+- **Naming conflicts** — Projects have different conventions; ad-hoc copies violate the registry
+- **Module authority drift** — Each module's `.ai/instruct.md` is authoritative; manual moves break the hierarchy
+- **Credential leakage** — Phase 0 validation catches `.env` files; ad-hoc copies miss them
+- **Registry corruption** — Module lists, naming conventions, error codes, API endpoints all need updates; manual copies bypass the updater
+- **Audit trail loss** — Proper import logs every decision; ad-hoc commands leave no trace
+
+### Example (What NOT to Do)
+
+```
+User: "Clone https://github.com/user/project.git and move it into src/"
+
+❌ WRONG:
+  git clone https://github.com/user/project.git
+  Move-Item project/* -Destination src/
+  (no validation, no registry updates, no module supervision)
+
+✅ RIGHT:
+  Recognize: This is an import workflow
+  → Invoke /ai-import-execute with the source URL
+  → Let orchestration handle Phase 0 + Phases 1-6
+  → Confirm completion before offering next steps
+```
 
 ---
 

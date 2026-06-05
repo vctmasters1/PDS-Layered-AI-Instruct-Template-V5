@@ -33,6 +33,7 @@
 |---------|------|-------------|
 | The Depth-Priority Hierarchical Paradigm | [`.github/copilot-instructions.md`](../.github/copilot-instructions.md) | How the `.ai/` hierarchy works; deeper = more authoritative |
 | Global Shared Instructions | [`.github/copilot-instructions.md`](../.github/copilot-instructions.md) | Purpose of the `.ai/` directory |
+| Governed Workflows — Import/Merge | [`.github/copilot-instructions.md`](../.github/copilot-instructions.md) | **MANDATORY** pattern guard for project imports; prevents ad-hoc cloning/copying |
 | AI Prompt Files | [`.github/copilot-instructions.md`](../.github/copilot-instructions.md) | Slash-command prompt files in `.github/prompts/`; `/ai-` prefix convention |
 | `/ai-onboard` | [`.github/prompts/ai-onboard.prompt.md`](../.github/prompts/ai-onboard.prompt.md) | Interactive wizard that asks, infers, and confirms edits to template fields (identity, license, dev-specs, modules) and rebuilds the index |
 | `/ai-update-index` | [`.github/prompts/ai-update-index.prompt.md`](../.github/prompts/ai-update-index.prompt.md) | Rebuilds `.ai/index.md` from every instruction file |
