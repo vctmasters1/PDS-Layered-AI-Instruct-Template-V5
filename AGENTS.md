@@ -32,7 +32,7 @@ Start here, in this order:
 - "clone" + project/repo reference
 - "import" + external project name
 - "merge" + another project
-- "adopt" + external codebase  
+- "adopt" + external codebase
 - "migrate" + project / code
 - "consolidate" + multiple projects
 - "integrate" + external repo

@@ -293,7 +293,7 @@ After orchestration completes, you own ongoing **architectural adaptation**:
    ✓ [N] modules integrated from [SOURCE]
    ✓ Registries merged
    ✓ Audit log: [path]
-   
+
    Ready to commit? (yes/no)
    ```
 
@@ -301,7 +301,7 @@ After orchestration completes, you own ongoing **architectural adaptation**:
    ```powershell
    git add -A
    git commit -m "feat: Import [SOURCE_PROJECT] via Phase 0-6 orchestration
-   
+
    - Imported [N] modules from [SOURCE]
    - Merged registries: coding-prefixes, api-conventions, database-schema, error-codes, config-vars
    - Updated .ai/conventions.md with module authority
@@ -314,7 +314,7 @@ After orchestration completes, you own ongoing **architectural adaptation**:
    - Phase 6: ✓ Validation via merge_validator.py
    - Validator: PASS
    - Audit: [log-path]"
-   
+
    git push origin main
    ```
 
