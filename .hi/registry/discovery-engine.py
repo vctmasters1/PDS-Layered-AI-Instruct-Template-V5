@@ -337,23 +337,23 @@ def main():
         json.dump(result_dict, f, indent=2)
     
     summary = result_dict["summary"]
-    print(f"✓ Registry written to {output_path}")
-    print(f"  Role: {result.role}")
-    print(f"  Artifacts: {summary['total_artifacts']}")
+    print("[OK] Registry written to {}".format(output_path))
+    print("  Role: {}".format(result.role))
+    print("  Artifacts: {}".format(summary['total_artifacts']))
     print(f"    - Prompts: {summary['prompts']}")
     print(f"    - Agents: {summary['agents']}")
     print(f"    - Skills: {summary['skills']}")
     print(f"    - Workflows: {summary['workflows']}")
     
     if result.errors:
-        print(f"\n⚠ {len(result.errors)} errors:")
+        print("\n[WARN] {} errors:".format(len(result.errors)))
         for error in result.errors:
-            print(f"  - {error}")
+            print("  - {}".format(error))
     
     if result.warnings:
-        print(f"\n⚠ {len(result.warnings)} warnings:")
+        print("\n[WARN] {} warnings:".format(len(result.warnings)))
         for warning in result.warnings:
-            print(f"  - {warning}")
+            print("  - {}".format(warning))
     
     # Exit with error code if there were errors
     sys.exit(1 if result.errors else 0)
