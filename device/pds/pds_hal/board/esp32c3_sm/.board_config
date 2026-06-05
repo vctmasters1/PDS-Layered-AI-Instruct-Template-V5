@@ -1,7 +1,0 @@
-# Platform configuration for esp32c3_sm
-# This file specifies the ESP-IDF target for this hardware variant
-IDF_TARGET=esp32c3
-PLATFORM_NAME=esp32c3_sm
-PLATFORM_DESC=ESP32-C3 Super Mini (RISC-V single core)
-# Super Mini bare PCB has no RC auto-reset circuit (RTS/DTR do not enter download mode)
-AUTO_RESET=no

@@ -1,5 +1,0 @@
-# Governance Directory
-
-Empty by default. Add `.md` rule files here following the format in [README.md](README.md).
-
-This `.gitkeep` file ensures the directory is tracked in git even when no rules are registered.

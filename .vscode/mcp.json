@@ -16,27 +16,27 @@
   "servers": {
 
     // ── PDS AI-INSTRUCT (this template's own MCP server) ─────────────────────
-    // Exposes governed tools (`.ai/agents/tools/*.json`) and the depth-priority
-    // instruction resolver to Copilot. See `.ai/mcp/README.md`.
+    // Exposes governed tools (`.hi/agents/tools/*.json`) and the depth-priority
+    // instruction resolver to Copilot. See `.hi/mcp/README.md`.
     //
-    // Install once per clone:   cd .ai/mcp/python && pip install -e .
-    // Or use the Node twin:     cd .ai/mcp/node   && npm install
-    "pds-ai-instruct": {
-      "type": "stdio",
-      "command": "python",
-      "args": ["-m", "pds_mcp"],
-      "env": {
-        "PDS_WORKSPACE": "${workspaceFolder}"
-      }
-    },
+    // Install once per clone:   cd .hi/mcp/python && pip install -e .
+    // Or use the Node twin:     cd .hi/mcp/node   && npm install
+    //
+    // Disabled by default — uncomment when adopting this template for a project.
+    // "pds-ai-instruct": {
+    //   "type": "stdio",
+    //   "command": "python",
+    //   "args": ["-m", "pds_mcp"],
+    //   "env": { "PDS_WORKSPACE": "${workspaceFolder}" }
+    // }
 
-    // To use the Node twin instead, comment out the block above and uncomment:
+    // To use the Node twin instead, uncomment:
     // "pds-ai-instruct": {
     //   "type": "stdio",
     //   "command": "node",
-    //   "args": [".ai/mcp/node/server.mjs"],
+    //   "args": [".hi/mcp/node/server.mjs"],
     //   "env": { "PDS_WORKSPACE": "${workspaceFolder}" }
-    // },
+    // }
 
     // ── Filesystem (read/write access to workspace) ──────────────────────────
     // Allows AI to read and write files within the specified paths.

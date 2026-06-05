@@ -1,0 +1,426 @@
+{
+  "role": "top_dog",
+  "scope_root": "K:\\PDS-Layered-AI-Instruct-Template-V5",
+  "scan_time": "2026-06-05T06:58:51.427306",
+  "artifacts": [
+    {
+      "name": "curator",
+      "path": ".hi\\agents\\agents\\tier-1\\hia-curator.agent.md",
+      "type": "agent",
+      "module_prefix": null,
+      "tier": "tier-1",
+      "full_qualified_name": "age-curator"
+    },
+    {
+      "name": "imports",
+      "path": ".hi\\agents\\agents\\tier-1\\hia-imports.agent.md",
+      "type": "agent",
+      "module_prefix": null,
+      "tier": "tier-1",
+      "full_qualified_name": "age-imports"
+    },
+    {
+      "name": "infrastructure",
+      "path": ".hi\\agents\\agents\\tier-1\\hia-infrastructure.agent.md",
+      "type": "agent",
+      "module_prefix": null,
+      "tier": "tier-1",
+      "full_qualified_name": "age-infrastructure"
+    },
+    {
+      "name": "router",
+      "path": ".hi\\agents\\agents\\tier-1\\hia-router.agent.md",
+      "type": "agent",
+      "module_prefix": null,
+      "tier": "tier-1",
+      "full_qualified_name": "age-router"
+    },
+    {
+      "name": "super",
+      "path": ".hi\\agents\\agents\\tier-1\\hia-super.agent.md",
+      "type": "agent",
+      "module_prefix": null,
+      "tier": "tier-1",
+      "full_qualified_name": "age-super"
+    },
+    {
+      "name": "compliance",
+      "path": ".hi\\agents\\agents\\tier-2\\observers\\hia-compliance.agent.md",
+      "type": "agent",
+      "module_prefix": null,
+      "tier": "tier-2-observers",
+      "full_qualified_name": "age-compliance"
+    },
+    {
+      "name": "explorer",
+      "path": ".hi\\agents\\agents\\tier-2\\observers\\hia-explorer.agent.md",
+      "type": "agent",
+      "module_prefix": null,
+      "tier": "tier-2-observers",
+      "full_qualified_name": "age-explorer"
+    },
+    {
+      "name": "learner",
+      "path": ".hi\\agents\\agents\\tier-2\\observers\\hia-learner.agent.md",
+      "type": "agent",
+      "module_prefix": null,
+      "tier": "tier-2-observers",
+      "full_qualified_name": "age-learner"
+    },
+    {
+      "name": "observer",
+      "path": ".hi\\agents\\agents\\tier-2\\observers\\hia-observer.agent.md",
+      "type": "agent",
+      "module_prefix": null,
+      "tier": "tier-2-observers",
+      "full_qualified_name": "age-observer"
+    },
+    {
+      "name": "cleanup",
+      "path": ".hi\\agents\\agents\\tier-2\\specialists\\hia-cleanup.agent.md",
+      "type": "agent",
+      "module_prefix": null,
+      "tier": "tier-2-specialists",
+      "full_qualified_name": "age-cleanup"
+    },
+    {
+      "name": "deployment",
+      "path": ".hi\\agents\\agents\\tier-2\\specialists\\hia-deployment.agent.md",
+      "type": "agent",
+      "module_prefix": null,
+      "tier": "tier-2-specialists",
+      "full_qualified_name": "age-deployment"
+    },
+    {
+      "name": "environment",
+      "path": ".hi\\agents\\agents\\tier-2\\specialists\\hia-environment.agent.md",
+      "type": "agent",
+      "module_prefix": null,
+      "tier": "tier-2-specialists",
+      "full_qualified_name": "age-environment"
+    },
+    {
+      "name": "naming",
+      "path": ".hi\\agents\\agents\\tier-2\\specialists\\hia-naming.agent.md",
+      "type": "agent",
+      "module_prefix": null,
+      "tier": "tier-2-specialists",
+      "full_qualified_name": "age-naming"
+    },
+    {
+      "name": "ports",
+      "path": ".hi\\agents\\agents\\tier-2\\specialists\\hia-ports.agent.md",
+      "type": "agent",
+      "module_prefix": null,
+      "tier": "tier-2-specialists",
+      "full_qualified_name": "age-ports"
+    },
+    {
+      "name": "prompt",
+      "path": ".hi\\agents\\agents\\tier-2\\specialists\\hia-prompt.agent.md",
+      "type": "agent",
+      "module_prefix": null,
+      "tier": "tier-2-specialists",
+      "full_qualified_name": "age-prompt"
+    },
+    {
+      "name": "todo",
+      "path": ".hi\\agents\\agents\\tier-2\\specialists\\hia-todo.agent.md",
+      "type": "agent",
+      "module_prefix": null,
+      "tier": "tier-2-specialists",
+      "full_qualified_name": "age-todo"
+    },
+    {
+      "name": "versioncontrol",
+      "path": ".hi\\agents\\agents\\tier-2\\specialists\\hia-versioncontrol.agent.md",
+      "type": "agent",
+      "module_prefix": null,
+      "tier": "tier-2-specialists",
+      "full_qualified_name": "age-versioncontrol"
+    },
+    {
+      "name": "workflow",
+      "path": ".hi\\agents\\agents\\tier-2\\specialists\\hia-workflow.agent.md",
+      "type": "agent",
+      "module_prefix": null,
+      "tier": "tier-2-specialists",
+      "full_qualified_name": "age-workflow"
+    },
+    {
+      "name": "generator",
+      "path": ".hi\\agents\\agents\\tier-2\\workers\\hia-generator.agent.md",
+      "type": "agent",
+      "module_prefix": null,
+      "tier": "tier-2-workers",
+      "full_qualified_name": "age-generator"
+    },
+    {
+      "name": "reviewer",
+      "path": ".hi\\agents\\agents\\tier-2\\workers\\hia-reviewer.agent.md",
+      "type": "agent",
+      "module_prefix": null,
+      "tier": "tier-2-workers",
+      "full_qualified_name": "age-reviewer"
+    },
+    {
+      "name": "scaffolder",
+      "path": ".hi\\agents\\agents\\tier-2\\workers\\hia-scaffolder.agent.md",
+      "type": "agent",
+      "module_prefix": null,
+      "tier": "tier-2-workers",
+      "full_qualified_name": "age-scaffolder"
+    },
+    {
+      "name": "tester",
+      "path": ".hi\\agents\\agents\\tier-2\\workers\\hia-tester.agent.md",
+      "type": "agent",
+      "module_prefix": null,
+      "tier": "tier-2-workers",
+      "full_qualified_name": "age-tester"
+    },
+    {
+      "name": "validator",
+      "path": ".hi\\agents\\agents\\tier-2\\workers\\hia-validator.agent.md",
+      "type": "agent",
+      "module_prefix": null,
+      "tier": "tier-2-workers",
+      "full_qualified_name": "age-validator"
+    },
+    {
+      "name": "adapt-infrastructure",
+      "path": ".hi\\prompts\\hip-adapt-infrastructure.prompt.md",
+      "type": "prompt",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "pro-adapt-infrastructure"
+    },
+    {
+      "name": "add-custom-rule",
+      "path": ".hi\\prompts\\hip-add-custom-rule.prompt.md",
+      "type": "prompt",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "pro-add-custom-rule"
+    },
+    {
+      "name": "archive",
+      "path": ".hi\\prompts\\hip-archive.prompt.md",
+      "type": "prompt",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "pro-archive"
+    },
+    {
+      "name": "audit-registries",
+      "path": ".hi\\prompts\\hip-audit-registries.prompt.md",
+      "type": "prompt",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "pro-audit-registries"
+    },
+    {
+      "name": "autonomous-start",
+      "path": ".hi\\prompts\\hip-autonomous-start.prompt.md",
+      "type": "prompt",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "pro-autonomous-start"
+    },
+    {
+      "name": "check-yourself",
+      "path": ".hi\\prompts\\hip-check-yourself.prompt.md",
+      "type": "prompt",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "pro-check-yourself"
+    },
+    {
+      "name": "deploy-mode",
+      "path": ".hi\\prompts\\hip-deploy-mode.prompt.md",
+      "type": "prompt",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "pro-deploy-mode"
+    },
+    {
+      "name": "dispatch-test",
+      "path": ".hi\\prompts\\hip-dispatch-test.prompt.md",
+      "type": "prompt",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "pro-dispatch-test"
+    },
+    {
+      "name": "doctor",
+      "path": ".hi\\prompts\\hip-doctor.prompt.md",
+      "type": "prompt",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "pro-doctor"
+    },
+    {
+      "name": "env-check",
+      "path": ".hi\\prompts\\hip-env-check.prompt.md",
+      "type": "prompt",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "pro-env-check"
+    },
+    {
+      "name": "foresight",
+      "path": ".hi\\prompts\\hip-foresight.prompt.md",
+      "type": "prompt",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "pro-foresight"
+    },
+    {
+      "name": "git",
+      "path": ".hi\\prompts\\hip-git.prompt.md",
+      "type": "prompt",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "pro-git"
+    },
+    {
+      "name": "hide-example-code",
+      "path": ".hi\\prompts\\hip-hide-example-code.prompt.md",
+      "type": "prompt",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "pro-hide-example-code"
+    },
+    {
+      "name": "import-execute",
+      "path": ".hi\\prompts\\hip-import-execute.prompt.md",
+      "type": "prompt",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "pro-import-execute"
+    },
+    {
+      "name": "metrics",
+      "path": ".hi\\prompts\\hip-metrics.prompt.md",
+      "type": "prompt",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "pro-metrics"
+    },
+    {
+      "name": "new-module",
+      "path": ".hi\\prompts\\hip-new-module.prompt.md",
+      "type": "prompt",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "pro-new-module"
+    },
+    {
+      "name": "observe",
+      "path": ".hi\\prompts\\hip-observe.prompt.md",
+      "type": "prompt",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "pro-observe"
+    },
+    {
+      "name": "onboard",
+      "path": ".hi\\prompts\\hip-onboard.prompt.md",
+      "type": "prompt",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "pro-onboard"
+    },
+    {
+      "name": "phase-2-fixer",
+      "path": ".hi\\prompts\\hip-phase-2-fixer.prompt.md",
+      "type": "prompt",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "pro-phase-2-fixer"
+    },
+    {
+      "name": "phase-2-post-learner",
+      "path": ".hi\\prompts\\hip-phase-2-post-learner.prompt.md",
+      "type": "prompt",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "pro-phase-2-post-learner"
+    },
+    {
+      "name": "plugin-discover",
+      "path": ".hi\\prompts\\hip-plugin-discover.prompt.md",
+      "type": "prompt",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "pro-plugin-discover"
+    },
+    {
+      "name": "ports-check",
+      "path": ".hi\\prompts\\hip-ports-check.prompt.md",
+      "type": "prompt",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "pro-ports-check"
+    },
+    {
+      "name": "reflect",
+      "path": ".hi\\prompts\\hip-reflect.prompt.md",
+      "type": "prompt",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "pro-reflect"
+    },
+    {
+      "name": "route",
+      "path": ".hi\\prompts\\hip-route.prompt.md",
+      "type": "prompt",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "pro-route"
+    },
+    {
+      "name": "suggest-tiers",
+      "path": ".hi\\prompts\\hip-suggest-tiers.prompt.md",
+      "type": "prompt",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "pro-suggest-tiers"
+    },
+    {
+      "name": "update-index",
+      "path": ".hi\\prompts\\hip-update-index.prompt.md",
+      "type": "prompt",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "pro-update-index"
+    },
+    {
+      "name": "validate",
+      "path": ".hi\\prompts\\hip-validate.prompt.md",
+      "type": "prompt",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "pro-validate"
+    },
+    {
+      "name": "project-navigation",
+      "path": ".hi\\skills\\project-navigation\\SKILL.md",
+      "type": "skill",
+      "module_prefix": null,
+      "tier": null,
+      "full_qualified_name": "ski-project-navigation"
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "summary": {
+    "total_artifacts": 51,
+    "prompts": 27,
+    "agents": 23,
+    "skills": 1,
+    "workflows": 0,
+    "errors": 0,
+    "warnings": 0
+  }
+}

@@ -1,0 +1,21 @@
+#!/bin/bash
+# Post-merge hook: regenerate discovery registries
+# Auto-run after git merge or git checkout
+
+set -e
+
+REPO_ROOT=$(git rev-parse --show-toplevel)
+cd "$REPO_ROOT"
+
+# Only run at root (top_dog)
+if [ ! -f ".github/copilot-instructions.md" ]; then
+  exit 0
+fi
+
+# Run discovery engine
+python .github/.hi/registry/discovery-engine.py --scope . --output .hi/discovery/master-registry.json
+
+# Stage the registry for commit
+git add -f .hi/discovery/master-registry.json || true
+
+exit 0
