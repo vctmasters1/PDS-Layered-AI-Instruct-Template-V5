@@ -1,0 +1,22 @@
+[build]
+# Build order: DB-Central → PDS-Pipeline → WEB-HMI frontend → WEB-HMI api
+# DB-Central must be first so @db-central dist/ + .d.ts files exist for downstream tsc.
+# PDS-Pipeline must precede the frontend so @pds/pipeline dist/ exists.
+# Frontend must be built before the API so dist/ exists for Express to serve.
+# Root Directory in Railway dashboard MUST be cleared (repo root) for this to work.
+buildCommand = "cd DB-Central && npm ci && npm run build && cd ../PDS-Pipeline && npm ci && npm run build && cd ../WEB-HMI && npm ci && npm run build && cd api && npm ci && npm run build"
+
+[deploy]
+startCommand = "node WEB-HMI/api/dist/index.js"
+healthcheckPath = "/health"
+healthcheckTimeout = 30
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3
+
+# Required environment variables (set in Railway dashboard):
+#   DATABASE_URL      — shared PostgreSQL connection string
+#   JWT_SECRET        — must match WEB-Marketplace and WEB-FwServer
+#   NODE_ENV          — set to "production"
+#   PORT              — Railway sets this automatically
+#   BASE_URL          — public URL of this service (e.g. https://pipedreamsystems.com/devices)
+#   ALLOWED_ORIGINS   — https://pipedreamsystems.com

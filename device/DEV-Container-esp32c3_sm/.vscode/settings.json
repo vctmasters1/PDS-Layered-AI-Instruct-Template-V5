@@ -1,0 +1,53 @@
+{
+  "C_Cpp.default.includePath": [
+    "${workspaceFolder}/pds",
+    "${workspaceFolder}/pds/pds_hal",
+    "${workspaceFolder}/pds/pds_hal/platform/esp32c3_sm/hwrev_001/h2o_001",
+    "${workspaceFolder}/main",
+    "/opt/esp/idf/components",
+    "/opt/esp/idf/components/esp_common/include",
+    "/opt/esp/idf/components/esp_rom/include",
+    "/opt/esp/idf/components/esp_hw_support/include",
+    "/opt/esp/idf/components/esp_wifi/include",
+    "/opt/esp/idf/components/esp_event/include",
+    "/opt/esp/idf/components/lwip/include/apps",
+    "/opt/esp/idf/components/lwip/include/apps/sntp",
+    "/opt/esp/idf/components/nvs_flash/include",
+    "/opt/esp/idf/components/driver/include"
+  ],
+  "C_Cpp.default.defines": [
+    "ESP32C3",
+    "CONFIG_IDF_TARGET_ESP32C3",
+    "CONFIG_IDF_TARGET=esp32c3",
+    "CONFIG_BT_ENABLED=1"
+  ],
+  "C_Cpp.default.cppStandard": "gnu17",
+  "C_Cpp.default.cStandard": "c99",
+  "C_Cpp.intelliSenseEngine": "Tag Parser",
+  "C_Cpp.formatting": "Clang",
+  "clangd.arguments": [
+    "--header-insertion=never",
+    "--clang-tidy=false",
+    "-j=4",
+    "--background-index"
+  ],
+  "clangd.checkUpdates": false,
+  "[c]": {
+    "editor.defaultFormatter": "ms-vscode.cpptools",
+    "editor.formatOnSave": true,
+    "editor.rulers": [80, 120]
+  },
+  "[cpp]": {
+    "editor.defaultFormatter": "ms-vscode.cpptools",
+    "editor.formatOnSave": true
+  },
+  "files.exclude": {
+    "**/build": true,
+    "**/.git": true,
+    "**/managed_components": true,
+    "**/.pytest_cache": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.clangTidy": "explicit"
+  }
+}

@@ -1,0 +1,47 @@
+Resume Suite — Connection Info (Multi-Mode)
+================================================
+
+See specific mode documentation for detailed connection info:
+
+🔵 LOCAL DEVELOPMENT
+  └─ .dev-docs/CONNECTION-local.txt
+  └─ URL: http://localhost:5173
+  └─ Use: npm run dev during development
+
+🟡 LAN / PSEUDO-PRODUCTION  
+  └─ .dev-docs/CONNECTION-lan.txt
+  └─ URL: https://192.168.1.80 (self-signed cert)
+  └─ Use: Share with a few people on same network
+
+🟢 PRODUCTION (DDNS + Let's Encrypt)
+  └─ .dev-docs/CONNECTION-production.txt
+  └─ URL: https://pds-resume-suite.mywire.org (trusted cert)
+  └─ Use: Public internet deployment
+
+☁️  RAILWAY (Cloud)
+  └─ Deploy via Railway.app
+  └─ URL: https://pds-resume-suite.railway.app
+
+---
+
+TO GET STARTED:
+
+1. Select deployment mode
+   cd WEB-Resume\ResumeServer
+   ./start-dev-modes.ps1
+   
+2. Choose mode (1-4) or specify:
+   ./start-dev-modes.ps1 -Mode local
+   ./start-dev-modes.ps1 -Mode lan
+   ./start-dev-modes.ps1 -Mode production
+
+3. Refer to mode-specific CONNECTION file for details
+
+---
+
+Current Network Info:
+  Public IP:    24.101.223.202
+  LAN IP:       192.168.1.80
+  Router Admin: http://192.168.1.1
+
+For mode-specific setup and troubleshooting, see .dev-docs/

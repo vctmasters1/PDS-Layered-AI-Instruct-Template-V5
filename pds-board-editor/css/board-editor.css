@@ -1,0 +1,984 @@
+/* Pinleaf Forge - Platform Specification Editor Styles */
+
+/* ============================================
+   CSS CUSTOM PROPERTIES
+   ============================================ */
+
+:root {
+    --bg-body: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --bg-container: #ffffff;
+    --bg-section: #f9f9f9;
+    --bg-input: #ffffff;
+    --bg-json-preview: #f5f5f5;
+    --bg-note: #e7f3ff;
+    --bg-error: #f8d7da;
+    --bg-pin-row: #ffffff;
+    --bg-pin-row-hover: #f9f9f9;
+    --bg-pin-hover: #f0f0f0;
+    --bg-capability-btn: linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);
+    --bg-capability-btn-hover: linear-gradient(180deg, #fafafa 0%, #eeeeee 100%);
+    --bg-feature-toggle: #ffffff;
+    --bg-feature-toggle-hover: #f8f9fa;
+
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --text-muted: #555555;
+    --text-note: #0c5460;
+    --text-error: #721c24;
+
+    --border-color: #dddddd;
+    --border-pin-row: #e0e0e0;
+    --border-note: #2196F3;
+    --border-error: #f5c6cb;
+    --border-json: #dddddd;
+
+    --shadow-container: 0 10px 40px rgba(0,0,0,0.3);
+    --shadow-capability: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-capability-hover: 0 2px 6px rgba(0,0,0,0.12);
+
+    --capability-btn-color: #555555;
+    --capability-btn-border: #d0d0d0;
+    --drag-handle-color: #999999;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-body: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        --bg-container: #1e1e2e;
+        --bg-section: #252540;
+        --bg-input: #2a2a3e;
+        --bg-json-preview: #1a1a2e;
+        --bg-note: #1a2744;
+        --bg-error: #3a1c24;
+        --bg-pin-row: #252540;
+        --bg-pin-row-hover: #2a2a4a;
+        --bg-pin-hover: #303050;
+        --bg-capability-btn: linear-gradient(180deg, #2a2a3e 0%, #252540 100%);
+        --bg-capability-btn-hover: linear-gradient(180deg, #303050 0%, #2a2a4a 100%);
+        --bg-feature-toggle: #2a2a3e;
+        --bg-feature-toggle-hover: #303050;
+
+        --text-primary: #e0e0e0;
+        --text-secondary: #aaaaaa;
+        --text-muted: #bbbbbb;
+        --text-note: #8ecae6;
+        --text-error: #f5a6a6;
+
+        --border-color: #444466;
+        --border-pin-row: #3a3a5a;
+        --border-note: #3a7bd5;
+        --border-error: #8b3a3a;
+        --border-json: #444466;
+
+        --shadow-container: 0 10px 40px rgba(0,0,0,0.6);
+        --shadow-capability: 0 1px 3px rgba(0,0,0,0.3);
+        --shadow-capability-hover: 0 2px 6px rgba(0,0,0,0.4);
+
+        --capability-btn-color: #bbbbbb;
+        --capability-btn-border: #555577;
+        --drag-handle-color: #777799;
+    }
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg-body);
+    min-height: 100vh;
+    padding: 20px;
+    color: var(--text-primary);
+}
+
+/* ============================================
+   LAYOUT CONTAINERS
+   ============================================ */
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    background: var(--bg-container);
+    border-radius: 10px;
+    box-shadow: var(--shadow-container);
+}
+
+.header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 30px;
+    text-align: center;
+}
+
+.header h1 { 
+    font-size: 2em; 
+    margin-bottom: 10px; 
+}
+
+.header p { 
+    opacity: 0.9; 
+    font-size: 0.95em; 
+}
+
+.content { 
+    padding: 30px; 
+}
+
+/* ============================================
+   FORM SECTIONS
+   ============================================ */
+
+.form-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: var(--bg-section);
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+}
+
+.form-section h2 {
+    font-size: 1.3em;
+    color: var(--text-primary);
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: var(--text-primary);
+    font-size: 0.95em;
+}
+
+/* ============================================
+   FORM INPUTS
+   ============================================ */
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1em;
+    font-family: inherit;
+    background: var(--bg-input);
+    color: var(--text-primary);
+}
+
+input:focus, 
+textarea:focus, 
+select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* ============================================
+   GRID LAYOUT
+   ============================================ */
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 600px) {
+    .grid-2 { 
+        grid-template-columns: 1fr; 
+    }
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+button {
+    padding: 12px 24px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+button.primary {
+    background: #667eea;
+    color: white;
+}
+
+button.primary:hover:not(:disabled) {
+    background: #5568d3;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@keyframes pds-spin {
+    to { transform: rotate(360deg); }
+}
+
+button.btn-loading {
+    position: relative;
+    padding-left: 34px !important;
+    pointer-events: none;
+}
+
+button.btn-loading::before {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top: 50%;
+    width: 13px;
+    height: 13px;
+    margin-top: -7px;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: pds-spin 0.75s linear infinite;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.button-group button {
+    flex: 1;
+}
+
+/* ============================================
+   JSON PREVIEW
+   ============================================ */
+
+.json-preview {
+    background: var(--bg-json-preview);
+    border: 1px solid var(--border-json);
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85em;
+    max-height: 400px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    width: 100%;
+    color: var(--text-primary);
+}
+
+/* ============================================
+   NOTIFICATIONS
+   ============================================ */
+
+.note {
+    background: var(--bg-note);
+    border-left: 4px solid var(--border-note);
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 3px;
+    font-size: 0.9em;
+    color: var(--text-note);
+}
+
+.error {
+    background: var(--bg-error);
+    border-left: 4px solid var(--border-error);
+    color: var(--text-error);
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 3px;
+}
+
+/* ============================================
+   PIN MATRIX - LAYOUT
+   ============================================ */
+
+.pinout-display {
+    margin-top: 15px;
+}
+
+.pin-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    padding: 8px;
+    background: var(--bg-pin-row);
+    border-radius: 5px;
+    border: 1px solid var(--border-pin-row);
+    position: relative;
+    cursor: default;
+}
+
+.pin-row.dragging {
+    opacity: 0.5;
+    cursor: grabbing;
+}
+
+.pin-row:hover {
+    background: var(--bg-pin-row-hover);
+}
+
+.pin-row:hover .delete-pin-btn,
+.pin-row:hover .drag-handle {
+    opacity: 1;
+}
+
+/* ============================================
+   PIN MATRIX - DRAG HANDLE
+   ============================================ */
+
+.drag-handle {
+    cursor: grab;
+    color: var(--drag-handle-color);
+    font-size: 1.2em;
+    padding: 8px;
+    opacity: 0.5;
+    transition: all 0.2s ease;
+    user-select: none;
+    margin-left: auto;
+}
+
+.drag-handle:hover {
+    color: #667eea;
+    opacity: 1;
+}
+
+.drag-handle:active {
+    cursor: grabbing;
+}
+
+/* ============================================
+   PIN MATRIX - DELETE BUTTON
+   ============================================ */
+
+.delete-pin-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 0.85em;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    opacity: 0.7;
+    flex-shrink: 0;
+}
+
+.delete-pin-btn:hover {
+    background: #c82333;
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+/* ============================================
+   PIN MATRIX - EDITABLE FIELDS
+   ============================================ */
+
+.pin-label {
+    font-weight: bold;
+    color: #667eea;
+    width: 140px;
+    min-width: 140px;
+    max-width: 140px;
+    font-size: 0.9em;
+    padding: 6px 10px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: text;
+    transition: all 0.2s ease;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pin-label:hover {
+    background: var(--bg-pin-hover);
+    border-color: var(--border-color);
+}
+
+.pin-label:focus {
+    outline: none;
+    background: var(--bg-input);
+    border-color: #667eea;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+}
+
+.pin-physical {
+    font-weight: bold;
+    color: #28a745;
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+    font-size: 0.85em;
+    padding: 6px 8px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: text;
+    transition: all 0.2s ease;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pin-physical:hover {
+    background: var(--bg-pin-hover);
+    border-color: var(--border-color);
+}
+
+.pin-physical:focus {
+    outline: none;
+    background: var(--bg-input);
+    border-color: #28a745;
+    box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.1);
+}
+
+
+.pin-header {
+    font-weight: bold;
+    color: #e67e22;
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+    font-size: 0.85em;
+    padding: 6px 8px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: text;
+    transition: all 0.2s ease;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pin-header:hover {
+    background: var(--bg-pin-hover);
+    border-color: var(--border-color);
+}
+
+.pin-header:focus {
+    outline: none;
+    background: var(--bg-input);
+    border-color: #e67e22;
+    box-shadow: 0 0 0 2px rgba(230, 126, 34, 0.1);
+}
+
+/* ============================================
+   PIN MATRIX - SORTABLE HEADERS
+   ============================================ */
+
+.sort-header {
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    padding-right: 20px;
+}
+
+.sort-header:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.sort-header::after {
+    content: '?';
+    position: absolute;
+    right: 5px;
+    opacity: 0.3;
+}
+
+.sort-header.sort-asc::after {
+    content: '?';
+    opacity: 1;
+}
+
+.sort-header.sort-desc::after {
+    content: '?';
+    opacity: 1;
+}
+
+/* ============================================
+   CAPABILITY BUTTONS - CONTAINER
+   ============================================ */
+
+.capability-buttons {
+    display: flex;
+    gap: 6px;
+    flex-wrap: nowrap;
+    flex: 1;
+    overflow-x: auto;
+}
+
+/* ============================================
+   CAPABILITY BUTTONS - BASE STYLES
+   ============================================ */
+
+.capability-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 18px;
+    border: 2px solid var(--capability-btn-border);
+    background: var(--bg-capability-btn);
+    border-radius: 18px;
+    cursor: pointer;
+    font-size: 0.75em;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    color: var(--capability-btn-color);
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: 58px;
+    height: 36px;
+    line-height: 1;
+    box-shadow: var(--shadow-capability);
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.capability-btn:hover:not(.active) {
+    border-color: #a0a0a0;
+    background: var(--bg-capability-btn-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-capability-hover);
+}
+
+.capability-btn:active:not(.active) {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.capability-btn.active {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15), inset 0 1px 2px rgba(255,255,255,0.2);
+}
+
+.capability-btn.active:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2), inset 0 1px 2px rgba(255,255,255,0.3);
+}
+
+/* ============================================
+   CAPABILITY BUTTONS - POWER PINS
+   ============================================ */
+
+.capability-btn.VIN.active {
+    background: #ff0000;
+    border-color: #ff0000;
+    color: white;
+}
+
+.capability-btn.GND.active {
+    background: #000000;
+    border-color: #000000;
+    color: white;
+}
+
+.capability-btn.\35 V.active {
+    background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+    border-color: #cc0000;
+    color: white;
+}
+
+.capability-btn.\33 V3.active {
+    background: linear-gradient(135deg, #cc3333 0%, #8B0000 100%);
+    border-color: #8B0000;
+    color: white;
+}
+
+/* ============================================
+   CAPABILITY BUTTONS - SPECIAL PINS
+   ============================================ */
+
+.capability-btn.RESET.active {
+    background: #00CED1;
+    border-color: #00CED1;
+    color: white;
+}
+
+.capability-btn.BOOT.active {
+    background: #00CED1;
+    border-color: #00CED1;
+    color: white;
+}
+
+.capability-btn.STRAPPING.active {
+    background: #e67e22;
+    border-color: #e67e22;
+    color: white;
+}
+
+.capability-btn.RMT.active {
+    background: #667eea;
+    border-color: #667eea;
+    color: white;
+}
+
+.capability-btn.INTERRUPT.active {
+    background: #FFFF00;
+    border-color: #FFFF00;
+    color: black;
+}
+
+/* ============================================
+   CAPABILITY BUTTONS - GPIO
+   ============================================ */
+
+.capability-btn.GPIO.active {
+    background: #9370DB;
+    border-color: #9370DB;
+    color: white;
+}
+
+.capability-btn.DIO.active {
+    background: #9370DB;
+    border-color: #9370DB;
+    color: white;
+}
+
+/* ============================================
+   CAPABILITY BUTTONS - ANALOG
+   ============================================ */
+
+.capability-btn.ADC-1.active {
+    background: #2ecc71;
+    border-color: #2ecc71;
+    color: white;
+}
+
+.capability-btn.ADC-2.active {
+    background: #e67e22;
+    border-color: #e67e22;
+    color: white;
+}
+
+.capability-btn.PWM.active {
+    background: #4ecdc4;
+    border-color: #4ecdc4;
+    color: white;
+}
+
+/* ============================================
+   CAPABILITY BUTTONS - UART
+   ============================================ */
+
+.capability-btn.UART-RX.active {
+    background: #00ff00;
+    border-color: #00ff00;
+    color: black;
+}
+
+.capability-btn.UART-TX.active {
+    background: #00ff00;
+    border-color: #00ff00;
+    color: black;
+}
+
+/* ============================================
+   CAPABILITY BUTTONS - SPI
+   ============================================ */
+
+.capability-btn.SPI-MISO.active {
+    background: #0000FF;
+    border-color: #0000FF;
+    color: white;
+}
+
+.capability-btn.SPI-MOSI.active {
+    background: #0000FF;
+    border-color: #0000FF;
+    color: white;
+}
+
+.capability-btn.SPI-SCK.active {
+    background: #0000FF;
+    border-color: #0000FF;
+    color: white;
+}
+
+/* ============================================
+   CAPABILITY BUTTONS - I2C
+   ============================================ */
+
+.capability-btn.I2C-SDA.active {
+    background: #708090;
+    border-color: #708090;
+    color: white;
+}
+
+.capability-btn.I2C-SCL.active {
+    background: #708090;
+    border-color: #708090;
+    color: white;
+}
+
+/* ============================================
+   CAPABILITY BUTTONS - CAN
+   ============================================ */
+
+.capability-btn.CAN.active {
+    background: #92afde;
+    border-color: #92afde;
+    color: white;
+}
+
+/* ============================================
+   SYSTEM FEATURE TOGGLE BUTTONS
+   ============================================ */
+
+.feature-toggle-btn {
+    padding: 10px 16px;
+    border: 2px solid var(--border-color);
+    background: var(--bg-feature-toggle);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-primary);
+}
+
+.feature-toggle-btn:hover {
+    border-color: #667eea;
+    background: var(--bg-feature-toggle-hover);
+}
+
+.feature-toggle-btn.active {
+    background: #667eea;
+    border-color: #667eea;
+    color: white;
+}
+
+.feature-toggle-btn .toggle-icon {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.feature-toggle-btn.active .toggle-icon::before {
+    content: '?';
+}
+
+.feature-toggle-btn:not(.active) .toggle-icon::before {
+    content: '?';
+}
+
+/* ============================================
+   PINOUT TABLE PREVIEW
+   ============================================ */
+
+.po-wrap {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    overflow-x: auto;
+    padding: 4px 0 12px;
+}
+
+.po-side {
+    flex-shrink: 0;
+}
+
+.po-side-lbl {
+    font-size: 0.68em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
+    text-align: center;
+    padding-bottom: 4px;
+}
+
+.po-table {
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.po-table th,
+.po-table td {
+    padding: 0;
+    border: none;
+}
+
+/* Cap column header */
+.po-cap-th {
+    width: 20px;
+    min-width: 20px;
+    max-width: 20px;
+    vertical-align: bottom;
+    height: 54px;
+}
+
+.po-cap-hdr-text {
+    display: block;
+    font-size: 7.5px;
+    font-weight: 700;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    white-space: nowrap;
+    line-height: 20px;
+    text-align: left;
+    padding-bottom: 2px;
+}
+
+/* Cap data cell */
+.po-cap-td {
+    width: 20px;
+    min-width: 20px;
+    max-width: 20px;
+    height: 26px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.po-cap-pill {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    vertical-align: middle;
+    opacity: 0.85;
+}
+
+/* Name cell */
+.po-name-th {
+    width: 88px;
+    min-width: 88px;
+    font-size: 0.68em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-secondary);
+    height: 54px;
+    vertical-align: bottom;
+    padding: 0 4px 2px;
+}
+
+.po-name-td {
+    width: 88px;
+    min-width: 88px;
+    height: 26px;
+    font-size: 0.78em;
+    font-weight: 600;
+    color: #667eea;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+
+.po-name-left  { text-align: right;  padding-right: 6px; }
+.po-name-right { text-align: left;   padding-left:  6px; }
+
+/* Phys # cell */
+.po-phys-th {
+    width: 22px;
+    min-width: 22px;
+    font-size: 0.68em;
+    color: var(--text-secondary);
+    text-align: center;
+    vertical-align: bottom;
+    height: 54px;
+    padding-bottom: 2px;
+}
+
+.po-phys-td {
+    width: 22px;
+    min-width: 22px;
+    height: 26px;
+    font-size: 0.68em;
+    color: #888;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Draggable rows */
+.po-row {
+    cursor: grab;
+    transition: background 0.1s;
+}
+
+.po-row:hover {
+    background: var(--bg-pin-row-hover);
+}
+
+.po-row:active {
+    cursor: grabbing;
+}
+
+.po-row:nth-child(even) {
+    background: rgba(102, 126, 234, 0.04);
+}
+
+.po-row:nth-child(even):hover {
+    background: var(--bg-pin-row-hover);
+}
+
+/* Chip body between J1 and J2 */
+.po-chip {
+    flex-shrink: 0;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    padding: 54px 6px 0;
+}
+
+.po-chip-inner {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    background: #2d2d44;
+    border: 1.5px solid #667eea;
+    border-radius: 4px;
+    position: relative;
+    min-height: 40px;
+}
+
+.po-chip-dot {
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--bg-section, #252540);
+    border: 1px solid #667eea;
+}
+
+.po-chip-txt {
+    font-size: 7px;
+    font-weight: 700;
+    color: #667eea;
+    opacity: 0.65;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 6px;
+}
+

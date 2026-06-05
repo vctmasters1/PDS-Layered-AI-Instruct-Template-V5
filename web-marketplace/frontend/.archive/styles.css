@@ -1,0 +1,68 @@
+/* ============================================================================
+   MASTER STYLESHEET - Modular CSS Architecture
+   ============================================================================
+   All styles are organized into focused modules:
+
+   FOUNDATION:
+   - _variables.css     : Theme colors, CSS custom properties, base resets
+   - _buttons.css       : Button styles and states
+   - _layout.css        : Location bar, main content, sections, tabs, filters, grids, workflow
+
+   NAVIGATION:
+   - _navbar.css        : Main navigation bar, logo, theme toggle
+   - _mission.css       : Mission statement button & modal
+   - _account.css       : Account navbar & settings interface
+
+   CARDS (per entity type):
+   - _cards-product.css : Product cards, store cards, image carousel
+   - _cards-designer.css: Designer cards
+   - _cards-producer.css: Producer cards
+
+   FEATURES:
+   - _dashboard.css     : Dashboard sidebar layout
+   - _map.css           : Map container, filters bar, legend
+   - _modals.css        : Modals, auth section, user menu, forms
+   - _cart.css          : Shopping cart & checkout
+   - _messaging.css     : Messaging & notifications
+   - _custom-projects.css: Custom project cards & bidding
+   - _search.css        : Search & discovery module
+   - _admin.css         : Admin dashboard, badges, stats
+   - _footer.css        : Footer
+
+   RESPONSIVE (must load LAST for cascade):
+   - _tablet.css        : Tablet breakpoint (max-width: 768px)
+   - _phone.css         : Phone breakpoint (max-width: 480px) + safe area
+   ============================================================================ */
+
+/* --- Foundation --- */
+@import url('./css/_variables.css');
+@import url('./css/_buttons.css');
+@import url('./css/_layout.css');
+
+/* --- Navigation --- */
+@import url('./css/_navbar.css');
+@import url('./css/_mission.css');
+@import url('./css/_account.css');
+
+/* --- Cards --- */
+@import url('./css/_cards-product.css');
+@import url('./css/_cards-designer.css');
+@import url('./css/_cards-producer.css');
+@import url('./css/_availability.css');
+
+/* --- Features --- */
+@import url('./css/_dashboard.css');
+@import url('./css/_map.css');
+@import url('./css/_modals.css');
+@import url('./css/_cart.css');
+@import url('./css/_messaging.css');
+@import url('./css/_custom-projects.css');
+@import url('./css/_search.css');
+@import url('./css/_admin.css');
+@import url('./css/_bulletin-board.css');
+@import url('./css/_portfolio.css');
+@import url('./css/_footer.css');
+
+/* --- Responsive (load last for proper cascade) --- */
+@import url('./css/_tablet.css');
+@import url('./css/_phone.css');

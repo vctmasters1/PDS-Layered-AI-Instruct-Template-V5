@@ -1,0 +1,240 @@
+# WEB-Resume - Resume Service Module AI Instructions
+
+**Scope**: Authoritative for web-resume module  
+**Last Updated**: 2026-06-03
+
+> **Authority**: DEEP - Authoritative for all work inside `web-resume/`  
+> See `.github/copilot-instructions.md` for how the AI-INSTRUCT hierarchy works.
+
+---
+
+## Contents
+
+| Section | What's here |
+|---------|-------------|
+| [Quick Reference](#quick-reference) | Links to documentation across the module |
+| [Project Overview](#project-overview) | What this module is and does |
+| [Deployment Modes](#deployment-modes) | Local dev, LAN, production, cloud |
+| [Workspace Layout](#workspace-layout) | Directory structure |
+| [Critical Constraints](#critical-constraints) | Safety rules for data protection |
+| [Technology Stack](#technology-stack) | Frontend, backend, database, LLM |
+| [Naming Conventions](#naming-conventions) | File and code naming patterns |
+
+---
+
+## Quick Reference
+
+| What | Where |
+|------|-------|
+| **Deployment setup** | See [Deployment Modes](#deployment-modes) below |
+| **Connection info** | [CONNECTION.txt](../CONNECTION.txt) + `.dev-docs/CONNECTION-*.txt` |
+| **Start development** | `ResumeServer/start-dev-modes.ps1` |
+| **View full docs** | `.dev-docs/DEPLOYMENT-MODES.md` |
+
+---
+
+## Project Overview
+
+**Resume-Suite** is a self-hosted multi-user resume drafting service powered by a local LLM (LLM Studio). It serves a small number of invited users and provides a full pipeline: job description capture (via Chrome extension), AI-driven analysis and resume generation, ATS scoring, and final DOCX/PDF export. The pipeline mirrors the existing `K:\Resume` workflow but operates as a web service with per-user workspaces.
+
+---
+
+## Deployment Modes
+
+Resume Suite supports **four deployment modes**, each optimized for a different use case.
+
+### Quick Selection
+
+| Mode | Purpose | URL | TLS | Setup Time |
+|------|---------|-----|-----|-----------|
+| **local** | Pure development | http://localhost:5173 | None | < 2 min |
+| **lan** | Share on home network | https://192.168.1.80 | Self-signed | ~ 5 min |
+| **production** | Public internet + DDNS | https://pds-resume-suite.mywire.org | Let's Encrypt | ~ 30 min |
+| **railway** | Cloud deployment | Cloud-assigned URL | Auto | Managed by Railway |
+
+### How to Start
+
+```powershell
+cd WEB-Resume\ResumeServer
+
+# Interactive mode selection
+./start-dev-modes.ps1
+
+# Or specify mode directly
+./start-dev-modes.ps1 -Mode local
+./start-dev-modes.ps1 -Mode lan
+./start-dev-modes.ps1 -Mode production
+```
+
+### Mode 1: Local Development
+
+- **URL**: http://localhost:5173
+- **Caddy**: Not used (HTTP only)
+- **Services**: Vite dev server + Express + PostgreSQL
+- **Use**: Daily development and testing
+- **Docs**: [`.dev-docs/CONNECTION-local.txt`](../.dev-docs/CONNECTION-local.txt)
+
+```powershell
+./start-dev-modes.ps1 -Mode local
+```
+
+### Mode 2: LAN / Pseudo-Production
+
+- **URL**: https://192.168.1.80 (self-signed cert)
+- **Caddy**: Reverse proxy with self-signed TLS on :443
+- **Certificate**: Auto-generated on first run
+- **Use**: Share with a few people on the same network
+- **Docs**: [`.dev-docs/CONNECTION-lan.txt`](../.dev-docs/CONNECTION-lan.txt)
+
+```powershell
+./start-dev-modes.ps1 -Mode lan
+# Automatically generates self-signed cert if needed
+```
+
+**Optional External Access**: Port forward 443 on router to allow external access with limited distribution.
+
+### Mode 3: Production (DDNS + Let's Encrypt)
+
+- **URL**: https://pds-resume-suite.mywire.org (trusted cert, no warnings)
+- **Caddy**: Reverse proxy with auto-renewing Let's Encrypt cert
+- **DDNS**: Automatic IP updates every 5 minutes (if scheduled)
+- **Use**: Public internet deployment with proper HTTPS
+- **Prerequisites**:
+  - Dynu DDNS account (free tier available)
+  - Ports 80+443 forwarded on router
+  - `.env` configured with: DDNS_DOMAIN, DYNU_TOKEN, POSTGRES_PASSWORD
+- **Docs**: [`.dev-docs/CONNECTION-production.txt`](../.dev-docs/CONNECTION-production.txt)
+
+```powershell
+# Configure .env first with DDNS credentials
+./start-dev-modes.ps1 -Mode production
+
+# Setup auto-IP updates (optional, run as admin)
+./register-scheduled-task-dynu.ps1
+```
+
+### Mode 4: Railway (Cloud)
+
+- **URL**: Cloud-assigned (e.g., pds-resume-suite.railway.app)
+- **Hosting**: Railway.app managed deployment
+- **TLS**: Automatic (Railway-managed)
+- **Use**: Fully managed cloud deployment
+
+### Comprehensive Deployment Guide
+
+→ **[`.dev-docs/DEPLOYMENT-MODES.md`](../.dev-docs/DEPLOYMENT-MODES.md)** — Full reference with troubleshooting, networking, certificates, DDNS setup, and examples.
+
+---
+
+## Workspace Layout
+
+```
+WEB-Resume/
+├── .ai/
+│   └── instruct.md              AI-INSTRUCT rules for this module (this file)
+├── .dev-docs/
+│   ├── DEPLOYMENT-MODES.md      Comprehensive deployment guide
+│   ├── CONNECTION-local.txt     Local dev connection info
+│   ├── CONNECTION-lan.txt       LAN pseudo-prod connection info
+│   └── CONNECTION-production.txt  Production DDNS connection info
+├── .github/
+│   └── copilot-instructions.md  META: explains AI-INSTRUCT hierarchy
+├── AI-INSTRUCT/ (legacy)        Global shared reference instructions
+├── CONNECTION.txt               Quick mode selection guide
+├── Resume/                      READ-ONLY reference copy
+├── ResumeServer/                The full server application
+│   ├── .caddyfiles/             Caddyfile templates per mode
+│   │   ├── local.Caddyfile      HTTP-only dev mode
+│   │   ├── lan-selfsigned.Caddyfile  LAN with self-signed TLS
+│   │   ├── ddns-letsencrypt.Caddyfile  Production mode
+│   │   └── cloudflare-tunnel.Caddyfile  Zero-trust tunnel alt
+│   ├── config/
+│   │   └── deployment.env       Deployment config defaults
+│   ├── certs/                   Self-signed certificates (LAN mode)
+│   ├── dynu-update.ps1          DDNS IP update daemon
+│   ├── register-scheduled-task-dynu.ps1  Task Scheduler setup
+│   ├── start-dev-modes.ps1      Enhanced multi-mode launcher
+│   ├── docker-compose.yml       Production stack
+│   ├── docker-compose.dev.yml   Local dev stack
+│   ├── Caddyfile                Active reverse proxy config (mode-switched)
+│   └── server/                  Express.js application
+└── UserData/                    Per-user runtime data (managed by server)
+```
+
+---
+
+## Critical Constraints
+
+### Do Not Modify Source References
+
+`Resume/` is a read-only reference copy. Never edit files inside it. Copy content into the appropriate layer if needed.
+
+### UserData Is Not Source Code
+
+`UserData/` is runtime data owned by the server. Never commit it to git. It must be in `.gitignore`.
+
+### All AI Work Goes Through the Server
+
+No component should call LLM Studio directly except `ResumeServer/server/services/llm-client.js`.
+
+### The Database Is Never Reset or Dropped
+
+**CRITICAL - do not override under any circumstances.**
+
+The PostgreSQL database contains live user data (listings, workflow jobs, artifacts, accounts). Never run `DROP TABLE`, `DROP DATABASE`, `TRUNCATE`, `DELETE FROM` without a `WHERE` clause, or any migration that destroys rows, unless the user has explicitly confirmed they want specific data permanently deleted and understands it is irreversible.
+
+If schema changes are needed, use `ALTER TABLE ... ADD COLUMN IF NOT EXISTS` or additive migrations only. `init-database.js` must never drop or truncate existing tables.
+
+→ **[Never Reset Databases](../../.ai/maintenance.md#never-reset-databases)** - complete policy on database safety rules.
+
+---
+
+## Technology Stack
+
+| Layer | Technology |
+|-------|------------|
+| Frontend | React 18 + Vite |
+| Backend | Node.js + Express (ESM) |
+| Database | PostgreSQL |
+| Auth | JWT + bcryptjs |
+| LLM | LLM Studio OpenAI-compatible API (localhost:1234) |
+| LLM Model | qwen3.6-27b |
+| ATS Scoring | Python subprocess (ats_multi_score.py) |
+| Document Build | Pandoc subprocess (MD → DOCX → PDF) |
+| File Storage | Local filesystem (`UserData/`) via abstract `file-store.js` |
+| Server Port | 38291 |
+| HTTP Reverse Proxy | Caddy 2 (Alpine) |
+| Container Runtime | Docker Compose |
+
+→ **[Port Registry](../../.ai/ports.md)** - complete port allocation for all PDS services.
+
+---
+
+## Naming Conventions
+
+→ **[Canonical source](AI-INSTRUCT/AI-CONVENTIONS.md)** - comprehensive naming rules.
+
+| Type | Convention | Example |
+|------|-----------|---------|
+| Files | kebab-case | `user-auth.js`, `llm-client.js` |
+| Directories | kebab-case | `api-routes`, `user-management` |
+| Variables | camelCase | `userData`, `listingId` |
+| Classes / Types | PascalCase | `UserManager`, `LlmClient` |
+| Constants | UPPER_SNAKE_CASE | `LLM_API_URL`, `MAX_UPLOAD_SIZE` |
+
+---
+
+## Code Comment Convention
+
+- Comment on **why**, not what
+- One line preferred; no rambling
+- Do not add comments to code you did not touch in the current change
+- If a line implements a non-obvious architectural constraint, reference the governing `AI-INSTRUCT.md`
+
+→ **[Code Comment Style](../.github/copilot-instructions.md#code-comment-convention)** - full convention.
+
+---
+
+## AI-INSTRUCT Maintenance Rule
+
+Whenever an architectural change is made, update the relevant `AI-INSTRUCT.md` file(s) in the same operation. Never defer.

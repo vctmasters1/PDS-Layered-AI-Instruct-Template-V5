@@ -1,0 +1,108 @@
+{
+  "name": "pinleaf-forge",
+  "displayName": "PDS Toolbox",
+  "description": "PDS-AutomationSuite development tools — board editor, build & deploy",
+  "version": "0.2.0",
+  "publisher": "pds-automation",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": ["onView:pdsToolbox"],
+  "main": "./extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "pds-toolbox",
+          "title": "PDS Toolbox",
+          "icon": "media/pds-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "pds-toolbox": [
+        {
+          "id": "pdsToolbox",
+          "name": "Tools"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "pds.openPinleafForge",
+        "title": "PDS: Open Pinleaf Forge",
+        "icon": "$(circuit-board)"
+      },
+      {
+        "command": "pds.openBuild",
+        "title": "PDS: Build Firmware",
+        "icon": "$(tools)"
+      },
+      {
+        "command": "pds.openDeploy",
+        "title": "PDS: Deploy to Device",
+        "icon": "$(rocket)"
+      },
+      {
+        "command": "pds.flashHeadless",
+        "title": "PDS: Flash Firmware (Headless)",
+        "icon": "$(rocket)"
+      },
+      {
+        "command": "pds.flashDefaultsHeadless",
+        "title": "PDS: Flash NVS Defaults (Headless)",
+        "icon": "$(rocket)"
+      },
+      {
+        "command": "pds.flashDevCreds",
+        "title": "PDS: Flash DEV-Creds (Headless)",
+        "icon": "$(key)"
+      },
+      {
+        "command": "pds.flashDefaults",
+        "title": "PDS: Flash L1/L2/L3 Defaults (Headless)",
+        "icon": "$(database)"
+      },
+      {
+        "command": "pds.openRoleEditor",
+        "title": "PDS: Open Role Editor",
+        "icon": "$(symbol-event)"
+      },
+      {
+        "command": "pds.openPipelinePanel",
+        "title": "PDS: Pipeline Push",
+        "icon": "$(cloud-upload)"
+      },
+      {
+        "command": "pds.publishRole",
+        "title": "PDS: Publish Role",
+        "icon": "$(cloud-upload)"
+      },
+      {
+        "command": "pds.refreshSidebar",
+        "title": "Refresh",
+        "icon": "$(refresh)"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "pds.openPinleafForge",
+          "when": "resourceFilename == board-editor.html",
+          "group": "navigation"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "pds.refreshSidebar",
+          "when": "view == pdsToolbox",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "@pds/pipeline": "file:../pds-pipeline"
+  }
+}

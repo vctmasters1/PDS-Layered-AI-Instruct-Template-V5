@@ -1,0 +1,23 @@
+# Credentials - DO NOT COMMIT
+.env
+.env.local
+
+# Build outputs
+dist/
+*.bin
+*.elf
+*.map
+.nvs_defaults.bin
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+logs/
+*.log
+
+# Cache
+cache/
+tmp/
+temp/

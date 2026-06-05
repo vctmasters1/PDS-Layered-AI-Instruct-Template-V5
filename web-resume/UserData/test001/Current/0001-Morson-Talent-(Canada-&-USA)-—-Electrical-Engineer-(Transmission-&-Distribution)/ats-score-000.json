@@ -1,0 +1,54 @@
+{
+  "listing": "Morson-Talent-(Canada-&-USA)-\u2014-Electrical-Engineer-(Transmission-&-Distribution)",
+  "scores": {
+    "ensemble": 75.01,
+    "composite": 58.35,
+    "keyword": 100.0,
+    "semantic": 13.01,
+    "format": 87.5,
+    "pyresparser_skill_overlap": 100.0,
+    "semantic_jaccard": 5.32,
+    "semantic_cosine": 19.31
+  },
+  "scores_v2026": {
+    "final": 58.6,
+    "gate_parse": 0.85,
+    "relevance": 74.25,
+    "parseability": 75.0,
+    "evidence": 45.38,
+    "platform": 79.0,
+    "title_alignment": 55.0,
+    "requirements_coverage": 100.0,
+    "acronym_dual_coverage": 0.0,
+    "heading_compliance": 100.0,
+    "date_parseability": 0.0,
+    "layout_safety": 100.0,
+    "symbol_safety": 100.0,
+    "measurable_density": 46.15,
+    "context_quality": 38.46,
+    "action_verb_quality": 53.85,
+    "platform_general": 85.0,
+    "platform_targeted": 70.0
+  },
+  "critical_failures_v2026": [
+    "date_parseability_invalid"
+  ],
+  "matched_keywords": [
+    "National Instruments"
+  ],
+  "missing_keywords": [],
+  "format": {
+    "passed": [
+      "Heading present: Professional Summary",
+      "Heading present: Professional Experience",
+      "Heading present: Education",
+      "Heading present: Technical Skills",
+      "Heading present: Key Achievements",
+      "No markdown table blocks detected",
+      "No emoji/icon characters detected"
+    ],
+    "failed": [
+      "No parseable ATS-friendly date ranges detected"
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "@pds/pipeline",
+  "version": "0.1.0",
+  "description": "Shared pipeline block registry, codec, and design tokens for PDS consumers",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "prepare": "tsc",
+    "lint": "eslint src --ext .ts"
+  },
+  "files": [
+    "dist",
+    "src/design-tokens.css"
+  ],
+  "keywords": [],
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "typescript": "^6.0.3",
+    "eslint": "^8.56.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0"
+  }
+}

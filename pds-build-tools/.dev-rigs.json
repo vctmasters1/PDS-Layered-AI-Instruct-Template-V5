@@ -1,0 +1,29 @@
+﻿{
+  "rigs": {
+    "rig-001": {
+      "label": "AERO-005 Dev Rig 1",
+      "board": "esp32_node32s",
+      "hwrev": "hwrev_001",
+      "role": "AERO-005",
+      "port": "COM10",
+      "useButtonPusher": true,
+      "bpPort": "COM5",
+      "chBoot": 4,
+      "chEn": 3,
+      "deviceId": "03d84055-a12d-4f28-9d0b-135b34df9f84",
+      "serialNumber": "PDAC-2026-00001",
+      "nvsDevrig": "dist/defaults/AERO-005/nvs_devrig.csv"
+    },
+    "rig-002": {
+      "label": "AERO-005 Dev Rig 2",
+      "board": "esp32_node32s",
+      "hwrev": "hwrev_001",
+      "role": "AERO-005",
+      "port": "COM6",
+      "useButtonPusher": false,
+      "deviceId": "ad78668a-6a37-4f80-8b7e-7fe46480771e",
+      "serialNumber": "PDAC-2026-00004",
+      "nvsDevrig": "dist/defaults/AERO-005/nvs_devrig_rig002.csv"
+    }
+  }
+}

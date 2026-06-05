@@ -1,0 +1,169 @@
+# Full local production stack — all 5 PDS web services in one isolated network.
+#
+# Usage (from k:\PDS-Master-001\web-gateway\):
+#   docker compose -f docker-compose.dev.yml up --build       # first run or after code changes
+#   docker compose -f docker-compose.dev.yml up               # start without rebuilding
+#   docker compose -f docker-compose.dev.yml down             # stop & remove containers
+#   docker compose -f docker-compose.dev.yml down -v          # also delete dev-pgdata volume
+#
+# ISOLATION:
+#   - Uses named volume  dev-pgdata  — completely separate from pds-marketplace-db / api_pgdata
+#   - All services on internal bridge network  pds-dev-net  — nothing exposed except port 80
+#   - Deleting this stack does NOT affect any other containers or data
+#
+# BUILD PARADIGM:
+#   All API services build from source inside Docker (npm ci + tsc) — no pre-built
+#   artifacts needed. Builds are slower but match Railway exactly: native addons
+#   (bcrypt, sharp) compile fresh on Linux Alpine, no Windows binary issues.
+#   Build context is ".." (monorepo root) for all API services.
+
+services:
+
+  # ─── PostgreSQL ───────────────────────────────────────────────────────────────
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: pds
+      POSTGRES_PASSWORD: pds_dev_password
+      POSTGRES_DB: pds_marketplace
+    volumes:
+      - dev-pgdata:/var/lib/postgresql/data
+    networks:
+      - pds-dev-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pds -d pds_marketplace"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # ─── WEB-HMI API (port 3001) ──────────────────────────────────────────────────
+  hmi-api:
+    build:
+      context: ..
+      dockerfile: web-hmi/api/Dockerfile
+    environment:
+      NODE_ENV: development
+      PORT: "3001"
+      DATABASE_URL: postgres://pds:pds_dev_password@db:5432/pds_marketplace
+      JWT_SECRET: dev-secret-key-change-in-production
+      BASE_URL: http://localhost/hmi
+      FW_SERVER_URL: http://fwserver-api:3002
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - pds-dev-net
+
+  # ─── WEB-Marketplace API (port 3000) ──────────────────────────────────────────
+  marketplace-api:
+    build:
+      context: ..
+      dockerfile: web-marketplace/api/Dockerfile
+    environment:
+      NODE_ENV: development
+      PORT: "3000"
+      DATABASE_URL: postgres://pds:pds_dev_password@db:5432/pds_marketplace
+      JWT_SECRET: dev-secret-key-change-in-production
+      JWT_EXPIRES_IN: 7d
+    volumes:
+      - marketplace-uploads:/workspace/web-marketplace/api/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - pds-dev-net
+
+  # ─── WEB-FirmwareServer API (port 3002) ───────────────────────────────────────
+  fwserver-api:
+    build:
+      context: ..
+      dockerfile: web-firmware-server/api/Dockerfile
+    environment:
+      NODE_ENV: development
+      PORT: "3002"
+      DATABASE_URL: postgres://pds:pds_dev_password@db:5432/pds_marketplace
+      DB_SSL_REJECT_UNAUTHORIZED: "false"
+      POSTGRES_HOST: db
+      POSTGRES_PORT: "5432"
+      POSTGRES_USER: pds
+      POSTGRES_PASSWORD: pds_dev_password
+      POSTGRES_DB: pds_marketplace
+      JWT_SECRET: dev-secret-key-change-in-production
+      CORS_ORIGINS: http://localhost,http://localhost/hmi,http://localhost/marketplace
+      STORAGE_DIR: /workspace/web-firmware-server/api/storage
+    volumes:
+      - firmware-storage:/workspace/web-firmware-server/api/storage
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - pds-dev-net
+
+  # ─── WEB-PropertyPortal API (port 3003) ──────────────────────────────────────
+  property-api:
+    build:
+      context: ..
+      dockerfile: web-property-portal/Dockerfile
+    environment:
+      NODE_ENV: development
+      PORT: "3003"
+      DATABASE_URL: postgres://pds:pds_dev_password@db:5432/pds_marketplace
+      JWT_SECRET: dev-secret-key-change-in-production
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - pds-dev-net
+
+  # ─── WEB-Resume Suite (port 38291) ───────────────────────────────────────────
+  resume-api:
+    build:
+      context: ../WEB-Resume/ResumeServer
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: development
+      PORT: "38291"
+    volumes:
+      - resume-userdata:/app/userdata
+    networks:
+      - pds-dev-net
+
+  # ─── Nginx gateway (port 80) ──────────────────────────────────────────────────
+  gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    environment:
+      HMI_HOST: hmi-api
+      HMI_PORT: "3001"
+      MKT_HOST: marketplace-api
+      MKT_PORT: "3000"
+      PROP_HOST: property-api
+      PROP_PORT: "3003"
+      RESUME_HOST: resume-api
+      RESUME_PORT: "38291"
+    depends_on:
+      - hmi-api
+      - marketplace-api
+      - fwserver-api
+      - property-api
+      - resume-api
+    networks:
+      - pds-dev-net
+
+# ─── Volumes ──────────────────────────────────────────────────────────────────
+# dev-pgdata  — isolated dev database. Delete with `docker compose down -v` when you
+#               want a completely clean slate. Does NOT affect pds-marketplace-db / api_pgdata.
+volumes:
+  dev-pgdata:
+  marketplace-uploads:
+  firmware-storage:
+  property-uploads:
+  resume-userdata:
+
+# ─── Network ──────────────────────────────────────────────────────────────────
+networks:
+  pds-dev-net:
+    driver: bridge

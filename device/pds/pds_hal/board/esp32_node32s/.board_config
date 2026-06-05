@@ -1,0 +1,7 @@
+# Platform configuration for esp32_node32s
+# This file specifies the ESP-IDF target for this hardware variant
+IDF_TARGET=esp32
+PLATFORM_NAME=esp32_node32s
+PLATFORM_DESC=ESP32 Node32S (Xtensa dual core)
+# Node32S has CP2104 USB-UART with RTS/DTR auto-reset circuit
+AUTO_RESET=yes

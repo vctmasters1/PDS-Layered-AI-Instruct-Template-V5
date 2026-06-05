@@ -1,0 +1,173 @@
+/**
+ * PDS Pipeline Design Tokens
+ *
+ * Shared CSS variables for all pipeline UI consumers.
+ *
+ * TWO MODES:
+ *
+ * 1. VS Code extension webview:
+ *    --vscode-* variables are provided automatically by the VS Code runtime.
+ *    This file is NOT needed — the webview already has all tokens.
+ *
+ * 2. WEB-HMI React app (dark theme, based on VS Code Dark+):
+ *    Import or link this file. It sets --pds-* custom properties that
+ *    map to the same semantic roles as the VS Code tokens.
+ *    Components reference --pds-* variables; this file maps them to real
+ *    color values per theme.
+ *
+ * RULE: Never hard-code colors in component CSS. Always use a token.
+ * RULE: Token names follow the same semantic shape as VS Code's system.
+ */
+
+/* ── Dark theme (default) ── */
+:root,
+[data-theme="dark"] {
+  /* Surfaces */
+  --pds-editor-background:              #1e1e1e;
+  --pds-sidebar-background:             #252526;
+  --pds-sidebar-section-header-bg:      #2d2d30;
+  --pds-panel-border:                   #3e3e42;
+
+  /* Text */
+  --pds-foreground:                     #cccccc;
+  --pds-description-foreground:         #858585;
+  --pds-sidebar-section-header-fg:      #bbbbbb;
+
+  /* Inputs */
+  --pds-input-background:               #3c3c3c;
+  --pds-input-foreground:               #cccccc;
+  --pds-input-border:                   #3c3c3c;
+  --pds-focus-border:                   #007fd4;
+
+  /* Interactive */
+  --pds-list-hover-background:          rgba(255,255,255,0.06);
+  --pds-list-active-selection-bg:       #094771;
+
+  /* Buttons */
+  --pds-button-background:              #0e639c;
+  --pds-button-foreground:              #ffffff;
+  --pds-button-hover-background:        #1177bb;
+  --pds-button-secondary-background:    #3a3d41;
+  --pds-button-secondary-foreground:    #cccccc;
+  --pds-button-secondary-hover-bg:      #45494e;
+
+  /* Links */
+  --pds-text-link-foreground:           #3794ff;
+
+  /* Badges */
+  --pds-badge-background:               #4d4d4d;
+  --pds-badge-foreground:               #cccccc;
+
+  /* Typography */
+  --pds-font-family:                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --pds-font-size:                      13px;
+  --pds-font-size-small:                11px;
+  --pds-font-size-xs:                   10px;
+  --pds-font-size-badge:                9px;
+  --pds-font-family-mono:               "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+/* ── Light theme ── */
+[data-theme="light"] {
+  --pds-editor-background:              #ffffff;
+  --pds-sidebar-background:             #f3f3f3;
+  --pds-sidebar-section-header-bg:      #e8e8e8;
+  --pds-panel-border:                   #d4d4d4;
+
+  --pds-foreground:                     #333333;
+  --pds-description-foreground:         #717171;
+  --pds-sidebar-section-header-fg:      #6f6f6f;
+
+  --pds-input-background:               #ffffff;
+  --pds-input-foreground:               #333333;
+  --pds-input-border:                   #cecece;
+  --pds-focus-border:                   #0090f1;
+
+  --pds-list-hover-background:          rgba(0,0,0,0.06);
+  --pds-list-active-selection-bg:       #cce8ff;
+
+  --pds-button-background:              #007acc;
+  --pds-button-foreground:              #ffffff;
+  --pds-button-hover-background:        #006dbd;
+  --pds-button-secondary-background:    #e8e8e8;
+  --pds-button-secondary-foreground:    #333333;
+  --pds-button-secondary-hover-bg:      #d8d8d8;
+
+  --pds-text-link-foreground:           #0066b8;
+
+  --pds-badge-background:               #c4c4c4;
+  --pds-badge-foreground:               #333333;
+
+  /* Typography unchanged */
+}
+
+/* ── Category accent colors (theme-independent) ─────────────────────────── */
+/*
+ * These are fixed across themes — they match the Role Editor's visual language.
+ * Use as foreground/accent colors, not as backgrounds (they're dark-optimized).
+ * In light theme, apply 0.8 opacity or a darker variant if needed.
+ */
+:root {
+  /* Block category accents */
+  --pds-cat-input:    #58a6ff;   /* sensors, timers — blue */
+  --pds-cat-output:   #3fb950;   /* PWM, GPIO write — green */
+  --pds-cat-logic:    #d29922;   /* comparators, math — amber */
+  --pds-cat-utility:  #a78bfa;   /* fan/distribute — purple */
+
+  /* Action accents */
+  --pds-action-add:     #38bdf8; /* Add / Settings buttons — sky blue */
+  --pds-action-danger:  #f85149; /* Remove / conflict — red */
+
+  /* Capability badge backgrounds (for pin map) */
+  --pds-cap-gpio-bg:  #21262d;   --pds-cap-gpio-fg:  #8b949e;
+  --pds-cap-adc-bg:   #1a2332;   --pds-cap-adc-fg:   #58a6ff;
+  --pds-cap-pwm-bg:   #1a2a1a;   --pds-cap-pwm-fg:   #3fb950;
+  --pds-cap-spi-bg:   #2a2a1a;   --pds-cap-spi-fg:   #d29922;
+  --pds-cap-i2c-bg:   #2a1a2a;   --pds-cap-i2c-fg:   #a78bfa;
+  --pds-cap-uart-bg:  #2a1a1a;   --pds-cap-uart-fg:  #f85149;
+
+  /* Block header hue tints (data-hue="0..7" on .header-block) */
+  --pds-hue-0: rgba(248, 113, 113, 0.05);   --pds-hue-0-border: rgba(248, 113, 113, 0.4);
+  --pds-hue-1: rgba(251, 191,  36, 0.05);   --pds-hue-1-border: rgba(251, 191,  36, 0.4);
+  --pds-hue-2: rgba( 52, 211, 153, 0.05);   --pds-hue-2-border: rgba( 52, 211, 153, 0.4);
+  --pds-hue-3: rgba( 96, 165, 250, 0.05);   --pds-hue-3-border: rgba( 96, 165, 250, 0.4);
+  --pds-hue-4: rgba(167, 139, 250, 0.05);   --pds-hue-4-border: rgba(167, 139, 250, 0.4);
+  --pds-hue-5: rgba(244, 114, 182, 0.05);   --pds-hue-5-border: rgba(244, 114, 182, 0.4);
+  --pds-hue-6: rgba( 45, 212, 191, 0.05);   --pds-hue-6-border: rgba( 45, 212, 191, 0.4);
+  --pds-hue-7: rgba(253, 186, 116, 0.05);   --pds-hue-7-border: rgba(253, 186, 116, 0.4);
+}
+
+/* ── VS Code token aliases (for consumers that use --vscode-* names) ─────── */
+/*
+ * The VS Code extension webview provides real --vscode-* tokens automatically.
+ * The WEB-HMI React app uses this alias block to forward --vscode-* references
+ * to our --pds-* tokens, so shared CSS that uses --vscode-* still works in the web app.
+ *
+ * Include this block ONLY in the WEB-HMI React app, not in the extension webview.
+ */
+.pds-vscode-compat {
+  --vscode-editor-background:                var(--pds-editor-background);
+  --vscode-sideBar-background:               var(--pds-sidebar-background);
+  --vscode-sideBarSectionHeader-background:  var(--pds-sidebar-section-header-bg);
+  --vscode-sideBarSectionHeader-foreground:  var(--pds-sidebar-section-header-fg);
+  --vscode-panel-border:                     var(--pds-panel-border);
+  --vscode-foreground:                       var(--pds-foreground);
+  --vscode-descriptionForeground:            var(--pds-description-foreground);
+  --vscode-input-background:                 var(--pds-input-background);
+  --vscode-input-foreground:                 var(--pds-input-foreground);
+  --vscode-input-border:                     var(--pds-input-border);
+  --vscode-focusBorder:                      var(--pds-focus-border);
+  --vscode-list-hoverBackground:             var(--pds-list-hover-background);
+  --vscode-list-activeSelectionBackground:   var(--pds-list-active-selection-bg);
+  --vscode-button-background:                var(--pds-button-background);
+  --vscode-button-foreground:                var(--pds-button-foreground);
+  --vscode-button-hoverBackground:           var(--pds-button-hover-background);
+  --vscode-button-secondaryBackground:       var(--pds-button-secondary-background);
+  --vscode-button-secondaryForeground:       var(--pds-button-secondary-foreground);
+  --vscode-button-secondaryHoverBackground:  var(--pds-button-secondary-hover-bg);
+  --vscode-textLink-foreground:              var(--pds-text-link-foreground);
+  --vscode-badge-background:                 var(--pds-badge-background);
+  --vscode-badge-foreground:                 var(--pds-badge-foreground);
+  --vscode-font-family:                      var(--pds-font-family);
+  --vscode-font-size:                        var(--pds-font-size);
+}

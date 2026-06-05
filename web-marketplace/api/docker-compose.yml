@@ -1,0 +1,20 @@
+# LEGACY — do not use this file to start the dev database.
+# The authoritative compose is db-central/docker-compose.yml.
+# Run:  docker compose -f k:/PDS-Master-001/db-central/docker-compose.yml up -d
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: db-central
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: pds
+      POSTGRES_PASSWORD: pds_dev_password
+      POSTGRES_DB: pds_marketplace
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

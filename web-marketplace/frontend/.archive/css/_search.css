@@ -1,0 +1,322 @@
+/* ============================================================================
+   SEARCH & DISCOVERY MODULE
+   ============================================================================ */
+
+.search-container {
+    display: flex;
+    gap: 30px;
+    margin: 20px 0;
+}
+
+.search-filters-panel {
+    width: 300px;
+    background: var(--bg-secondary);
+    padding: 20px;
+    border-radius: 8px;
+    height: fit-content;
+    border: 1px solid var(--border);
+}
+
+.search-filters-panel h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: var(--text-dark);
+}
+
+.filter-group {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-group label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+.filter-group input,
+.filter-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--bg-primary);
+    color: var(--text-dark);
+    font-size: 14px;
+}
+
+.filter-group input:focus,
+.filter-group select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.1);
+}
+
+.filter-row {
+    display: flex;
+    gap: 10px;
+}
+
+.filter-row .filter-group {
+    flex: 1;
+}
+
+.search-results-panel {
+    flex: 1;
+}
+
+.search-result-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+    transition: all 0.2s ease;
+}
+
+.search-result-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary);
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.result-header h3 {
+    margin: 0;
+    font-size: 16px;
+    color: var(--text-dark);
+    word-break: break-word;
+    flex: 1;
+}
+
+.favorite-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.2s;
+}
+
+.favorite-btn:hover {
+    transform: scale(1.2);
+}
+
+.favorite-btn.favorited {
+    color: #ffd700;
+}
+
+.result-description {
+    margin: 10px 0;
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.result-meta {
+    display: flex;
+    gap: 15px;
+    margin: 12px 0;
+    font-size: 14px;
+    flex-wrap: wrap;
+}
+
+.result-meta .price {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.result-meta .rating {
+    color: #f59e0b;
+}
+
+.result-meta .designer {
+    color: var(--text-secondary);
+}
+
+.result-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.result-actions .btn-small {
+    padding: 6px 12px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.search-results {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Designer/Producer Result Cards */
+
+.designer-result-card,
+.producer-result-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+    transition: all 0.2s ease;
+}
+
+.designer-result-card:hover,
+.producer-result-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary);
+}
+
+.designer-result-card h3,
+.producer-result-card h3 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    color: var(--text-dark);
+}
+
+.designer-result-card .location,
+.producer-result-card .location {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+}
+
+.designer-result-card .rating,
+.producer-result-card .rating {
+    font-size: 13px;
+    color: #f59e0b;
+    margin-bottom: 8px;
+}
+
+.designer-result-card .bio,
+.producer-result-card .capabilities {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+/* Saved Searches */
+
+.saved-search-item {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 8px;
+}
+
+.search-name {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+}
+
+.search-query {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    font-style: italic;
+}
+
+.search-date {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.search-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.search-actions .btn-small {
+    padding: 4px 8px;
+    font-size: 11px;
+}
+
+/* Favorite Cards */
+
+.favorite-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    margin-bottom: 12px;
+}
+
+.favorite-card h3 {
+    margin: 0 0 8px 0;
+    font-size: 15px;
+    color: var(--text-dark);
+}
+
+.favorite-card .price {
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 6px;
+}
+
+.favorite-card .category,
+.favorite-card .designer {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.favorite-card .actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.favorite-card .btn-small {
+    padding: 5px 10px;
+    font-size: 11px;
+}
+
+/* Recommendation Cards */
+
+.recommendation-card {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    border-radius: 8px;
+    padding: 14px;
+    margin-bottom: 12px;
+    border: none;
+}
+
+.recommendation-card h4 {
+    margin: 0 0 6px 0;
+    font-size: 14px;
+}
+
+.recommendation-card .price {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.recommendation-card .reason {
+    font-size: 12px;
+    opacity: 0.9;
+    margin-bottom: 10px;
+}
+
+.recommendation-card .btn-small {
+    background: white;
+    color: var(--primary);
+    padding: 5px 10px;
+    font-size: 11px;
+}

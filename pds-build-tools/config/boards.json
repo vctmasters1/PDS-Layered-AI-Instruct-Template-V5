@@ -1,0 +1,88 @@
+﻿{
+  "boards": {
+    "esp32c3": {
+      "name": "ESP32-C3",
+      "description": "Espressif ESP32-C3 RISC-V microcontroller",
+      "build_system": "esp-idf",
+      "idf_version": "5.4.1",
+      "target": "esp32c3",
+      "toolchain": "xtensa-esp32c3-elf",
+      "hal_board": "esp32_node32s",
+      "hwrevs": [
+        {
+          "id": "001",
+          "dir": "hwrev_001",
+          "role_dirs": {
+            "aeroponics": "AERO-002",
+            "greenhouse": "AERO-001"
+          },
+          "name": "H2O Tower v1",
+          "description": "Initial H2O Tower design",
+          "active": true,
+          "capabilities": {
+            "adc": 3,
+            "pwm": 2,
+            "gpio": 4,
+            "wifi": true,
+            "ble": true
+          }
+        },
+        {
+          "id": "002",
+          "dir": "hwrev_002",
+          "role_dirs": {},
+          "name": "H2O Tower v2",
+          "description": "Revised H2O Tower design",
+          "active": false,
+          "capabilities": {
+            "adc": 4,
+            "pwm": 3,
+            "gpio": 6,
+            "wifi": true,
+            "ble": true
+          }
+        }
+      ],
+      "available_roles": [
+        "aeroponics",
+        "greenhouse",
+        "generic"
+      ],
+      "project_path": "Device/H2O-DEV-12102025",
+      "source_dirs": [
+        "Device/H2O-DEV-12102025/main",
+        "Device/pds"
+      ]
+    },
+    "silabs": {
+      "name": "Silicon Labs EFM32GG",
+      "description": "Silicon Labs EFM32GG Gecko microcontroller",
+      "build_system": "cmake",
+      "toolchain": "arm-none-eabi-gcc",
+      "hwrevs": [
+        {
+          "id": "001",
+          "name": "Gecko Dev Board v1",
+          "description": "Initial Silicon Labs design",
+          "active": true,
+          "capabilities": {
+            "adc": 4,
+            "pwm": 3,
+            "gpio": 8,
+            "wifi": false,
+            "ble": true
+          }
+        }
+      ],
+      "available_roles": [
+        "generic",
+        "sensor_hub"
+      ],
+      "project_path": "Device/silabs",
+      "source_dirs": [
+        "Device/silabs",
+        "Device/pds"
+      ]
+    }
+  }
+}

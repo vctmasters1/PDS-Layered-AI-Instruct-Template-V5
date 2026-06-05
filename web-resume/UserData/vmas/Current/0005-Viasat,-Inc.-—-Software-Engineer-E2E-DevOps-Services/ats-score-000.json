@@ -1,0 +1,61 @@
+{
+  "listing": "Viasat,-Inc.-\u2014-Software-Engineer-E2E-DevOps-Services",
+  "scores": {
+    "ensemble": 69.4,
+    "composite": 60.11,
+    "keyword": 83.33,
+    "semantic": 24.31,
+    "format": 100.0,
+    "pyresparser_skill_overlap": 83.33,
+    "semantic_jaccard": 10.77,
+    "semantic_cosine": 35.38
+  },
+  "scores_v2026": {
+    "final": 80.92,
+    "gate_parse": 1.0,
+    "relevance": 74.58,
+    "parseability": 100.0,
+    "evidence": 67.06,
+    "platform": 79.0,
+    "title_alignment": 75.0,
+    "requirements_coverage": 83.33,
+    "acronym_dual_coverage": 25.0,
+    "heading_compliance": 100.0,
+    "date_parseability": 100.0,
+    "layout_safety": 100.0,
+    "symbol_safety": 100.0,
+    "measurable_density": 82.35,
+    "context_quality": 47.06,
+    "action_verb_quality": 58.82,
+    "platform_general": 85.0,
+    "platform_targeted": 70.0
+  },
+  "critical_failures_v2026": [],
+  "matched_keywords": [
+    "National Instruments",
+    "TCP/IP",
+    "SQL",
+    "Git/SVN",
+    "Troubleshooting"
+  ],
+  "missing_keywords": [
+    {
+      "skill": "SAT",
+      "bucket": "general",
+      "weight": 1.0
+    }
+  ],
+  "format": {
+    "passed": [
+      "Heading present: Professional Summary",
+      "Heading present: Professional Experience",
+      "Heading present: Education",
+      "Heading present: Technical Skills",
+      "Heading present: Key Achievements",
+      "No markdown table blocks detected",
+      "Consistent parseable date format detected",
+      "No emoji/icon characters detected"
+    ],
+    "failed": []
+  }
+}

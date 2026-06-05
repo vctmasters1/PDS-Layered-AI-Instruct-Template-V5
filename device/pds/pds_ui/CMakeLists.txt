@@ -1,0 +1,11 @@
+idf_component_register(
+    SRCS
+        "pds_ui.c"
+        "pds_ui_oled.c"
+    INCLUDE_DIRS
+        "include"
+    PRIV_REQUIRES
+        driver
+        pds_hal
+        pds_network
+)

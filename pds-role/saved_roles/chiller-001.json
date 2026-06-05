@@ -1,0 +1,436 @@
+{
+  "role_id": "chiller-001",
+  "display_name": "Chiller-60w-v1",
+  "device_type": "h20-chiller",
+  "target": "esp32c3_sm",
+  "board": "esp32-c3-supermini",
+  "hwrev": "hwrev-002",
+  "flash_size_kb": 4096,
+  "app_size_kb": 1408,
+  "system_prefs": {
+    "tz_offset_min": 0
+  },
+  "modules": {
+    "pds_core": {
+      "enabled": true,
+      "locked": true
+    },
+    "pds_hal": {
+      "enabled": true,
+      "locked": true
+    },
+    "pds_network": {
+      "enabled": true,
+      "locked": true
+    },
+    "pds_pipeline": {
+      "enabled": true,
+      "locked": true
+    },
+    "pds_storage": {
+      "enabled": true,
+      "locked": true
+    },
+    "pds_ui": {
+      "enabled": true,
+      "locked": true
+    },
+    "pds_validation": {
+      "enabled": true,
+      "locked": true
+    }
+  },
+  "components": {},
+  "pin_assignments": {
+    "pl_0_bl_0_adc_channel": {
+      "gpio": 2,
+      "label": "Water Temp Probe - sensor_analog",
+      "dir": "in"
+    },
+    "periph:periph_aig4ypmw:pin_sda": {
+      "gpio": 8,
+      "label": "OLED SSD1306 128×32 · SDA",
+      "peripheral": "periph_aig4ypmw",
+      "dir": "in"
+    },
+    "periph:periph_aig4ypmw:pin_scl": {
+      "gpio": 9,
+      "label": "OLED SSD1306 128×32 · SCL",
+      "peripheral": "periph_aig4ypmw",
+      "dir": "in"
+    },
+    "periph:periph_sg6lfg4r:pin_pwm": {
+      "gpio": 3,
+      "label": "PWM-Peltier · PWM Signal",
+      "peripheral": "periph_sg6lfg4r",
+      "dir": "out"
+    },
+    "periph:periph_10lussr6:pin_a": {
+      "gpio": 5,
+      "label": "Encoder — Mapped · Channel A",
+      "peripheral": "periph_10lussr6",
+      "dir": "in"
+    },
+    "periph:periph_10lussr6:pin_b": {
+      "gpio": 7,
+      "label": "Encoder — Mapped · Channel B",
+      "peripheral": "periph_10lussr6",
+      "dir": "in"
+    },
+    "periph:periph_10lussr6:pin_gnd": {
+      "gpio": 6,
+      "label": "Encoder — Mapped · Virtual GND Pin",
+      "peripheral": "periph_10lussr6",
+      "dir": "in"
+    }
+  },
+  "variables": {
+    "pds_network": [
+      {
+        "name": "wifi_ssid",
+        "type": "string[32]",
+        "default": "",
+        "description": "WiFi network name"
+      },
+      {
+        "name": "wifi_password",
+        "type": "string[64]",
+        "default": "",
+        "description": "WiFi password"
+      },
+      {
+        "name": "telemetry_interval_ms",
+        "type": "uint32",
+        "default": 5000,
+        "description": "Telemetry publish interval"
+      },
+      {
+        "name": "cloud_push_interval_ms",
+        "type": "uint32",
+        "default": 300000,
+        "description": "Cloud telemetry push interval (ms)"
+      },
+      {
+        "name": "ble_device_name",
+        "type": "string[16]",
+        "default": "",
+        "description": "BLE advertised name"
+      },
+      {
+        "name": "mdns_hostname",
+        "type": "string[32]",
+        "default": "pds-device",
+        "description": "mDNS hostname"
+      }
+    ],
+    "pds_storage": [
+      {
+        "name": "_nvs_namespace",
+        "type": "string[16]",
+        "default": "pds",
+        "description": "NVS partition namespace"
+      },
+      {
+        "name": "_config_version",
+        "type": "uint16",
+        "default": 1,
+        "description": "Config format version"
+      },
+      {
+        "name": "_storage_type",
+        "type": "enum:fat,spiffs",
+        "default": "fat",
+        "description": "Storage filesystem type (FATFS or SPIFFS)"
+      },
+      {
+        "name": "_storage_pct",
+        "type": "uint8",
+        "default": 25,
+        "description": "Percentage of flash for storage (5-60)",
+        "min": 5,
+        "max": 60
+      },
+      {
+        "name": "_ota_enabled",
+        "type": "bool",
+        "default": true,
+        "description": "Enable OTA dual-app partitions"
+      },
+      {
+        "name": "_storage_enabled",
+        "type": "bool",
+        "default": true,
+        "description": "Include storage partition"
+      },
+      {
+        "name": "_nvs_size_kb",
+        "type": "uint16",
+        "default": 20,
+        "description": "NVS partition size in KB"
+      }
+    ]
+  },
+  "user_prefabs": [],
+  "output_groups": [
+    {
+      "id": "og_y79jgr",
+      "name": "Mainboard Outputs",
+      "peripheral_id": null,
+      "pins": [
+        {
+          "id": "op_9zuzbm",
+          "type": "pwm",
+          "type_locked": true,
+          "peripheral_id": "periph_sg6lfg4r",
+          "gpio": 3,
+          "label": "PWM-Peltier — PWM Signal",
+          "frequency": 1000,
+          "func_min": 0,
+          "func_max": 100,
+          "count_rate_at_full": 0
+        }
+      ]
+    }
+  ],
+  "output_pins": [
+    {
+      "id": "op_9zuzbm",
+      "type": "pwm",
+      "gpio": 3,
+      "label": "PWM-Peltier — PWM Signal",
+      "frequency": 1000,
+      "func_min": 0,
+      "func_max": 100,
+      "count_rate_at_full": 0
+    }
+  ],
+  "timer_defs": [],
+  "pipelines": [
+    {
+      "id": "x31tijga96r9pidj",
+      "name": "Inputs-Mainboard",
+      "kind": "sensor",
+      "enabled": true,
+      "blocks": [
+        {
+          "blockType": "sensor_analog",
+          "alias": "Water Temp Probe",
+          "settings": {
+            "adc_channel": 2,
+            "pin_power": "",
+            "power_active_low": true,
+            "settling_time_ms": 100,
+            "response_time_ms": 100,
+            "sample_interval_ms": 500,
+            "oversample_count": 4,
+            "Vmin": 0,
+            "Vmax": 2.5,
+            "scale_min": 89,
+            "scale_max": 6,
+            "enabled": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "5wpxbquuwshecr4f",
+      "name": "Pipeline 2",
+      "kind": "pipeline",
+      "enabled": true,
+      "blocks": [
+        {
+          "blockType": "sensor_value",
+          "alias": "Water Temp Probe",
+          "settings": {
+            "sensor_ref": "x31tijga96r9pidj:0:0",
+            "enabled": true
+          }
+        },
+        {
+          "blockType": "pid",
+          "alias": "PID",
+          "settings": {
+            "setpoint": 20,
+            "kp": 1,
+            "ki": 0.1,
+            "kd": 0.05,
+            "output_min": 0,
+            "output_max": 100,
+            "deadband": 0,
+            "sample_interval_ms": 100,
+            "reverse_acting": true,
+            "enabled": true
+          }
+        },
+        {
+          "blockType": "pwm_output",
+          "alias": "PWM-Chiller",
+          "settings": {
+            "output_pin_ref": "op_9zuzbm",
+            "ratio": 100,
+            "enabled": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "enc0setpoint00",
+      "name": "Encoder-Setpoint",
+      "kind": "sensor",
+      "enabled": true,
+      "peripheral_id": "periph_10lussr6",
+      "blocks": [
+        {
+          "blockType": "encoder_mapped",
+          "alias": "Temp Setpoint Knob",
+          "settings": {
+            "peripheral_id": "periph_10lussr6",
+            "enabled": true
+          }
+        }
+      ]
+    }
+  ],
+  "mutex_groups": [],
+  "peripherals": [
+    {
+      "id": "periph_aig4ypmw",
+      "type": "oled_ssd1306",
+      "alias": "OLED SSD1306 128×32",
+      "config": {
+        "i2c_addr": 60,
+        "flip": false,
+        "refresh_ms": 1000,
+        "cycle_ms": 0
+      },
+      "pins": {
+        "pin_sda": 8,
+        "pin_scl": 9
+      },
+      "mutex_group": null,
+      "ui_params": {
+        "screens": [
+          {
+            "elements": [
+              {
+                "type": "label",
+                "x": 0,
+                "y": 0,
+                "font": "8x16",
+                "fmt": "f1",
+                "width": 0,
+                "range_min": 0,
+                "range_max": 100,
+                "prefix": "Temp Set",
+                "tel_key": ""
+              },
+              {
+                "type": "label",
+                "x": 0,
+                "y": 16,
+                "font": "8x16",
+                "fmt": "f1",
+                "width": 0,
+                "range_min": 0,
+                "range_max": 100,
+                "prefix": "WaterTem",
+                "tel_key": ""
+              },
+              {
+                "type": "value",
+                "x": 80,
+                "y": 0,
+                "font": "8x16",
+                "fmt": "f1",
+                "width": 0,
+                "range_min": 0,
+                "range_max": 100,
+                "prefix": "",
+                "tel_key": "cp:5wpxbquuwshecr4f:1:setpoint"
+              },
+              {
+                "type": "sensor value",
+                "x": 80,
+                "y": 16,
+                "font": "8x16",
+                "fmt": "f1",
+                "width": 0,
+                "range_min": 0,
+                "range_max": 100,
+                "prefix": "",
+                "tel_key": "ADC2"
+              }
+            ]
+          },
+          {
+            "elements": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "periph_sg6lfg4r",
+      "type": "pwm_device",
+      "alias": "PWM-Peltier",
+      "config": {
+        "frequency_hz": 1000,
+        "func_min": 0,
+        "func_max": 100,
+        "count_rate_at_full": 0,
+        "ramp_ms": 0,
+        "invert": false,
+        "enabled": true
+      },
+      "pins": {
+        "pin_pwm": 3
+      },
+      "mutex_group": null
+    },
+    {
+      "id": "periph_scbegvbk",
+      "type": "encoder",
+      "alias": "Quadrature Encoder",
+      "config": {
+        "counts_per_rev": 1000,
+        "velocity_interval_ms": 200,
+        "active_low": false,
+        "reset_on_index": false,
+        "invert_direction": false,
+        "enabled": true
+      },
+      "pins": {
+        "pin_a": 4,
+        "pin_b": 3,
+        "pin_index": -1
+      },
+      "mutex_group": null
+    },
+    {
+      "id": "periph_10lussr6",
+      "type": "encoder_mapped",
+      "alias": "Encoder — Mapped",
+      "config": {
+        "counts_per_rev": 1000,
+        "velocity_interval_ms": 200,
+        "pull": 1,
+        "active_low": false,
+        "reset_on_index": false,
+        "invert_direction": false,
+        "enabled": true,
+        "map_in_min": -200,
+        "map_in_max": 100,
+        "map_out_min": 0,
+        "map_out_max": 30,
+        "clamp": true,
+        "control_point": "5wpxbquuwshecr4f:1:setpoint"
+      },
+      "pins": {
+        "pin_a": 5,
+        "pin_b": 7,
+        "pin_index": -1,
+        "pin_gnd": 6
+      },
+      "mutex_group": null
+    }
+  ]
+}

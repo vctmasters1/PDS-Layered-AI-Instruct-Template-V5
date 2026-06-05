@@ -1,0 +1,51 @@
+{
+  "listing": "Military-Service-Air-Force-Reserve-\u2014-enginnerr-jobs-in-Dublin,-OH",
+  "scores": {
+    "ensemble": 79.21,
+    "composite": 65.34,
+    "keyword": 100.0,
+    "semantic": 22.99,
+    "format": 100.0,
+    "pyresparser_skill_overlap": 100.0,
+    "semantic_jaccard": 13.64,
+    "semantic_cosine": 30.63
+  },
+  "scores_v2026": {
+    "final": 69.42,
+    "gate_parse": 1.0,
+    "relevance": 65.5,
+    "parseability": 100.0,
+    "evidence": 30.0,
+    "platform": 79.0,
+    "title_alignment": 30.0,
+    "requirements_coverage": 100.0,
+    "acronym_dual_coverage": 0.0,
+    "heading_compliance": 100.0,
+    "date_parseability": 100.0,
+    "layout_safety": 100.0,
+    "symbol_safety": 100.0,
+    "measurable_density": 33.33,
+    "context_quality": 38.1,
+    "action_verb_quality": 9.52,
+    "platform_general": 85.0,
+    "platform_targeted": 70.0
+  },
+  "critical_failures_v2026": [],
+  "matched_keywords": [
+    "National Instruments"
+  ],
+  "missing_keywords": [],
+  "format": {
+    "passed": [
+      "Heading present: Professional Summary",
+      "Heading present: Professional Experience",
+      "Heading present: Education",
+      "Heading present: Technical Skills",
+      "Heading present: Key Achievements",
+      "No markdown table blocks detected",
+      "Consistent parseable date format detected",
+      "No emoji/icon characters detected"
+    ],
+    "failed": []
+  }
+}

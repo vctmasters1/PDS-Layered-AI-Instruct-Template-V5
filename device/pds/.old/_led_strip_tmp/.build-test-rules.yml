@@ -1,0 +1,101 @@
+led_strip/examples/led_strip_rmt_ws2812:
+  disable:
+    - if: CONFIG_SOC_RMT_SUPPORTED != 1
+      reason: Relevant only for RMT enabled targets
+
+led_strip/examples/led_strip_spi_ws2812:
+  enable:
+    - if: (IDF_VERSION_MAJOR == 5 and IDF_VERSION_MINOR >= 1) or (IDF_VERSION_MAJOR > 5)
+      reason: Example uses some SPI driver features which was introduced in IDF v5.1
+  disable:
+    - if: CONFIG_SOC_GPSPI_SUPPORTED != 1
+      reason: Relevant only for SPI enabled targets
+
+esp_delta_ota:
+  enable:
+    - if: IDF_VERSION_MAJOR > 4
+      reason: Example uses esp_app_format component which was introduced in IDF v5.0
+  disable:
+    - if: SOC_WIFI_SUPPORTED != 1
+      reason: Relevant only for WiFi enabled targets
+
+esp_encrypted_img/examples/pre_encrypted_ota:
+  enable:
+    - if: IDF_TARGET in ["esp32", "esp32s3"]
+      reason: ESP32 runs RSA OTA encryption test, ESP32-S3 runs ECC OTA encryption test
+
+esp_ext_part_tables/test_apps:
+  enable:
+    - if: ((IDF_VERSION_MAJOR == 5 and IDF_VERSION_MINOR >= 1) or (IDF_VERSION_MAJOR >= 6)) and IDF_TARGET == "linux"
+      reason: Host test is enough
+
+sh2lib/examples/http2_request:
+  enable:
+    - if: IDF_VERSION_MAJOR > 4 and INCLUDE_DEFAULT == 1
+      reason: Example uses sh2lib component which was introduced in IDF v5.0
+
+esp_jpeg/examples/get_started:
+  enable:
+    - if: IDF_VERSION_MAJOR > 4 and IDF_TARGET in ["esp32", "esp32s2", "esp32s3"]
+      reason: Example depends on BSP, which is supported only for IDF >= 5.0 and limited targets
+
+esp_schedule/examples/get_started:
+  enable:
+    - if: ((IDF_VERSION_MAJOR == 5 and IDF_VERSION_MINOR >= 1) or (IDF_VERSION_MAJOR > 5)) and SOC_WIFI_SUPPORTED == 1
+      reason: Network provisioning component has dependencies IDF >= 5.1; example only supports Wi-Fi enabled targets
+
+catch2/examples/catch2-test:
+  enable:
+    - if: INCLUDE_DEFAULT == 1 or IDF_TARGET == "linux"
+  disable:
+    - if: IDF_VERSION_MAJOR < 5
+      reason: Example relies on WHOLE_ARCHIVE component property which was introduced in IDF v5.0
+    - if: ((IDF_VERSION_MAJOR == 5 and IDF_VERSION_MINOR < 1) and IDF_TARGET == "linux")
+      reason: Docker container for release/v5.0 doesn't contain a C++ compiler
+
+catch2/examples/catch2-console:
+  disable:
+    - if: IDF_VERSION_MAJOR < 5
+      reason: Example relies on WHOLE_ARCHIVE component property which was introduced in IDF v5.0
+
+network_provisioning/examples/thread_prov:
+  enable:
+    - if: ((IDF_VERSION_MAJOR == 5 and IDF_VERSION_MINOR >= 1) or (IDF_VERSION_MAJOR > 5))
+      reason: Network provisioning component has dependencies IDF >= 5.1
+  disable:
+    - if: SOC_IEEE802154_SUPPORTED != 1
+      reason: Relevant only for IEEE802.15.4 enabled targets
+
+network_provisioning/examples/wifi_prov:
+  enable:
+    - if: ((IDF_VERSION_MAJOR == 5 and IDF_VERSION_MINOR >= 1) or (IDF_VERSION_MAJOR > 5))
+      reason: Network provisioning component has dependencies IDF >= 5.1
+  disable:
+    - if: SOC_WIFI_SUPPORTED != 1
+      reason: Relevant only for WiFi enabled targets
+
+esp_lcd_qemu_rgb/examples/lcd_qemu_rgb_panel:
+  enable:
+    - if: ((IDF_VERSION_MAJOR == 5 and IDF_VERSION_MINOR >= 3) or (IDF_VERSION_MAJOR > 5)) and (IDF_TARGET in ["esp32", "esp32c3"])
+      reason: Example is meant to be run under QEMU, which currently only supports ESP32 and ESP32-C3
+
+spi_nand_flash/test_app:
+  disable:
+    - if: IDF_VERSION_MAJOR < 5
+      reason: The spi_nand_flash component is compatible with IDF version v5.0 and above, due to a change in the f_mkfs API in versions above v5.0, which is not supported in older IDF versions.
+    - if: IDF_VERSION_MAJOR < 6 and CONFIG_NAME == "bdl"
+      reason: BDL support requires the esp_blockdev interface, available starting from IDF version v6.0.
+
+spi_nand_flash/host_test:
+  enable:
+    - if: IDF_TARGET == "linux"
+  disable:
+    - if: IDF_VERSION_MAJOR < 5
+      reason: The spi_nand_flash component is compatible with IDF version v5.0 and above, due to a change in the f_mkfs API in versions above v5.0, which is not supported in older IDF versions.
+    - if: IDF_VERSION_MAJOR == 5 and (IDF_VERSION_MINOR < 3)
+      reason: Fails to build on older versions of IDF
+
+spi_nand_flash_fatfs/examples/nand_flash:
+  disable:
+    - if: IDF_VERSION_MAJOR < 5
+      reason: The spi_nand_flash component is compatible with IDF version v5.0 and above, due to a change in the f_mkfs API in versions above v5.0, which is not supported in older IDF versions.

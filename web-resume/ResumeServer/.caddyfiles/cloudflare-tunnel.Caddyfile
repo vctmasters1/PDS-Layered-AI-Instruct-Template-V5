@@ -1,0 +1,8 @@
+# Caddyfile — CLOUDFLARE TUNNEL MODE (Zero Trust)
+# Alternative: use Cloudflare Tunnel for secure external access without opening ports
+# Requires: cloudflared CLI installed and authenticated
+# Usage: cloudflared tunnel --config cloudflared.yml run
+#
+# This Caddyfile would be minimalist if using Tunnel (tunnel handles HTTPS).
+# Instead, run tunneled daemon and keep Express on localhost only.
+# See: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/tunnel-guide/

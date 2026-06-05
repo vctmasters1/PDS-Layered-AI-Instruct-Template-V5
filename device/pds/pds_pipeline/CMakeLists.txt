@@ -1,0 +1,9 @@
+idf_component_register(
+    SRCS
+        "pds_pipeline.c"
+    INCLUDE_DIRS
+        "include"
+    REQUIRES
+        pds_fb
+        pds_core
+)

@@ -1,0 +1,259 @@
+{
+  "id": "esp32-c3-supermini",
+  "name": "ESP32-C3 Supermini",
+  "boardId": "esp32-c3-supermini",
+  "boardAlias": "ESP32-C3 Supermini",
+  "mcuTarget": "esp32c3_sm",
+  "website": "https://www.espressif.com/en/products/devkits/esp32-c3-devkitm-1",
+  "sku": "ESP32-C3-DevKitM-1",
+  "description": "Compact development board featuring the ESP32-C3 RISC-V microcontroller with Wi-Fi and BLE.",
+  "architecture": "RISC-V",
+  "cores": 1,
+  "frequency_mhz": 160,
+  "ram_kb": 400,
+  "flash_kb": 4096,
+  "gpio_total": 22,
+  "adc_channels": 6,
+  "pwm_channels": 16,
+  "wifi": "802.11b/g/n",
+  "ble": "Bluetooth 5.0",
+  "supported_interfaces": [
+    "UART",
+    "SPI",
+    "I2C",
+    "PWM",
+    "ADC"
+  ],
+  "usb_ports": {
+    "usb1": 1
+  },
+  "system_features": [
+    "USB",
+    "Wi-Fi",
+    "BLE"
+  ],
+  "toolchain": "esp-idf / Arduino",
+  "notes": "Supports strapping pins for boot configuration.",
+  "pin_capabilities": [
+    {
+      "pin": 0,
+      "header_id": "J1",
+      "physical_pin": "0",
+      "name": "GPIO0",
+      "capabilities": [
+        "ADC-1",
+        "GPIO",
+        "INTERRUPT",
+        "PWM"
+      ],
+      "group": "GPIO",
+      "var_alias": "gpio_0"
+    },
+    {
+      "pin": 1,
+      "header_id": "J1",
+      "physical_pin": "1",
+      "name": "GPIO1",
+      "capabilities": [
+        "GPIO",
+        "PWM",
+        "ADC-1",
+        "INTERRUPT"
+      ],
+      "group": "GPIO",
+      "var_alias": "gpio_1"
+    },
+    {
+      "pin": 2,
+      "header_id": "J1",
+      "physical_pin": "2",
+      "name": "GPIO2",
+      "capabilities": [
+        "GPIO",
+        "PWM",
+        "ADC-1",
+        "STRAPPING",
+        "INTERRUPT"
+      ],
+      "group": "GPIO",
+      "var_alias": "gpio_2"
+    },
+    {
+      "pin": 3,
+      "header_id": "J1",
+      "physical_pin": "3",
+      "name": "GPIO3",
+      "capabilities": [
+        "GPIO",
+        "PWM",
+        "ADC-1",
+        "INTERRUPT"
+      ],
+      "group": "GPIO",
+      "var_alias": "gpio_3"
+    },
+    {
+      "pin": 4,
+      "header_id": "J1",
+      "physical_pin": "4",
+      "name": "GPIO4",
+      "capabilities": [
+        "GPIO",
+        "PWM",
+        "ADC-1",
+        "INTERRUPT",
+        "SPI-SCK"
+      ],
+      "group": "GPIO",
+      "var_alias": "gpio_4"
+    },
+    {
+      "pin": -1,
+      "header_id": "J1",
+      "physical_pin": "5",
+      "name": "3.3V",
+      "capabilities": [
+        "3V3"
+      ],
+      "group": "Power",
+      "var_alias": "pwr_3v3"
+    },
+    {
+      "pin": -1,
+      "header_id": "J1",
+      "physical_pin": "6",
+      "name": "GND",
+      "capabilities": [
+        "GND"
+      ],
+      "group": "Power",
+      "var_alias": "pwr_gnd"
+    },
+    {
+      "pin": -1,
+      "header_id": "J1",
+      "physical_pin": "7",
+      "name": "5V",
+      "capabilities": [
+        "5V"
+      ],
+      "group": "Power",
+      "var_alias": "pwr_vin"
+    },
+    {
+      "pin": 5,
+      "header_id": "J2",
+      "physical_pin": "8",
+      "name": "GPIO5",
+      "capabilities": [
+        "GPIO",
+        "PWM",
+        "ADC-2",
+        "INTERRUPT",
+        "SPI-MISO",
+        "I2C-SDA"
+      ],
+      "group": "GPIO",
+      "var_alias": "gpio_5"
+    },
+    {
+      "pin": 6,
+      "header_id": "J2",
+      "physical_pin": "9",
+      "name": "GPIO6",
+      "capabilities": [
+        "GPIO",
+        "PWM",
+        "INTERRUPT",
+        "SPI-MOSI",
+        "I2C-SCL"
+      ],
+      "group": "GPIO",
+      "var_alias": "gpio_6"
+    },
+    {
+      "pin": 7,
+      "header_id": "J2",
+      "physical_pin": "10",
+      "name": "GPIO7",
+      "capabilities": [
+        "GPIO",
+        "PWM",
+        "INTERRUPT"
+      ],
+      "group": "GPIO",
+      "var_alias": "gpio_7"
+    },
+    {
+      "pin": 8,
+      "header_id": "J2",
+      "physical_pin": "11",
+      "name": "GPIO8",
+      "capabilities": [
+        "GPIO",
+        "PWM",
+        "STRAPPING",
+        "INTERRUPT",
+        "I2C-SDA"
+      ],
+      "group": "GPIO",
+      "var_alias": "gpio_8"
+    },
+    {
+      "pin": 9,
+      "header_id": "J2",
+      "physical_pin": "12",
+      "name": "GPIO9",
+      "capabilities": [
+        "GPIO",
+        "PWM",
+        "STRAPPING",
+        "INTERRUPT",
+        "I2C-SCL"
+      ],
+      "group": "GPIO",
+      "var_alias": "gpio_9"
+    },
+    {
+      "pin": 10,
+      "header_id": "J2",
+      "physical_pin": "13",
+      "name": "GPIO10",
+      "capabilities": [
+        "GPIO",
+        "INTERRUPT",
+        "PWM"
+      ],
+      "group": "GPIO",
+      "var_alias": "gpio_10"
+    },
+    {
+      "pin": 20,
+      "header_id": "J2",
+      "physical_pin": "14",
+      "name": "GPIO20",
+      "capabilities": [
+        "GPIO",
+        "PWM",
+        "UART-RX",
+        "INTERRUPT"
+      ],
+      "group": "GPIO",
+      "var_alias": "gpio_20"
+    },
+    {
+      "pin": 21,
+      "header_id": "J2",
+      "physical_pin": "15",
+      "name": "GPIO21",
+      "capabilities": [
+        "GPIO",
+        "PWM",
+        "UART-TX",
+        "INTERRUPT"
+      ],
+      "group": "GPIO",
+      "var_alias": "gpio_21"
+    }
+  ]
+}

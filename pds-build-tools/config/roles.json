@@ -1,0 +1,114 @@
+{
+  "roles": {
+    "aeroponics": {
+      "name": "Aeroponics Tower Control",
+      "description": "Complete aeroponics system with WiFi control and telemetry",
+      "components": [
+        "pds_core",
+        "pds_hal",
+        "pds_storage",
+        "pds_network",
+        "pds_telemetry",
+        "pds_control",
+        "pds_validation"
+      ],
+      "features": [
+        "BLE_PROVISIONING",
+        "HTTPS_API",
+        "TELEMETRY_BROADCAST",
+        "CONDITION_PIPELINES",
+        "TIMER_SCHEDULING",
+        "PERSISTENT_CONFIG",
+        "INPUT_VALIDATION"
+      ],
+      "constraints": {
+        "min_flash_kb": 256,
+        "min_ram_kb": 160,
+        "wifi_required": true
+      },
+      "default_config": {
+        "telemetry_interval_ms": 1000,
+        "pipeline_check_interval_ms": 100,
+        "timer_check_interval_ms": 500
+      }
+    },
+    "greenhouse": {
+      "name": "Greenhouse Environmental Control",
+      "description": "Environmental monitoring and climate control for greenhouse",
+      "components": [
+        "pds_core",
+        "pds_hal",
+        "pds_storage",
+        "pds_telemetry",
+        "pds_control",
+        "pds_validation"
+      ],
+      "features": [
+        "ENVIRONMENTAL_MONITORING",
+        "CLIMATE_CONTROL",
+        "LOGGING_TO_FLASH",
+        "LOCAL_SCHEDULING",
+        "SENSOR_FUSION"
+      ],
+      "constraints": {
+        "min_flash_kb": 256,
+        "min_ram_kb": 128,
+        "wifi_required": false
+      },
+      "default_config": {
+        "telemetry_interval_ms": 5000,
+        "pipeline_check_interval_ms": 500,
+        "timer_check_interval_ms": 1000
+      }
+    },
+    "generic": {
+      "name": "Generic Sensor/Actuator Platform",
+      "description": "Minimal configuration for sensor reading and basic control",
+      "components": [
+        "pds_core",
+        "pds_hal",
+        "pds_validation"
+      ],
+      "features": [
+        "SENSOR_READING",
+        "BASIC_ACTUATOR_CONTROL",
+        "GPIO_CONTROL"
+      ],
+      "constraints": {
+        "min_flash_kb": 128,
+        "min_ram_kb": 64,
+        "wifi_required": false
+      },
+      "default_config": {
+        "telemetry_interval_ms": 10000,
+        "pipeline_check_interval_ms": 1000
+      }
+    },
+    "sensor_hub": {
+      "name": "Multi-Sensor Hub",
+      "description": "Data collection and aggregation from multiple sensors",
+      "components": [
+        "pds_core",
+        "pds_hal",
+        "pds_storage",
+        "pds_telemetry",
+        "pds_validation"
+      ],
+      "features": [
+        "MULTI_SENSOR_SUPPORT",
+        "DATA_AGGREGATION",
+        "LOGGING_TO_FLASH",
+        "SENSOR_CALIBRATION"
+      ],
+      "constraints": {
+        "min_flash_kb": 256,
+        "min_ram_kb": 128,
+        "wifi_required": false
+      },
+      "default_config": {
+        "telemetry_interval_ms": 2000,
+        "max_sensors": 8
+      }
+    }
+  }
+}

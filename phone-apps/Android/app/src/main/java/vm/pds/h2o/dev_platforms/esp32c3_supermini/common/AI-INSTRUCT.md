@@ -1,0 +1,1 @@
+This directory holds functions and classes that are common to the platform.

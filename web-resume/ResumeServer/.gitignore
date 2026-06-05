@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+client/node_modules/
+client/dist/
+
+# Environment — never commit real secrets
+.env
+
+# TLS certificates — generated locally, never commit private keys
+certs/
+
+# Runtime data — managed by the server, not source code
+# (UserData lives at the workspace root, one level up)
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/settings.json
+*.swp

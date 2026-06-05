@@ -1,0 +1,90 @@
+# Control Systems Programmer
+**Company:** Parker Aerospace
+**Location:** Kent, WA
+**Source:** https://www.linkedin.com/jobs/collections/recommended/?currentJobId=4406265456
+About the job
+
+At Parker Aerospace, we develop technologies and innovative solutions that enable reliable, efficient and increasingly sustainable flight for the lifecycle of the aircraft, including aftermarket support. Our passionate people with deep engineering expertise, together with our breadth of differentiated technologies, ensure that we make the extraordinary happen and continue to shape the future of aviation in partnership with our customers.
+
+
+
+
+As a member of our team, you are instrumental in fulfilling our mission: 'Enabling Engineering Breakthroughs that Lead to a Better Tomorrow.' Pursuing a career at Parker presents unlimited opportunities for both professional and personal development. Working with some of the most brilliant minds in the industry, your contributions will be pivotal in developing innovative technologies and products, significantly contributing to Parker’s goal of addressing the world’s most pressing engineering challenges. At Parker, our team members belong, matter and make a difference.
+
+
+
+
+At Parker Aerospace Exotic Metals Forming Division, our highly talented team blends a passion for manufacturing with relentless customer support, making us the partner of choice for complex aerospace solutions. Working at EMFD is about being part of a team, a culture, something that is bigger than each of us individually. We began as a small group of people passionately committed to a common goal. That is why we are so proud of everyone in our Exotic family who strives to be the best at what they do every day, working as a collaborative team in a culture of continuous improvement to stretch the bounds of creative thinking and provide quality products to our customers around the globe.
+
+
+
+
+CONTROL SYSTEMS PROGRAMMER
+
+
+
+
+The Control Systems Programmer develops software supporting new machine control systems, re-programs existing machine control systems, provides input to detailed control system specifications, generates control system documentation, and supports the company’s development of new automation applications.
+
+
+
+
+Functions and Responsibilities
+
+Work with the Automation Engineer and the end customer to develop detailed control system functional specification.
+Architect control system software.
+Support the creation of project time and effort estimates.
+Test, troubleshoot, and debug systems in coordination with Control Systems Technicians and Automation Engineers
+Develop and maintain company’s supervisory control and data acquisition (SCADA) system
+Knowledge of basic hydraulic, electrical and pneumatic systems as related to control systems and automation.
+
+
+
+
+Qualifications
+
+Education requirement: Bachelor’s degree in technical discipline.
+Year of experience: 5-7 years’ experience programming controls for safety critical physical systems (for example, industrial equipment, medical devices, or vehicle electronics)
+5-7 years’ experience programming in modern object-oriented languages
+
+
+
+
+PHYSICAL REQUIREMENTS - While performing the duties of this job, the employee is required to sit. The employee frequently is required to use hands to operate a computer and talk or hear. The employee is occasionally required to stand and walk. Specific vision abilities required by this job include close vision. Also expected of the employee is regular attendance, the ability to work cooperatively and professionally with others and members of the public, and the ability to manage multiple tasks at once. Overnight long-distance travel may be required, based on the individual needs of the position.
+
+
+
+
+Drug-Free Workplace - In accordance with Parker’s policies and applicable state laws, Parker provides for a drug-free workplace. Therefore, all applicants seeking employment with Parker will be subject to drug testing as a condition of employment.
+
+
+
+
+This position is subject to meeting U.S. export compliance and/or U.S. Government contracting citizenship eligibility requirements.
+
+
+
+
+Benefit & Retirement Plans 
+
+Parker offers competitive benefit programs, including:
+
+Comprehensive coverage for medical, prescription drugs, dental, vision, voluntary optional life, accident insurance, hospital indemnity insurance and critical illness insurance with competitive premium cost.
+401(k) Plan with company matching contributions at 100% of the first 5% of pay.
+Company provided defined-contribution retirement plan with annual contribution equal to 3% of pay.
+Career development and tuition reimbursement.
+Other benefits including paid parental leave, short and long-term disability programs, adoption assistance, a Care.com membership and financial planning assistance are provided at no cost to you.
+Supplemental benefit programs including identity protection, legal protection, and pet wellness are available at competitive rates.
+Paid Time Off and Company-Paid Holidays.
+
+
+
+
+Parker is an Equal Opportunity and Affirmative Action Employer. Parker is committed to ensuring equal employment opportunities for all job applicants and employees. Employment decisions are based upon job related reasons regardless of race, ethnicity, color, religion, sex, sexual orientation, age, national origin, disability, gender identity, genetic information, veteran status, or any other status protected by law. However, U.S. Citizenship, Permanent Residency or other appropriate status is required for certain positions, in accord with U.S. import & export regulations.
+
+
+
+
+(“Minority / Female / Disability / Veteran / VEVRAA Federal Contractor”)
+
+If you would like more information about Equal Employment Opportunity as an applicant under the law, please go to Employees & Job Applicants | U.S. Equal Employment Opportunity Commission

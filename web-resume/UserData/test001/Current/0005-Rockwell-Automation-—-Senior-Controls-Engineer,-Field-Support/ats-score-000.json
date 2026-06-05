@@ -1,0 +1,65 @@
+{
+  "listing": "Rockwell-Automation-\u2014-Senior-Controls-Engineer,-Field-Support",
+  "scores": {
+    "ensemble": 61.18,
+    "composite": 57.52,
+    "keyword": 66.67,
+    "semantic": 31.53,
+    "format": 100.0,
+    "pyresparser_skill_overlap": 66.67,
+    "semantic_jaccard": 16.67,
+    "semantic_cosine": 43.69
+  },
+  "scores_v2026": {
+    "final": 73.46,
+    "gate_parse": 1.0,
+    "relevance": 62.92,
+    "parseability": 100.0,
+    "evidence": 56.0,
+    "platform": 79.0,
+    "title_alignment": 75.0,
+    "requirements_coverage": 66.67,
+    "acronym_dual_coverage": 0.0,
+    "heading_compliance": 100.0,
+    "date_parseability": 100.0,
+    "layout_safety": 100.0,
+    "symbol_safety": 100.0,
+    "measurable_density": 40.0,
+    "context_quality": 80.0,
+    "action_verb_quality": 60.0,
+    "platform_general": 85.0,
+    "platform_targeted": 70.0
+  },
+  "critical_failures_v2026": [],
+  "matched_keywords": [
+    "National Instruments",
+    "PLC",
+    "Troubleshooting",
+    "SAT"
+  ],
+  "missing_keywords": [
+    {
+      "skill": "EtherNet/IP",
+      "bucket": "general",
+      "weight": 1.0
+    },
+    {
+      "skill": "Motion Systems",
+      "bucket": "general",
+      "weight": 1.0
+    }
+  ],
+  "format": {
+    "passed": [
+      "Heading present: Professional Summary",
+      "Heading present: Professional Experience",
+      "Heading present: Education",
+      "Heading present: Technical Skills",
+      "Heading present: Key Achievements",
+      "No markdown table blocks detected",
+      "Consistent parseable date format detected",
+      "No emoji/icon characters detected"
+    ],
+    "failed": []
+  }
+}

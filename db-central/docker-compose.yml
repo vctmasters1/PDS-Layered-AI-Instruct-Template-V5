@@ -1,0 +1,30 @@
+# Shared development PostgreSQL for all PDS services.
+# This is the authoritative docker-compose for the dev database.
+# WEB-Marketplace/api/docker-compose.yml is a legacy stub — do not use it to start the DB.
+#
+# Usage: docker compose up -d          (from db-central/)
+# Stop:  docker compose down
+# Reset: docker compose down -v        (deletes ALL data — re-run migrations after)
+#
+# Migration note (2026-05-28): renamed from pds-marketplace-db → db-central.
+# The old container used volume api_pgdata (from WEB-Marketplace/api/docker-compose.yml).
+# That volume can be removed once you confirm the schema is fully rebuilt via migrations:
+#   docker volume rm api_pgdata
+# To repopulate dev data after a fresh start, use the seed scripts in each service.
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: db-central
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: pds
+      POSTGRES_PASSWORD: pds_dev_password
+      POSTGRES_DB: pds_marketplace
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-central-pgdata:/var/lib/postgresql/data
+
+volumes:
+  db-central-pgdata:

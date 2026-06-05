@@ -1,0 +1,4 @@
+- Victor D. Masters
+- vctmasters@gmail.com
+- 330.565.1727
+- Austintown, OH

@@ -1,0 +1,50 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "ESP-IDF GDB",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/pds-device.elf",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "/opt/esp/tools/xtensa-esp32c3-elf/esp-12.2.0_20230208/xtensa-esp32c3-elf/bin/xtensa-esp32c3-elf-gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        },
+        {
+          "description": "Set disassembly flavor to intel",
+          "text": "-gdb-set disassembly-flavor intel",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "Build Project"
+    },
+    {
+      "name": "ESP-IDF JTAG",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/pds-device.elf",
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "/opt/esp/tools/xtensa-esp32c3-elf/esp-12.2.0_20230208/xtensa-esp32c3-elf/bin/xtensa-esp32c3-elf-gdb",
+      "setupCommands": [
+        {
+          "description": "Connect to JTAG debugger",
+          "text": "-target-select remote localhost:3333",
+          "ignoreFailures": false
+        }
+      ]
+    }
+  ]
+}

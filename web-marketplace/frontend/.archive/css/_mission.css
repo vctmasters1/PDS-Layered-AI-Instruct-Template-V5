@@ -1,0 +1,88 @@
+/* ============================================================================
+   MISSION STATEMENT - Button & Modal
+   ============================================================================ */
+
+/* Mission Statement Button (appears in navbar) */
+.btn-mission {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.btn-mission:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    opacity: 0.95;
+}
+
+.btn-mission:active {
+    transform: translateY(0);
+}
+
+/* Mission Modal Specific */
+#missionStatementModal .modal-content {
+    max-width: 700px;
+}
+
+#missionStatementModal h2 {
+    text-align: left;
+}
+
+.mission-body {
+    line-height: 1.8;
+    font-size: 15px;
+}
+
+.mission-headline {
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+
+.mission-list {
+    margin: 15px 0;
+    padding-left: 25px;
+}
+
+.mission-tagline {
+    margin-top: 25px;
+    text-align: center;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.mission-creator-note {
+    background: var(--bg-secondary);
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary);
+}
+
+.mission-creator-note .note-title {
+    font-size: 14px;
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+
+.mission-creator-note .note-body {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+.mission-cta {
+    width: 100%;
+    margin-top: 25px;
+}

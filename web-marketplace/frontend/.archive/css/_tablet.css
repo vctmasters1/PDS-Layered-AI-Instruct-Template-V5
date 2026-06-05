@@ -1,0 +1,748 @@
+/* ============================================================================
+   TABLET RESPONSIVE (max-width: 768px)
+   Breakpoint: 768px — Tablet & small desktop
+   ============================================================================ */
+
+/* ============================================================================
+   HAMBURGER MENU TOGGLE
+   ============================================================================ */
+
+.hamburger-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    color: var(--text-dark);
+    line-height: 1;
+    z-index: 201;
+}
+
+/* ============================================================================
+   TABLET (max-width: 768px)
+   ============================================================================ */
+
+@media (max-width: 768px) {
+
+    /* --- NAVBAR --- */
+    .hamburger-btn {
+        display: block;
+    }
+
+    .navbar .container {
+        flex-wrap: nowrap;
+        padding: 8px 12px;
+        gap: 8px;
+        position: relative;
+        justify-content: space-between;
+    }
+
+    /* Top row: logo + key actions + hamburger */
+    .navbar .container > .logo {
+        flex: 0 1 auto;
+        min-width: 0;
+    }
+
+    .logo h1 {
+        font-size: 16px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .logo p {
+        display: none;
+    }
+
+    /* Collapsible nav items — compact dropdown */
+    .nav-collapsible {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        gap: 4px;
+        padding: 8px 0 4px 0;
+        border-top: 1px solid var(--border);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg-primary);
+        z-index: 200;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .nav-collapsible.open {
+        display: flex;
+    }
+
+    /* Compact row of action buttons */
+    .nav-collapsible .btn-mission,
+    .nav-collapsible .btn-cart {
+        width: 100%;
+        text-align: left;
+        font-size: 14px;
+        padding: 10px 16px;
+        border-radius: 0;
+        background: transparent;
+        color: var(--text-dark);
+        font-weight: 500;
+    }
+
+    .nav-collapsible .btn-mission:hover,
+    .nav-collapsible .btn-cart:hover {
+        background: var(--bg-secondary);
+    }
+
+    .nav-links {
+        width: 100%;
+        gap: 0;
+        margin-left: 0;
+        justify-content: stretch;
+        flex-wrap: nowrap;
+        flex-direction: column;
+    }
+
+    /* Hide theme toggle in mobile menu — move inline */
+    .nav-links .theme-toggle {
+        width: 100%;
+        justify-content: flex-start;
+        padding: 10px 16px;
+        border-radius: 0;
+        font-size: 14px;
+    }
+
+    #authSection {
+        width: 100%;
+    }
+
+    .auth-buttons {
+        width: 100%;
+        display: flex;
+        gap: 0;
+        flex-direction: column;
+    }
+
+    .auth-buttons button {
+        flex: none;
+        width: 100%;
+        text-align: left;
+        padding: 10px 16px;
+        border-radius: 0;
+        border: none;
+        font-size: 14px;
+    }
+
+    .user-menu {
+        width: 100%;
+    }
+
+    .user-profile-btn {
+        width: 100%;
+        text-align: left;
+        padding: 10px 16px;
+        justify-content: flex-start;
+    }
+
+    .user-dropdown {
+        left: 0;
+        right: 0;
+        min-width: unset;
+        width: 100%;
+        position: relative;
+        box-shadow: none;
+    }
+
+    /* --- NAVBAR LOCATION (tablet) --- */
+    .nav-location {
+        order: 10;
+        width: 100%;
+        margin-left: 0;
+        padding: 8px 16px;
+        gap: 6px;
+        flex-wrap: wrap;
+    }
+
+    .nav-location .location-status {
+        width: 100%;
+        font-size: 12px;
+    }
+
+    .nav-location input {
+        flex: 1;
+        width: auto;
+        min-width: 120px;
+        font-size: 16px; /* prevent iOS zoom */
+        padding: 8px 10px;
+    }
+
+    /* --- MARKETPLACE TABS --- */
+    .main-tabs {
+        gap: 0;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        flex-wrap: nowrap;
+        padding-bottom: 0;
+        margin-bottom: 20px;
+        margin-left: -15px;
+        margin-right: -15px;
+        padding-left: 15px;
+        padding-right: 15px;
+        width: calc(100% + 30px);
+    }
+
+    .main-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .main-tab-btn {
+        flex: 0 0 auto;
+        padding: 8px 12px;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    /* --- MAIN CONTENT --- */
+    .main-content {
+        padding: 20px 15px;
+    }
+
+    .section-header {
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .section-header .search-bar {
+        flex: 1 1 100%;
+        width: 100%;
+    }
+
+    .section-header h3 {
+        font-size: 22px;
+    }
+
+    /* --- PRODUCT & CARD GRIDS --- */
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    /* Generic card styles (designer, producer, store cards) */
+    .card-image {
+        height: 150px;
+        font-size: 40px;
+    }
+
+    .card-content {
+        padding: 12px;
+    }
+
+    .card h4 {
+        font-size: 14px;
+    }
+
+    .card .cta {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .card .cta button {
+        width: 100%;
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    /* ================================================================
+       MOBILE PRODUCT CARDS — Horizontal layout (thumb left, info right)
+       Inspired by Amazon/eBay/Etsy mobile listing cards
+       Only applies to main marketplace listing cards (.product-card--listing)
+       ================================================================ */
+
+    /* Visibility toggles */
+    .mobile-only { display: flex !important; }
+    .desktop-only { display: none !important; }
+    .product-status-row.desktop-only { display: none !important; }
+
+    /* Card becomes horizontal row */
+    .product-card--listing {
+        flex-direction: row;
+        align-items: stretch;
+        border-radius: 8px;
+        min-height: 0;
+    }
+
+    .product-card--listing:hover {
+        transform: none;
+    }
+
+    /* Thumbnail: fixed width, left side */
+    .product-card--listing .product-card-thumb {
+        width: 120px;
+        min-width: 120px;
+        max-width: 120px;
+        flex-shrink: 0;
+    }
+
+    .product-card--listing .product-card-thumb .product-image-carousel {
+        width: 100%;
+        height: 100%;
+        min-height: 140px;
+        border-radius: 8px 0 0 8px;
+    }
+
+    .product-card--listing .product-card-thumb .carousel-prev,
+    .product-card--listing .product-card-thumb .carousel-next {
+        display: none;
+    }
+
+    .product-card--listing .product-card-thumb .carousel-dots {
+        bottom: 4px;
+    }
+
+    .product-card--listing .product-card-thumb .carousel-dots .dot {
+        width: 5px;
+        height: 5px;
+    }
+
+    /* Info: fills remaining space, right side */
+    .product-card--listing .product-card-info {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Header: compact on mobile */
+    .product-card--listing .product-header {
+        padding: 10px 12px 4px 12px;
+        background: none;
+        color: var(--text-dark);
+    }
+
+    .product-card--listing .product-header h4 {
+        font-size: 14px;
+        color: var(--text-dark);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin: 0;
+    }
+
+    /* Body: compact on mobile */
+    .product-card--listing .product-body {
+        padding: 0 12px 10px 12px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Rating: smaller */
+    .product-card--listing .rating-two-tier {
+        margin: 2px 0 !important;
+    }
+
+    .product-card--listing .rating-stars {
+        font-size: 12px;
+    }
+
+    /* Designer section: compact */
+    .product-card--listing .designer-section {
+        margin: 4px 0;
+        padding: 4px 8px;
+        font-size: 11px;
+        border-left-width: 2px;
+    }
+
+    /* Producer section: compact */
+    .product-card--listing .producer-section {
+        margin: 4px 0;
+    }
+
+    .product-card--listing .producer-section label {
+        font-size: 11px;
+        margin-bottom: 4px;
+    }
+
+    .product-card--listing .producer-dropdown {
+        padding: 6px 8px;
+        font-size: 12px;
+        margin-bottom: 4px;
+    }
+
+    /* Price: prominent but smaller */
+    .product-card--listing .product-price {
+        font-size: 18px;
+        margin-bottom: 4px;
+    }
+
+    .product-card--listing .price-breakdown {
+        font-size: 10px !important;
+    }
+
+    /* Mobile meta row */
+    .product-meta-compact {
+        font-size: 11px;
+        gap: 8px;
+        margin: 4px 0;
+        padding: 4px 0;
+    }
+
+    /* Actions: horizontal on mobile */
+    .product-card--listing .product-actions {
+        margin-top: auto;
+        flex-direction: row;
+        gap: 6px;
+        padding-top: 6px;
+    }
+
+    .product-card--listing .product-buy-btn {
+        flex: 1;
+        padding: 8px 6px;
+        font-size: 12px;
+        min-height: 36px;
+    }
+
+    .product-card--listing .product-waitlist-btn {
+        flex: 1;
+        padding: 8px 6px;
+        font-size: 12px;
+        min-height: 36px;
+    }
+
+    /* Non-listing product cards (designer portfolio, store views) stay vertical */
+    .product-card:not(.product-card--listing) .product-image {
+        height: 180px;
+    }
+
+    .product-card:not(.product-card--listing) .product-body {
+        padding: 14px;
+    }
+
+    .product-card:not(.product-card--listing) .product-price {
+        font-size: 20px;
+    }
+
+    /* --- FILTERS (mobile-friendly dropdowns) --- */
+    .filters {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .filters select {
+        width: 100%;
+        font-size: 16px; /* prevent iOS zoom */
+        padding: 10px 12px;
+        border: 2px solid var(--border);
+        border-radius: 8px;
+        background: var(--bg-primary);
+        color: var(--text-dark);
+        -webkit-appearance: none;
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        background-size: 12px;
+    }
+
+    .filters select:focus {
+        border-color: var(--primary);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    /* --- MAP FILTERS --- */
+    .map-filters-inner {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .map-search-wrap {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .map-search-input {
+        font-size: 16px; /* prevent iOS zoom */
+    }
+
+    .map-checkboxes {
+        width: 100%;
+        gap: 12px;
+        justify-content: flex-start;
+    }
+
+    #map {
+        height: 400px !important;
+    }
+
+    .map-legend {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    /* --- MODALS --- */
+    .modal-content {
+        max-width: 95%;
+        margin: 10px;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .modal-content h2 {
+        font-size: 22px;
+    }
+
+    /* --- MISSION BUTTON --- */
+    .btn-mission {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+
+    /* --- DASHBOARD --- */
+    .dashboard-wrapper {
+        flex-direction: column;
+    }
+
+    .account-sidebar {
+        width: 100%;
+        padding: 15px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        overflow-x: auto;
+    }
+
+    .sidebar-nav {
+        flex-direction: row;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: 6px;
+        padding-bottom: 4px;
+    }
+
+    .sidebar-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .sidebar-nav-item {
+        flex-shrink: 0;
+        padding: 10px 14px;
+        font-size: 13px;
+        white-space: nowrap;
+        border-left: none;
+        border-bottom: 3px solid transparent;
+        text-align: center;
+    }
+
+    .sidebar-nav-item.active {
+        border-left-color: transparent;
+        border-bottom-color: var(--primary);
+        background: rgba(37, 99, 235, 0.08);
+    }
+
+    .dashboard-content {
+        padding: 20px 15px;
+    }
+
+    .dashboard-content h2 {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    .dashboard-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: 0;
+    }
+
+    .dashboard-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tab-btn {
+        flex-shrink: 0;
+        padding: 10px 14px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    /* --- ORDERS / BIDS TABLES --- */
+    .orders-table,
+    .bids-table,
+    .admin-table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        font-size: 13px;
+    }
+
+    .orders-table th,
+    .orders-table td,
+    .bids-table th,
+    .bids-table td,
+    .admin-table th,
+    .admin-table td {
+        padding: 10px 8px;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    .orders-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* --- ADMIN DASHBOARD --- */
+    .admin-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 14px 10px;
+    }
+
+    .stat-value {
+        font-size: 20px;
+    }
+
+    .stat-label {
+        font-size: 11px;
+    }
+
+    .admin-section-header {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .admin-section-header input,
+    .admin-section-header select {
+        width: 100%;
+    }
+
+    /* --- SEARCH --- */
+    .search-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .search-filters-panel {
+        width: 100%;
+    }
+
+    .filter-row {
+        flex-direction: column;
+    }
+
+    /* --- MESSAGING --- */
+    .messaging-container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .conversations-sidebar {
+        flex: none;
+        width: 100%;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    /* --- CART --- */
+    .cart-item {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .cart-item-total {
+        text-align: left;
+    }
+
+    .confirmation-actions {
+        flex-direction: column;
+    }
+
+    /* --- FOOTER --- */
+    footer {
+        padding: 30px 15px;
+        margin-top: 30px;
+    }
+
+    footer .container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    /* --- ACCOUNT NAVBAR --- */
+    .account-nav-header {
+        padding: 10px 15px;
+        gap: 10px;
+    }
+
+    .account-nav-title {
+        font-size: 14px;
+        min-width: unset;
+        order: 3;
+        width: 100%;
+        text-align: left;
+    }
+
+    .account-tabs {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        flex-wrap: nowrap;
+        padding: 0 15px;
+    }
+
+    .account-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .account-tab-btn {
+        flex-shrink: 0;
+        padding: 10px 12px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    /* --- SETTINGS --- */
+    .settings-tabs {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        flex-wrap: nowrap;
+    }
+
+    .settings-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .settings-tab-btn {
+        flex-shrink: 0;
+        white-space: nowrap;
+        font-size: 13px;
+    }
+
+    .settings-card {
+        padding: 18px;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    /* --- GENERAL TOUCH TARGETS --- */
+    button, .btn-primary, .btn-secondary, .btn-small,
+    .filter-btn, .tab-btn, .main-tab-btn, input[type="submit"] {
+        min-height: 44px; /* Apple HIG recommendation */
+    }
+
+    /* Prevent iOS zoom on inputs */
+    input, select, textarea {
+        font-size: 16px;
+    }
+}

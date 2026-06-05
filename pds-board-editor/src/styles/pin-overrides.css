@@ -1,0 +1,94 @@
+/*
+ * pin-overrides.css
+ * Fixes CSS specificity for pin-matrix <input> elements.
+ * The base board-editor.css has input[type="text"] (specificity 0,1,1)
+ * which wins over .pin-label (0,1,0). These selectors have higher specificity.
+ */
+
+input.pin-label {
+  width: 140px;
+  min-width: 140px;
+  max-width: 140px;
+  padding: 6px 10px;
+  font-weight: bold;
+  color: #667eea;
+  font-size: 0.9em;
+  border: 1px solid transparent;
+  background: transparent;
+}
+input.pin-label:hover { background: var(--bg-pin-hover); border-color: var(--border-color); }
+input.pin-label:focus { background: var(--bg-input); border-color: #667eea; box-shadow: 0 0 0 2px rgba(102,126,234,0.1); }
+
+input.pin-physical {
+  width: 70px;
+  min-width: 70px;
+  max-width: 70px;
+  padding: 6px 8px;
+  font-weight: bold;
+  color: #28a745;
+  font-size: 0.85em;
+  border: 1px solid transparent;
+  background: transparent;
+  text-align: center;
+}
+input.pin-physical:hover { background: var(--bg-pin-hover); border-color: var(--border-color); }
+input.pin-physical:focus { background: var(--bg-input); border-color: #28a745; box-shadow: 0 0 0 2px rgba(40,167,69,0.1); }
+
+input.pin-gpio {
+  width: 60px;
+  min-width: 60px;
+  max-width: 60px;
+  padding: 6px 8px;
+  font-weight: bold;
+  color: #9c27b0;
+  font-size: 0.85em;
+  border: 1px solid transparent;
+  background: transparent;
+  text-align: center;
+}
+input.pin-gpio:hover { background: var(--bg-pin-hover); border-color: var(--border-color); }
+input.pin-gpio:focus { background: var(--bg-input); border-color: #9c27b0; box-shadow: 0 0 0 2px rgba(156,39,176,0.1); }
+
+input.pin-header {
+  width: 70px;
+  min-width: 70px;
+  max-width: 70px;
+  padding: 6px 8px;
+  font-weight: bold;
+  color: #e67e22;
+  font-size: 0.85em;
+  border: 1px solid transparent;
+  background: transparent;
+  text-align: center;
+}
+input.pin-header:hover { background: var(--bg-pin-hover); border-color: var(--border-color); }
+input.pin-header:focus { background: var(--bg-input); border-color: #e67e22; box-shadow: 0 0 0 2px rgba(230,126,34,0.1); }
+
+input.pin-var-alias {
+  width: 120px;
+  min-width: 120px;
+  max-width: 120px;
+  padding: 6px 8px;
+  font-weight: bold;
+  color: #17a2b8;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85em;
+  border: 1px solid transparent;
+  background: transparent;
+}
+input.pin-var-alias:hover { background: var(--bg-pin-hover); border-color: var(--border-color); }
+input.pin-var-alias:focus { background: var(--bg-input); border-color: #17a2b8; box-shadow: 0 0 0 2px rgba(23,162,184,0.1); }
+
+select.pin-group {
+  width: 130px;
+  min-width: 130px;
+  max-width: 130px;
+  padding: 4px 6px;
+  font-size: 0.82em;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-input);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+select.pin-group:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 2px rgba(102,126,234,0.1); }

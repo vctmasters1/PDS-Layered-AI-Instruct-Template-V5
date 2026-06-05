@@ -1,0 +1,54 @@
+{
+  "name": "Silicon Labs Development",
+  "dockerFile": "Dockerfile",
+  "context": ".",
+  "workspaceFolder": "/workspaces",
+  "mounts": [
+    "source=K:/PDS_AutomationSuite/Device/main,target=/src/main,type=bind,readonly",
+    "source=K:/PDS_AutomationSuite/Device/pds,target=/src/pds,type=bind,readonly"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "llvm-vs-code-extensions.vscode-clangd",
+        "ms-vscode.makefile-tools",
+        "ms-vscode.cmake-tools"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "cmake.autoSelectActiveFolder": true,
+        "C_Cpp.default.includePath": [
+          "${workspaceFolder}/silabs/**",
+          "${workspaceFolder}/common/**",
+          "/opt/silabs/gecko_sdk/platform/common/inc",
+          "/opt/silabs/gecko_sdk/app/common/util"
+        ],
+        "C_Cpp.default.defines": [
+          "SL_CATALOG_PERIPHERAL_SPI_PRESENT"
+        ],
+        "clangd.arguments": [
+          "--header-insertion=never",
+          "--clang-tidy=false",
+          "-j=4"
+        ],
+        "files.watcherExclude": {
+          "**/build/**": true,
+          "**/.git/**": true,
+          "**/node_modules/**": true
+        }
+      }
+    }
+  },
+  "remoteEnv": {
+    "SILABS_SDK_PATH": "/opt/silabs/gecko_sdk",
+    "SILABS_TOOLS_PATH": "/opt/silabs/tools",
+    "PATH": "/opt/silabs/tools/bin:${PATH}"
+  },
+  "remoteUser": "root",
+  "runArgs": [
+    "--privileged",
+    "-e",
+    "COLUMNS=200"
+  ]
+}

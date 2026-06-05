@@ -1,0 +1,13 @@
+# Caddyfile — LOCAL DEVELOPMENT MODE
+# HTTP-only, localhost only, minimal reverse proxy
+# Used by: start-dev.ps1 when MODE=local
+
+:8080 {
+	reverse_proxy app:38291 {
+		transport http {
+			response_header_timeout 300s
+			dial_timeout 10s
+		}
+		flush_interval -1
+	}
+}

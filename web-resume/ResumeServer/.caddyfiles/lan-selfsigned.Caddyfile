@@ -1,0 +1,26 @@
+# Caddyfile — PSEUDO-PRODUCTION MODE (LAN + Self-Signed)
+# HTTPS with self-signed certificate on LAN IP or hostname
+# Browser shows security warning (acceptable for internal LAN)
+# Used by: start-dev.ps1 when MODE=pseudo-prod
+
+# Support multiple hostnames/IPs: localhost, LAN IP, hostname
+:443 {
+	tls /certs/cert.pem /certs/key.pem
+	reverse_proxy app:38291 {
+		transport http {
+			response_header_timeout 300s
+			dial_timeout 10s
+		}
+		flush_interval -1
+	}
+	header {
+		# Permit CORS from LAN clients
+		Access-Control-Allow-Origin *
+		Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+	}
+}
+
+# HTTP redirect to HTTPS
+:80 {
+	redir https://{host}{uri} permanent
+}

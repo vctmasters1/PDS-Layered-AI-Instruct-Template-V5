@@ -1,0 +1,55 @@
+{
+  "listing": "Unknown-Title",
+  "scores": {
+    "ensemble": 80.11,
+    "composite": 66.85,
+    "keyword": 100.0,
+    "semantic": 26.33,
+    "format": 100.0,
+    "pyresparser_skill_overlap": 100.0,
+    "semantic_jaccard": 13.75,
+    "semantic_cosine": 36.62
+  },
+  "scores_v2026": {
+    "final": 76.58,
+    "gate_parse": 1.0,
+    "relevance": 70.5,
+    "parseability": 100.0,
+    "evidence": 54.55,
+    "platform": 79.0,
+    "title_alignment": 30.0,
+    "requirements_coverage": 100.0,
+    "acronym_dual_coverage": 50.0,
+    "heading_compliance": 100.0,
+    "date_parseability": 100.0,
+    "layout_safety": 100.0,
+    "symbol_safety": 100.0,
+    "measurable_density": 54.55,
+    "context_quality": 72.73,
+    "action_verb_quality": 27.27,
+    "platform_general": 85.0,
+    "platform_targeted": 70.0
+  },
+  "critical_failures_v2026": [],
+  "matched_keywords": [
+    "National Instruments",
+    "DAQ",
+    "Troubleshooting",
+    "Pneumatics",
+    "SCADA"
+  ],
+  "missing_keywords": [],
+  "format": {
+    "passed": [
+      "Heading present: Professional Summary",
+      "Heading present: Professional Experience",
+      "Heading present: Education",
+      "Heading present: Technical Skills",
+      "Heading present: Key Achievements",
+      "No markdown table blocks detected",
+      "Consistent parseable date format detected",
+      "No emoji/icon characters detected"
+    ],
+    "failed": []
+  }
+}

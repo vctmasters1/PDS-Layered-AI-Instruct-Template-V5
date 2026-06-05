@@ -1,0 +1,39 @@
+# sdkconfig.defaults — H2o-Tower ESP32 build defaults
+# Applied when sdkconfig is absent (build_selector.py deletes it before every build).
+# Edit this file; do NOT commit generated sdkconfig.
+
+# ── Flash size ────────────────────────────────────────────────────────────────
+CONFIG_ESPTOOLPY_FLASHSIZE_2MB=n
+CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
+CONFIG_ESPTOOLPY_FLASHSIZE="4MB"
+
+# ── Partition table ───────────────────────────────────────────────────────────
+CONFIG_PARTITION_TABLE_SINGLE_APP=n
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
+
+# ── OTA ───────────────────────────────────────────────────────────────────────
+# Enable app_update / OTA support (required for ota_0 / ota_1 / otadata)
+CONFIG_APP_UPDATE_ENABLED=y
+# Allow esp_https_ota to download over plain HTTP (LAN dev usage)
+CONFIG_ESP_HTTPS_OTA_ALLOW_HTTP=y
+
+# ── Main task stack ───────────────────────────────────────────────────────────
+# Default (3584) is too small for WiFi init (esp_wifi_init, esp_netif, etc.)
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=8192
+
+# ── Bluetooth ─────────────────────────────────────────────────────────────────
+# BLE provisioning removed — WiFi uses SoftAP captive-portal provisioning.
+# Disabling BT frees ~50 KB RAM and ~200 KB flash.
+CONFIG_BT_ENABLED=n
+
+# ── TCP/IP sockets ────────────────────────────────────────────────────────────
+# Two httpd instances run concurrently (HTTPS API on 8443 + HTTP on 80).
+# Default LWIP_MAX_SOCKETS=7 is insufficient. Each server needs 3 internal
+# sockets + max_open_sockets, so 2×(3+4) = 14 minimum.
+CONFIG_LWIP_MAX_SOCKETS=16
+
+# ── HTTP server ───────────────────────────────────────────────────────────────
+# Default 512 bytes is too small for modern browsers (large Cookie/User-Agent
+# headers trigger 431 on the SoftAP provisioning page).
+CONFIG_HTTPD_MAX_REQ_HDR_LEN=1024
