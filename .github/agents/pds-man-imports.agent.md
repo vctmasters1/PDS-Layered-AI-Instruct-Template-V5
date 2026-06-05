@@ -252,6 +252,9 @@ python .ai/engine/phase1_executor.py <source_path> <target_path> --dry-run
 - Discovers all modules in source project (looks for `.ai/instruct.md`)
 - **Uses robocopy (Windows)** with `/XJ` flag to skip symlinks
 - **Uses rsync (POSIX)** with `--no-links` to skip symlinks
+- Copies all top-level modules to target project
+- Copies `.github/prompts/`, `.github/agents/`, `.github/skills/`, `.github/hooks/` from source
+- Merges infrastructure (skips if target already has the item)
 - Prevents duplication loops from circular symlinks
 - Preserves all `.ai/` governance files
 - Creates vault backup (`.ai/vaults/import-[source]-[timestamp]/`)
@@ -262,7 +265,7 @@ python .ai/engine/phase1_executor.py <source_path> <target_path> --dry-run
 - robocopy's `/XJ` flag excludes junction points (symlinks) → clean copy
 - rsync's `--no-links` skips symlinks → clean copy on POSIX systems
 
-**Output:** All source modules copied to target with audit log at `.ai/logs/phase1-execution-*.json`
+**Output:** All source modules + infrastructure copied to target with audit log at `.ai/logs/phase1-execution-*.json`
 
 ### Phase 2: Source Analysis
 - Parse source `.ai/` registry files

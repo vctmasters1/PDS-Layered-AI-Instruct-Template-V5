@@ -90,6 +90,8 @@ Before copying or integrating anything, run mandatory operational validation:
 **Phase 1 — Artifact Preservation**
 - Invoke: `python .ai/engine/phase1_executor.py <source_path> <target_path>`
 - Copies all modules using robocopy (Windows) or rsync (POSIX)
+- Copies infrastructure: `.github/prompts/`, `.github/agents/`, `.github/skills/`, `.github/hooks/`
+- **Merges** (doesn't overwrite) — skips items if target already has them
 - **Skips symlinks** to prevent duplication loops
 - Preserves `.ai/instruct.md` and governance files
 

@@ -2,8 +2,19 @@
 """
 Phase 1: Artifact Preservation Executor
 
-Copies source modules to target project using robocopy (Windows) or rsync (POSIX),
+Copies source modules and infrastructure to target project using robocopy (Windows) or rsync (POSIX),
 properly handling symlinks to prevent duplication loops.
+
+Copies:
+  - All top-level modules (directories with .ai/instruct.md or known module names)
+  - .github/prompts/ (slash commands)
+  - .github/agents/ (custom agents)
+  - .github/skills/ (domain knowledge)
+  - .github/hooks/ (git hooks)
+
+Merges (does not overwrite):
+  - If target already has a prompt/agent/skill, preserves target version
+  - Logs what was copied vs. skipped
 
 Usage:
   python phase1_executor.py <source_path> <target_path> [--dry-run]
@@ -35,6 +46,8 @@ class Phase1Executor:
         self.copied_modules = []
         self.failed_modules = []
         self.skipped_modules = []
+        self.copied_infrastructure = []
+        self.failed_infrastructure = []
         self.total_size = 0
 
         if not self.source.exists():
@@ -144,7 +157,43 @@ class Phase1Executor:
             self.failed_modules.append((module_name, str(e)))
             return False
 
-    def execute(self) -> Dict[str, Any]:
+    def copy_infrastructure_items(self, infra_type: str) -> bool:
+        """Copy infrastructure items (prompts, agents, skills, hooks) from source to target."""
+        src_dir = self.source / ".github" / infra_type
+        dst_dir = self.target / ".github" / infra_type
+
+        if not src_dir.exists():
+            return True  # Not an error, just doesn't exist in source
+
+        try:
+            if self.dry_run:
+                print(f"  [DRY-RUN] Would copy .github/{infra_type}/")
+                return True
+
+            # Create target directory if needed
+            dst_dir.mkdir(parents=True, exist_ok=True)
+
+            # Copy items, merging (not overwriting existing)
+            for item in src_dir.iterdir():
+                dst_item = dst_dir / item.name
+                if dst_item.exists():
+                    # Skip if already exists in target (preserve target's version)
+                    print(f"    - {infra_type}/{item.name} (exists in target, skipped)")
+                    continue
+
+                if item.is_file():
+                    shutil.copy2(item, dst_item)
+                    print(f"    ✓ Copied {infra_type}/{item.name}")
+                elif item.is_dir():
+                    shutil.copytree(item, dst_item)
+                    print(f"    ✓ Copied {infra_type}/{item.name}/ (directory)")
+
+            self.copied_infrastructure.append(infra_type)
+            return True
+        except Exception as e:
+            print(f"  ✗ Error copying .github/{infra_type}/: {e}")
+            self.failed_infrastructure.append((infra_type, str(e)))
+            return False
         """Execute artifact preservation (copy all modules)."""
         print(f"\n{'='*60}")
         print(f"Phase 1: Artifact Preservation")
@@ -174,25 +223,39 @@ class Phase1Executor:
             else:
                 self.copy_module_posix(module)
 
+        # Copy infrastructure (.github/ subdirectories)
+        print()
+        print(f"Copying infrastructure...")
+        for infra_type in ['prompts', 'agents', 'skills', 'hooks']:
+            self.copy_infrastructure_items(infra_type)
+
         print()
         print(f"{'='*60}")
         print(f"Phase 1 Results")
         print(f"{'='*60}")
-        print(f"✓ Copied: {len(self.copied_modules)}")
-        print(f"✗ Failed: {len(self.failed_modules)}")
+        print(f"✓ Modules copied: {len(self.copied_modules)}")
+        print(f"✓ Infrastructure items: {', '.join(self.copied_infrastructure) if self.copied_infrastructure else 'none'}")
+        print(f"✗ Failed: {len(self.failed_modules) + len(self.failed_infrastructure)}")
 
         if self.failed_modules:
             print("\nFailed modules:")
             for module, error in self.failed_modules:
                 print(f"  - {module}: {error}")
 
+        if self.failed_infrastructure:
+            print("\nFailed infrastructure:")
+            for infra, error in self.failed_infrastructure:
+                print(f"  - .github/{infra}: {error}")
+
         result = {
-            "status": "success" if len(self.failed_modules) == 0 else "partial",
+            "status": "success" if len(self.failed_modules) == 0 and len(self.failed_infrastructure) == 0 else "partial",
             "platform": self.platform,
             "dry_run": self.dry_run,
             "modules_discovered": len(modules),
             "modules_copied": len(self.copied_modules),
             "modules_failed": len(self.failed_modules),
+            "infrastructure_copied": self.copied_infrastructure,
+            "infrastructure_failed": len(self.failed_infrastructure),
             "copied": self.copied_modules,
             "failed": [{"module": m, "error": e} for m, e in self.failed_modules],
             "timestamp": datetime.now().isoformat(),
