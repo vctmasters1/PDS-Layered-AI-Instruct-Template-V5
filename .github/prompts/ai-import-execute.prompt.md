@@ -81,24 +81,11 @@ Before copying or integrating anything, run mandatory operational validation:
 
 ---
 
-### Stage 3: Invoke pds-meta-migrator
+### Stage 3: Invoke pds-man-imports (Phases 1-6)
 
-**Action:** Delegate to the migrator agent to scan and analyze the source project.
+**Action:** Delegate full import orchestration to the imports manager.
 
-The migrator will:
-1. Enumerate all top-level modules and their `.ai/instruct.md` files (if present)
-2. Identify deployment modes and configurations
-3. Capture naming conventions and registries from source
-4. Generate a **preservation manifest** (what should be preserved, what can be dropped)
-5. Output an analysis report
-
-**Your role:** Wait for the migrator's analysis. Do not proceed until migrator completes.
-
----
-
-### Stage 4: Invoke pds-pipe-importer (Phases 1-6)
-
-**Action:** Delegate full pipeline orchestration to the importer agent.
+**Manager will execute:**
 
 **Phase 1 — Artifact Preservation**
 - Copy source modules into target workspace
@@ -122,7 +109,7 @@ The migrator will:
 
 **Phase 5 — Registry Consolidation**
 - Merge naming registries (coding prefixes, endpoints, error codes, etc.)
-- Resolve conflicts with existing target registries
+- Consult `pds-man-naming` for conflict resolution
 - Regenerate canonical files
 
 **Phase 6 — Validation & Audit**
@@ -130,6 +117,12 @@ The migrator will:
 - Verify no broken links or drift
 - Generate audit log with all decisions
 - Confirm module authority (each module's `.ai/instruct.md` is present and valid)
+
+**Post-Import Transformation:**
+- Adapt imported codebase to template architecture standards
+- Ensure `.ai/instruct.md` scoping at all module levels
+- Hand off registry reconciliations to `pds-man-naming`
+- Hand off index updates to `pds-man-curator`
 
 **Exit Criteria:**
 - Validator passes with 0 errors
