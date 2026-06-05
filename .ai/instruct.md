@@ -16,6 +16,7 @@
 |---|-------------|
 | [Project Overview](#project-overview) | What this project is and does |
 | [Architecture Overview](#architecture-overview) | High-level structure and tech stack |
+| [Routing & Orchestration Gateway](#routing--orchestration-gateway) | **Core feature**: How `/ai-route` powers all major workflows |
 | [Key Directories](#key-directories) | Directory map with links to module .ai/ instructions |
 | [Global Rules Reference](#global-rules-reference) | Links to canonical cross-cutting rules |
 | [Governed Workflows — Import/Merge](#governed-workflows--importmerge) | **MANDATORY**: Import patterns and guardrails |
@@ -69,7 +70,73 @@
 
 ---
 
-## Key Directories
+## Routing & Orchestration Gateway
+
+**This is the core feature that powers all AI-assisted workflows in this project.**
+
+Every major operation in this project — imports, validation, reflection, module creation, index updates — flows through the **routing gateway** (`/ai-route`). This ensures:
+
+✅ **Scope awareness**: The deepest `.ai/instruct.md` for the affected path(s) is always authoritative  
+✅ **Governance integration**: External rules and constraints are applied consistently  
+✅ **Stage gating**: Pass/fail/block review points between phases  
+✅ **Escalation**: Failures halt gracefully with guidance rather than proceeding blindly  
+✅ **Audit trail**: Every routing decision is logged for transparency  
+
+### How It Works
+
+```
+User invokes a major workflow (e.g., /ai-import-execute)
+    ↓
+Workflow recognizes the task and extracts parameters
+    ↓
+/ai-route (gateway) is called with task context
+    ↓
+Router resolves:
+  • Which .ai/instruct.md is authoritative for the affected paths?
+  • Are there governance rules (external constraints) to apply?
+    ↓
+Router delegates to the appropriate domain manager/supervisor
+    ↓
+Domain manager executes the full workflow with routing context
+    ↓
+Results passed back through the router for final validation
+```
+
+### Routed Workflows
+
+All of these major workflows are **routed through `/ai-route`**:
+
+| Workflow | Purpose | Domain Manager |
+|----------|---------|-----------------|
+| [`/ai-import-execute`](../.github/prompts/ai-import-execute.prompt.md) | Import/merge external projects (Phase 0-7 orchestration) | `pds-man-imports` |
+| [`/ai-validate`](../.github/prompts/ai-validate.prompt.md) | Scope-aware instruction & port validation | `pds-pipe-validator` |
+| [`/ai-reflect`](../.github/prompts/ai-reflect.prompt.md) | Post-task reflection & instruction gap analysis | `pds-meta-learner` |
+| [`/ai-update-index`](../.github/prompts/ai-update-index.prompt.md) | Rebuild `.ai/index.md` at scope level | `pds-man-curator` |
+| [`/ai-new-module`](../.github/prompts/ai-new-module.prompt.md) | Create new module with hierarchy integration | `pds-pipe-scaffolder` |
+
+### Using the Router
+
+Invoke directly when you need to analyze a request before delegating:
+
+```
+/ai-route
+
+Task: [description of what you're trying to do]
+Scope: [affected paths, or "root"]
+Context: [any governance or scope hints]
+```
+
+The router will:
+1. Analyze the task
+2. Resolve the target scope(s)
+3. Check for applicable governance rules
+4. Suggest the appropriate agent/manager
+5. Either route the task or explain why it can't be routed
+
+**→ [/ai-route prompt](../.github/prompts/ai-route.prompt.md)** — full router documentation  
+**→ [pds-meta-router agent](../.github/agents/pds-meta-router.agent.md)** — technical details
+
+---
 
 | Directory | AI Instructions | Covers |
 |-----------|-----------------|--------|

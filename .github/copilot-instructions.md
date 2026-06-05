@@ -45,6 +45,44 @@ For template-first repositories, `dev-specs.md` may still be partially unfilled 
 
 ---
 
+## The Routing Gateway — Core Orchestration Layer
+
+**This is the magic.** The `/ai-route` gateway is the central nervous system that powers every major workflow in this project. It is **not optional** — it is the defining feature that makes depth-priority hierarchy practical at scale.
+
+### What Routing Does
+
+Before any workflow (import, validation, module creation, etc.) executes, the router:
+
+1. **Resolves scope** — finds the deepest `.ai/instruct.md` that governs the affected paths
+2. **Checks governance** — applies any external rules or constraints
+3. **Routes to authority** — delegates to the domain manager/supervisor that owns that scope
+4. **Enables escalation** — halts on conflicts and explains why
+
+### Why This Matters
+
+Without routing, each workflow would need to implement scope resolution independently → **duplicate logic, brittleness, easy to bypass.**
+
+With routing, all workflows speak the same language → **consistent, auditable, scope-aware.**
+
+### Routed Workflows (Today)
+
+| Workflow | Routed to |
+|----------|-----------|
+| `/ai-import-execute` | `pds-man-imports` (Phase 0-7 orchestration) |
+| `/ai-validate` | `pds-pipe-validator` (scope-aware validation) |
+| `/ai-reflect` | `pds-meta-learner` (gap analysis) |
+| `/ai-update-index` | `pds-man-curator` (index rebuild) |
+| `/ai-new-module` | `pds-pipe-scaffolder` (module scaffolding) |
+
+Each workflow does **not** know how to resolve scope or apply governance—it delegates that to the router and lets the router decide who should execute.
+
+### The Router Itself
+
+→ **[/ai-route prompt](prompts/ai-route.prompt.md)** — invoke when you need scope resolution before delegating  
+→ **[pds-meta-router agent](agents/pds-meta-router.agent.md)** — technical details and governance resolution logic
+
+---
+
 ## The Depth-Priority Hierarchical Paradigm
 
 This project uses **Hierarchical Layering by Directory Depth**. The deeper your current working directory, the more authoritative its `.ai/instruct.md` becomes.
