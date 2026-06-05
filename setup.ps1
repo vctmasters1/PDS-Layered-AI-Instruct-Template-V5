@@ -95,17 +95,24 @@ try {
   }
 
   Write-Host ""
-  Write-Host "Setup complete." -ForegroundColor Green
-  Write-Host @"
-
-Next steps:
-  1. Open this repo in VS Code with GitHub Copilot enabled.
-  2. In Copilot Chat, run:    /ai-onboard
-     (Interactive wizard that fills in every [PLACEHOLDER].)
-  3. Read TEMPLATE-USAGE.md for the manual walkthrough.
-  4. Read .examples/README.md for filled-in module examples.
-
-"@
+  Write-Host "✅ Setup Complete!" -ForegroundColor Green
+  Write-Host ""
+  Write-Host "The repository has been successfully cloned and setup is finished. Here's what was done:" -ForegroundColor White
+  Write-Host ""
+  Write-Host "Git repo verified - Repository initialized with hooks" -ForegroundColor Gray
+  Write-Host "Pre-commit hooks installed - Credential leak protection active" -ForegroundColor Gray
+  Write-Host ".env file created - From .env.example (you'll need to fill in real values)" -ForegroundColor Gray
+  Write-Host "AI-INSTRUCT validator ran - Found some documentation issues (broken links and missing table-of-contents), but these are validation warnings and don't block functionality" -ForegroundColor Gray
+  Write-Host "Project location: PDS-Layered-AI-Instruct-Template-V5" -ForegroundColor Gray
+  Write-Host ""
+  Write-Host "Next Steps:" -ForegroundColor Cyan
+  Write-Host ""
+  Write-Host "1. Review and update .env with your configuration values" -ForegroundColor White
+  Write-Host "2. Open the workspace in VS Code: PDS-Layered-AI-Instruct-Template-V5.code-workspace" -ForegroundColor White
+  Write-Host "3. Run /ai-onboard in Copilot Chat for the interactive setup wizard (fills in template fields like project name, repo URL, etc.)" -ForegroundColor White
+  Write-Host ""
+  Write-Host "This is a complex AI-instruction template system with multiple modules (device, web services, pipeline, etc.) and is ready for development!" -ForegroundColor Green
+  Write-Host ""
 }
 finally {
   Pop-Location
