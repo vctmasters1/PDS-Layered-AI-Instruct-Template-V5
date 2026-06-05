@@ -109,6 +109,7 @@ All of these major workflows are **routed through `/ai-route`**:
 | Workflow | Purpose | Domain Manager |
 |----------|---------|-----------------|
 | [`/ai-import-execute`](../.github/prompts/ai-import-execute.prompt.md) | Import/merge external projects (Phase 0-7 orchestration) | `pds-man-imports` |
+| [`/ai-adapt-infrastructure`](../.github/prompts/ai-adapt-infrastructure.prompt.md) | Adapt imported prompts/agents/skills to routing paradigm | `pds-man-infrastructure` |
 | [`/ai-validate`](../.github/prompts/ai-validate.prompt.md) | Scope-aware instruction & port validation | `pds-pipe-validator` |
 | [`/ai-reflect`](../.github/prompts/ai-reflect.prompt.md) | Post-task reflection & instruction gap analysis | `pds-meta-learner` |
 | [`/ai-update-index`](../.github/prompts/ai-update-index.prompt.md) | Rebuild `.ai/index.md` at scope level | `pds-man-curator` |

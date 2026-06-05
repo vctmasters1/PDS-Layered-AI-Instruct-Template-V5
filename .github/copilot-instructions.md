@@ -69,6 +69,7 @@ With routing, all workflows speak the same language → **consistent, auditable,
 | Workflow | Routed to |
 |----------|-----------|
 | `/ai-import-execute` | `pds-man-imports` (Phase 0-7 orchestration) |
+| `/ai-adapt-infrastructure` | `pds-man-infrastructure` (infrastructure compliance & adaptation) |
 | `/ai-validate` | `pds-pipe-validator` (scope-aware validation) |
 | `/ai-reflect` | `pds-meta-learner` (gap analysis) |
 | `/ai-update-index` | `pds-man-curator` (index rebuild) |

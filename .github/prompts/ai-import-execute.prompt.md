@@ -81,9 +81,49 @@ By routing through the Router + Supervisor + pds-man-imports triad:
 
 ---
 
+## Post-Import Steps
+
+After import completes successfully (Phase 0-7 validated):
+
+### Step 1: Adapt Imported Infrastructure
+
+If the imported project includes prompts, agents, skills, or MCP tools, adapt them to work with your routing paradigm:
+
+```
+/ai-adapt-infrastructure
+```
+
+This will:
+- Discover all imported infrastructure files
+- Analyze for template compliance
+- Propose routing updates (make orchestration workflows use `/ai-route`)
+- Fix frontmatter issues
+- Register MCP tools properly
+- Report compliance score
+
+**Why?** Imported infrastructure won't automatically use your routing gateway. This step ensures all infrastructure respects your scope-aware orchestration architecture.
+
+### Step 2: Validate
+
+After adaptation, run a full validation:
+
+```
+/ai-validate
+```
+
+This confirms:
+- No broken links
+- All instruction files are coherent
+- Ports don't conflict
+- Project state is consistent
+
+---
+
 ## See Also
 
 - [/ai-route](ai-route.prompt.md) — the routing gateway (invoked from this prompt)
+- [/ai-adapt-infrastructure](ai-adapt-infrastructure.prompt.md) — post-import infrastructure adaptation (recommended next step)
 - [pds-man-imports](../agents/pds-man-imports.agent.md) — import domain manager (routed to, handles Phases 0-7)
+- [pds-man-infrastructure](../agents/pds-man-infrastructure.agent.md) — infrastructure domain manager
 - [pds-meta-router](../agents/pds-meta-router.agent.md) — scope/governance resolution agent
 - [pds-pipe-super](../agents/pds-pipe-super.agent.md) — supervisor (orchestrates worker pipeline)
