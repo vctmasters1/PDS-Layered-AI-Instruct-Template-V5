@@ -1,6 +1,6 @@
-# `.deployment/` — Deployment Modes as First-Class Scopes
+# `.hi/deployment/` — Deployment Modes as First-Class Scopes
 
-> **Pattern**: Each deployment mode owns its own `.ai/instruct.md`. The active mode is selected by the `DEPLOY_MODE` environment variable. When agents work in a deployment context, the deepest `.ai/instruct.md` (the mode's) is authoritative — same depth-priority rule as every other module.
+> **Pattern**: Each deployment mode owns its own `.hi/instruct.md`. The active mode is selected by the `DEPLOY_MODE` environment variable. When agents work in a deployment context, the deepest `.hi/instruct.md` (the mode's) is authoritative — same depth-priority rule as every other module.
 
 ---
 
@@ -12,16 +12,16 @@ Deployment is the only "module" of a project where **the same code base behaves 
 
 | Rule | Detail |
 |---|---|
-| **One subdirectory per mode** | `.deployment/<mode>/` where `<mode>` is kebab-case and matches `DEPLOY_MODE` exactly |
-| **Each mode is a depth-priority scope** | `.deployment/<mode>/.ai/instruct.md` is authoritative when that mode is active |
+| **One subdirectory per mode** | `.hi/deployment/<mode>/` where `<mode>` is kebab-case and matches `DEPLOY_MODE` exactly |
+| **Each mode is a depth-priority scope** | `.hi/deployment/<mode>/.hi/instruct.md` is authoritative when that mode is active |
 | **Mode names are registered** | The `naming` agent enforces uniqueness and convention. Consult Mode 3 before adding a new mode |
 | **Self-contained** | A mode's `instruct.md` answers: what runs, on what ports, with what env vars, accessed how, with what cert story, with what troubleshooting checklist |
 | **Cross-link, don't restate** | When two modes share a fact (e.g., the same `JWT_SECRET` rotation procedure), one is canonical and the others link to it |
-| **Never delete a retired mode** | Archive it per [`.ai/maintenance.md`](../.ai/maintenance.md) |
+| **Never delete a retired mode** | Archive it per [`.hi/maintenance.md`](../.hi/maintenance.md) |
 
 ## Required structure of a mode file
 
-Every `.deployment/<mode>/.ai/instruct.md` contains, in order:
+Every `.hi/deployment/<mode>/.hi/instruct.md` contains, in order:
 
 1. **Mode Overview** table (URL, access, TLS, database, use case, setup time)
 2. **Prerequisites** (accounts, CLIs, ports)
@@ -59,19 +59,19 @@ Or use the `/ai-deploy-mode` slash command, which prints the active mode and the
 
 | Mode | Use case | Setup | Cost |
 |---|---|---|---|
-| [`dev-local`](dev-local/.ai/instruct.md) | Daily local development | < 2 min | $0 |
-| [`dev-lan`](dev-lan/.ai/instruct.md) | LAN sharing, self-signed HTTPS | ~5 min | $0 |
-| [`prod-railway`](prod-railway/.ai/instruct.md) | Managed cloud, hands-off | ~10 min | Free tier → paid |
-| [`prod-self-serve`](prod-self-serve/.ai/instruct.md) | Public internet, DDNS + Let's Encrypt | ~30 min | $0 (your hardware) |
+| [`dev-local`](dev-local/.hi/instruct.md) | Daily local development | < 2 min | $0 |
+| [`dev-lan`](dev-lan/.hi/instruct.md) | LAN sharing, self-signed HTTPS | ~5 min | $0 |
+| [`prod-railway`](prod-railway/.hi/instruct.md) | Managed cloud, hands-off | ~10 min | Free tier → paid |
+| [`prod-self-serve`](prod-self-serve/.hi/instruct.md) | Public internet, DDNS + Let's Encrypt | ~30 min | $0 (your hardware) |
 
 These are **starting points**. Edit, replace, or add modes during onboarding (`/ai-onboard`). The `deployment-manager` agent watches for drift between modes and the codebase.
 
 ## Maintenance
 
-The [`deployment-manager`](../.github/agents/pds-man-deployment.agent.md) agent owns this surface:
+The [`deployment-manager`](../.hi/agents/hia-man-deployment.agent.md) agent owns this surface:
 
 - Watches recent code changes for impact on any active mode (new env var, new service, new port, new domain).
-- Diffs each `.deployment/<mode>/.ai/instruct.md` against reality.
+- Diffs each `.hi/deployment/<mode>/.hi/instruct.md` against reality.
 - Proposes update / add / retire / rename per mode.
 - Hands index updates to the `curator` and registry rows to `naming`.
 
