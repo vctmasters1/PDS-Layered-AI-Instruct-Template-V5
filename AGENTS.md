@@ -10,9 +10,10 @@ This project uses the **Depth-Priority Hierarchical AI-INSTRUCT V5** system. Rul
 Start here, in this order:
 
 1. [.github/copilot-instructions.md](.github/copilot-instructions.md) — META: how the layering system works (read once per session).
+   - **Pay special attention to**: [The Routing Gateway](.github/copilot-instructions.md#the-routing-gateway--core-orchestration-layer) section — this is the core feature.
 2. [.github/dev-specs.md](.github/dev-specs.md) — **CRITICAL**: Read the Project Mode field (Template Development vs Production) before any other decision. Then: Platform, shell, language, frameworks. If template-empty, run `/ai-onboard` to fill values.
 3. [.ai/index.md](.ai/index.md) — Master index of every instruction section. Jump from here to the canonical source for any topic.
-4. [.ai/instruct.md](.ai/instruct.md) — Root-level project authority.
+4. [.ai/instruct.md](.ai/instruct.md) — Root-level project authority. Check the [Routing & Orchestration Gateway](.ai/instruct.md#routing--orchestration-gateway) section.
 5. `[module]/.ai/instruct.md` — Module-level authority. Authoritative when working inside that module.
 
 ## Quick reference
